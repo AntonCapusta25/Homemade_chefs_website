@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+}
+
+:root {
+  --background: #FDFBF7;
+  --foreground: #0F1E19;
+  --primary-orange: #E86825;
+  --primary-dark: #0F1E19;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+}
+
+/* Smooth Scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes shine {
+    100% {
+        left: 125%;
+    }
+}
+
+.animate-shine {
+    animation: shine 1s;
+}
