@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 
-import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent, Variants } from 'framer-motion';
 import { ArrowRight, Globe, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -39,7 +39,7 @@ export default function Navbar() {
     if (pathname.startsWith('/admin')) return null;
 
     // Mobile Menu Variants
-    const menuVariants = {
+    const menuVariants: Variants = {
         closed: {
             opacity: 0,
             y: "-100%",
