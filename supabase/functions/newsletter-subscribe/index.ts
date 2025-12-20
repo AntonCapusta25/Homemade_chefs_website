@@ -1,5 +1,6 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import { checkRateLimit, getClientIP, createRateLimitResponse } from '../_shared/rate-limiter.ts'
 
 const SENDGRID_API_KEY = Deno.env.get('SENDGRID_API_KEY')!
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!
@@ -127,6 +128,17 @@ serve(async (req) => {
     }
 
     try {
+        // Rate limiting: 5 requests per IP per 15 minutes
+        const clientIP = getClientIP(req);
+        const rateLimitResult = await checkRateLimit(clientIP, {
+            windowMs: 15 * 60 * 1000, // 15 minutes
+            maxRequests: 5
+        });
+
+        if (!rateLimitResult.allowed) {
+            return createRateLimitResponse(rateLimitResult.resetTime);
+        }
+
         const { email } = await req.json()
 
         if (!email || !email.includes('@')) {
