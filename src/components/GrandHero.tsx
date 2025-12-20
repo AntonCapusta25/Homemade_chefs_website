@@ -22,7 +22,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
     const heroContent = [
         {
             image: "/hero-real-1.png",
-            headline: title || t("hero.slide1Headline"),
+            headline: title || t("hero.mainHeadline"),
             testimonial: {
                 quote: t("hero.slide1Quote"),
                 name: t("hero.slide1Name"),
@@ -115,13 +115,13 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
 
                 <div className="max-w-4xl md:mt-0">
                     {/* Animated Headline that changes with image */}
-                    <div className="h-[150px] md:h-[280px] lg:h-[360px] overflow-hidden relative mb-4 flex items-end">
+                    <div className="h-[180px] md:h-[320px] lg:h-[400px] overflow-visible relative mb-4 flex items-end pb-2">
                         <AnimatePresence mode="wait">
                             <motion.h1
                                 key={index}
-                                initial={{ y: 50, opacity: 0 }}
+                                initial={{ y: 20, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
-                                exit={{ y: -50, opacity: 0 }}
+                                exit={{ y: -20, opacity: 0 }}
                                 transition={{ duration: 0.8, ease: "circOut" }}
                                 className="font-serif text-5xl md:text-8xl lg:text-9xl font-bold text-white leading-[0.95]"
                             >
@@ -138,7 +138,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                         transition={{ delay: 1, duration: 1 }}
                         className="text-white/80 text-lg md:text-2xl max-w-xl mb-8 font-light leading-relaxed drop-shadow-md"
                     >
-                        {subtitle || t("hero.sub")}
+                        {subtitle || t("hero.mainSubtitle")}
                     </motion.p>
 
                     {/* CTA Buttons */}
@@ -159,7 +159,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                             }}
                             className="group inline-flex items-center justify-center gap-2 bg-[#F47A44] hover:bg-[#E86825] text-white px-8 py-4 rounded-full font-bold text-lg transition-all hover:scale-105 shadow-2xl w-full sm:w-auto"
                         >
-                            {primaryCta || t("hero.calculateEarnings")}
+                            {primaryCta || t("hero.startCooking")}
                             <ArrowUpRight className="group-hover:rotate-45 transition-transform" size={20} />
                         </Link>
                         <Link
@@ -172,7 +172,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                             <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
                                 <Play size={16} fill="white" className="ml-0.5" />
                             </div>
-                            {secondaryCta || t("hero.watchFilm")}
+                            {secondaryCta || t("hero.downloadApp")}
                         </Link>
                     </motion.div>
 
@@ -201,7 +201,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                                     <Star key={i} size={16} fill="#F47A44" className="text-[#F47A44]" />
                                 ))}
                             </div>
-                            <span className="text-sm font-medium">5,000+ Happy Chefs</span>
+                            <span className="text-sm font-medium">{t('hero.happyChefs')}</span>
                         </div>
                     </motion.div>
                 </div>

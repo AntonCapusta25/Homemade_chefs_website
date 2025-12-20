@@ -4,28 +4,30 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, X } from 'lucide-react';
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 const SIGNUP_URL = "https://zol4dc90rf4.typeform.com/to/vRIdX1XK";
 
 export default function PricingDetailedComparison() {
-    const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
+    const { t } = useLanguage();
+    const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('yearly');
     const [activeTab, setActiveTab] = useState<'basic' | 'pro' | 'advance'>('pro');
 
     // Monthly pricing data
     const monthlyFeatures = [
-        { name: "Order Management System", basic: true, pro: true, advance: true },
-        { name: "KVK & NVWA Support", basic: true, pro: true, advance: true },
-        { name: "Branding Support", basic: false, pro: true, advance: true },
-        { name: "Training & Resources", basic: false, pro: true, advance: true },
-        { name: "Cancel Anytime", basic: "2 month notice", pro: true, advance: true },
-        { name: "Platform Exclusive", basic: true, pro: true, advance: false },
+        { name: t('pricing.orderManagement'), basic: true, pro: true, advance: true },
+        { name: t('pricing.kvkSupport'), basic: true, pro: true, advance: true },
+        { name: t('pricing.brandingSupport'), basic: false, pro: true, advance: true },
+        { name: t('pricing.training'), basic: false, pro: true, advance: true },
+        { name: t('pricing.cancelAnytime'), basic: t('pricing.monthNotice'), pro: true, advance: true },
+        { name: t('pricing.platformExclusive'), basic: true, pro: true, advance: false },
     ];
 
     // Yearly pricing data
     const yearlyFeatures = [
-        { name: "Order Management System", basic: true, pro: true, advance: true },
-        { name: "KVK & NVWA Support", basic: true, pro: true, advance: true },
-        { name: "Menu & Pricing Support", basic: true, pro: true, advance: true },
+        { name: t('pricing.orderManagement'), basic: true, pro: true, advance: true },
+        { name: t('pricing.kvkSupport'), basic: true, pro: true, advance: true },
+        { name: t('pricing.brandingSupport'), basic: true, pro: true, advance: true },
         { name: "B2B Catering", basic: false, pro: false, advance: true },
         { name: "Ad Creatives Per Month", basic: "1 Videos", pro: "2 Videos", advance: "3+ Videos" },
         { name: "Homemade Feature Per Month", basic: false, pro: "Once", advance: "3 Times" },
@@ -46,10 +48,10 @@ export default function PricingDetailedComparison() {
                 {/* Header */}
                 <div className="text-center mb-10 md:mb-16 px-4">
                     <h2 className="font-serif text-3xl md:text-5xl font-bold text-[#0F1E19] mb-4 leading-tight">
-                        Choose a plan and start your business today
+                        {t('pricing.title')}
                     </h2>
                     <p className="text-[#0F1E19]/70 max-w-2xl mx-auto mb-8 text-lg leading-relaxed">
-                        Your dream of sharing your food with the world starts here. With your beautiful, ready-to-go storefront, customers can order and pay online in just a few clicks.
+                        {t('pricing.subtitle')}
                     </p>
 
                     {/* Billing Switcher */}
@@ -63,14 +65,14 @@ export default function PricingDetailedComparison() {
                             className={`relative z-10 w-32 py-3 rounded-full font-bold text-sm transition-colors duration-300 ${billingCycle === 'yearly' ? 'text-white' : 'text-[#0F1E19]/60 hover:text-[#F47A44]'
                                 }`}
                         >
-                            Yearly
+                            {t('pricing.yearly')}
                         </button>
                         <button
                             onClick={() => setBillingCycle('monthly')}
                             className={`relative z-10 w-32 py-3 rounded-full font-bold text-sm transition-colors duration-300 ${billingCycle === 'monthly' ? 'text-white' : 'text-[#0F1E19]/60 hover:text-[#F47A44]'
                                 }`}
                         >
-                            Monthly
+                            {t('pricing.monthly')}
                         </button>
                     </div>
                 </div>
@@ -84,8 +86,8 @@ export default function PricingDetailedComparison() {
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
                                 className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all ${activeTab === tab
-                                        ? 'bg-[#0F1E19] text-white shadow-md'
-                                        : 'text-gray-500 hover:text-[#0F1E19]'
+                                    ? 'bg-[#0F1E19] text-white shadow-md'
+                                    : 'text-gray-500 hover:text-[#0F1E19]'
                                     }`}
                             >
                                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -103,9 +105,9 @@ export default function PricingDetailedComparison() {
                     >
                         <div className={`p-6 text-center ${activeTab === 'pro' ? 'bg-[#F47A44]/10' : 'bg-gray-50'}`}>
                             <h3 className="font-serif text-2xl font-bold text-[#0F1E19] mb-1">
-                                {activeTab === 'basic' && 'Basic Chef'}
-                                {activeTab === 'pro' && 'Pro Chef'}
-                                {activeTab === 'advance' && 'Advance Chef'}
+                                {activeTab === 'basic' && t('pricing.basicPlan')}
+                                {activeTab === 'pro' && t('pricing.proPlan')}
+                                {activeTab === 'advance' && t('pricing.advancePlan')}
                             </h3>
                             {billingCycle === 'monthly' && (
                                 <div className="text-3xl font-black text-[#F47A44] mb-2">
@@ -147,40 +149,46 @@ export default function PricingDetailedComparison() {
                                     {/* Header Row */}
                                     <div className="grid grid-cols-[1.5fr_1fr_1fr_1fr] gap-4 p-6 bg-gradient-to-r from-[#F47A44] to-[#E86825]">
                                         <div className="flex items-end pb-2">
-                                            <h3 className="font-serif text-3xl font-bold text-white">Feature</h3>
+                                            <h3 className="font-serif text-3xl font-bold text-white">{t('pricing.feature')}</h3>
                                         </div>
 
                                         {/* Plan Headers */}
                                         <div className="text-center bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                                            <div className="font-serif text-xl font-bold text-white mb-1">Basic Chef</div>
-                                            {billingCycle === 'monthly' && (
+                                            <div className="font-serif text-xl font-bold text-white mb-1">{t('pricing.basicPlan')}</div>
+                                            {billingCycle === 'monthly' ? (
                                                 <>
                                                     <div className="text-3xl font-black text-white">€25</div>
                                                     <div className="text-xs text-white/80">per month</div>
                                                 </>
+                                            ) : (
+                                                <div className="text-3xl font-black text-white">10%</div>
                                             )}
                                         </div>
 
                                         <div className="text-center bg-white rounded-xl p-4 shadow-xl relative">
-                                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FFD700] text-[#0F1E19] text-xs font-black px-3 py-1 rounded-full">
-                                                POPULAR
-                                            </div>
-                                            <div className="font-serif text-xl font-bold text-[#F47A44] mb-1">Pro Chef</div>
-                                            {billingCycle === 'monthly' && (
+                                            <div className="font-serif text-xl font-bold text-[#F47A44] mb-1">{t('pricing.proPlan')}</div>
+                                            {billingCycle === 'monthly' ? (
                                                 <>
                                                     <div className="text-3xl font-black text-[#F47A44]">€35</div>
                                                     <div className="text-xs text-gray-600">per month</div>
                                                 </>
+                                            ) : (
+                                                <div className="text-3xl font-black text-[#F47A44]">12%</div>
                                             )}
                                         </div>
 
-                                        <div className="text-center bg-[#0F1E19] rounded-xl p-4 border border-white/20">
-                                            <div className="font-serif text-xl font-bold text-white mb-1">Advance Chef</div>
-                                            {billingCycle === 'monthly' && (
+                                        <div className="text-center bg-[#0F1E19] rounded-xl p-4 border border-white/20 relative">
+                                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FFD700] text-[#0F1E19] text-xs font-black px-3 py-1 rounded-full">
+                                                POPULAR
+                                            </div>
+                                            <div className="font-serif text-xl font-bold text-white mb-1">{t('pricing.advancePlan')}</div>
+                                            {billingCycle === 'monthly' ? (
                                                 <>
                                                     <div className="text-3xl font-black text-white">€45</div>
                                                     <div className="text-xs text-white/80">per month</div>
                                                 </>
+                                            ) : (
+                                                <div className="text-3xl font-black text-white">14%</div>
                                             )}
                                         </div>
                                     </div>
@@ -226,7 +234,7 @@ export default function PricingDetailedComparison() {
                         target="_blank"
                         className="inline-block bg-gradient-to-r from-[#F47A44] to-[#E86825] text-white px-12 py-5 rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-[#F47A44]/40 transition-all duration-300 hover:scale-105"
                     >
-                        Get Started Today
+                        {t('pricing.getStarted')}
                     </Link>
                 </div>
             </div>

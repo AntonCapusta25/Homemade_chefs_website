@@ -10,7 +10,7 @@ const SIGNUP_URL = "https://zol4dc90rf4.typeform.com/to/vRIdX1XK";
 
 export default function PricingPlans() {
     const { t } = useLanguage();
-    const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
+    const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('yearly');
 
     const plans = [
         {
@@ -34,7 +34,6 @@ export default function PricingPlans() {
             className: "bg-[#EBE9E1] border-2 border-[#EBE9E1]",
             textColor: "text-[#0F1E19]",
             buttonStyle: "bg-[#F47A44] text-white hover:bg-[#d6602d]",
-            popular: true,
             features: {
                 orderManagement: true,
                 kvkSupport: true,
@@ -50,6 +49,7 @@ export default function PricingPlans() {
             className: "bg-[#0F1E19] border-2 border-[#0F1E19]",
             textColor: "text-white",
             buttonStyle: "bg-white text-[#0F1E19] hover:bg-gray-100",
+            popular: true,
             features: {
                 orderManagement: true,
                 kvkSupport: true,

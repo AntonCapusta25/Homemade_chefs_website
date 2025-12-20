@@ -8,6 +8,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useNewsletter } from '@/context/NewsletterContext';
 import { getAllLearningPages } from '@/actions/learning';
 import NewsletterGate from '@/components/NewsletterGate';
+import LearningAccessForm from '@/components/LearningAccessForm';
 
 interface LearningPage {
     id: number;
@@ -296,20 +297,7 @@ export default function LearningPage() {
             </section >
 
             {/* ACCESS CTA */}
-            < section id="access-form" className="bg-[#F47A44] py-20 px-6" >
-                <div className="max-w-4xl mx-auto text-center text-white">
-                    <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6">{t('learning.accessTitle')}</h2>
-                    <p className="text-xl mb-10 opacity-90 max-w-2xl mx-auto">
-                        {t('learning.accessSubtitle')}
-                    </p>
-                    <div className="flex flex-col md:flex-row gap-4 justify-center max-w-lg mx-auto">
-                        <input type="email" placeholder={t('learning.emailPlaceholder')} className="px-6 py-4 rounded-full text-[#0F1E19] flex-grow outline-none focus:ring-4 focus:ring-white/30" />
-                        <button className="bg-[#0F1E19] text-white px-8 py-4 rounded-full font-bold hover:bg-black transition-colors">
-                            {t('learning.accessButton')}
-                        </button>
-                    </div>
-                </div>
-            </section >
+            <LearningAccessForm />
 
         </div >
     );

@@ -19,13 +19,8 @@ export default async function Home() {
     <div className="bg-[#FDFBF7] min-h-screen">
 
       {/* --- HERO SECTION: GRAND CINEMATIC --- */}
-      {/* Passing simplified props just for demo, ideally we update component to accept full object */}
-      <GrandHero
-        title={heroData?.title}
-        subtitle={heroData?.subtitle}
-        primaryCta={heroData?.ctaPrimary}
-        secondaryCta={heroData?.ctaSecondary}
-      />
+      {/* Now using translation keys instead of content.json */}
+      <GrandHero />
 
       {/* --- FEATURE CARDS (HORIZONTAL SCROLL) --- */}
       <FeaturesHorizontalScroll />
