@@ -13,20 +13,20 @@ export default function BlogLanguageManager({ translations }: { translations: Tr
 
     useEffect(() => {
         const paths: Record<string, string> = {
-            EN: '/blog',
-            NL: '/nl/blog',
-            FR: '/fr/blog'
+            en: '/blog',
+            nl: '/nl/blog',
+            fr: '/fr/blog'
         };
 
         // Populate paths from translations
         translations.forEach(t => {
-            const langCode = t.language.toUpperCase();
-            if (langCode === 'EN') {
-                paths.EN = `/blog/${t.slug}`;
-            } else if (langCode === 'NL') {
-                paths.NL = `/nl/blog/${t.slug}`;
-            } else if (langCode === 'FR') {
-                paths.FR = `/fr/blog/${t.slug}`;
+            const langCode = t.language.toLowerCase();
+            if (langCode === 'en') {
+                paths.en = `/blog/${t.slug}`;
+            } else if (langCode === 'nl') {
+                paths.nl = `/nl/blog/${t.slug}`;
+            } else if (langCode === 'fr') {
+                paths.fr = `/fr/blog/${t.slug}`;
             }
         });
 

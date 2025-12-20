@@ -44,7 +44,7 @@ export default function BlogList({ posts, isEditor = false, categories: propCate
 
     // Helper to get correct path
     const getPostPath = (post: BlogPost) => {
-        const langPrefix = language === 'EN' ? '' : `/${language.toLowerCase()}`;
+        const langPrefix = language === 'en' ? '' : `/${language.toLowerCase()}`;
         return `${langPrefix}/blog/${post.slug || post.id}`;
     };
 
