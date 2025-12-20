@@ -185,7 +185,14 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                     >
                         <div className="flex -space-x-3">
                             {[1, 2, 3, 4].map((i) => (
-                                <div key={i} className="w-10 h-10 rounded-full bg-white/20 border-2 border-[#0F1E19]" />
+                                <div key={i} className="w-10 h-10 rounded-full border-2 border-[#0F1E19] overflow-hidden bg-white/20 relative">
+                                    <Image
+                                        src={`/chef-avatar-${i}.png`}
+                                        alt={`Chef ${i}`}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
                             ))}
                         </div>
                         <div className="flex items-center gap-2">
