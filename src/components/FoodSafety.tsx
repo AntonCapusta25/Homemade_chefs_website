@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ShieldCheck, UtensilsCrossed, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from '@/context/LanguageContext';
+import { trackSignupClick } from '@/lib/fbPixel';
 
 export default function FoodSafety() {
     const { t } = useLanguage();
@@ -69,7 +70,9 @@ export default function FoodSafety() {
                     transition={{ delay: 0.6 }}
                 >
                     <Link
-                        href="https://signup.homemadechefs.com"
+                        href="https://calendly.com/homemademeals-info/interview-with-homemade"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 bg-[#0F1E19] text-[#EBE9E1] px-10 py-5 rounded-full font-bold text-lg hover:bg-black transition-all hover:scale-105 shadow-xl"
                     >
                         {t('foodSafety.cta')} <ArrowRight size={20} />

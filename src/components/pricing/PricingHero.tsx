@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
+import { trackSignupClick } from '@/lib/fbPixel';
 
 export default function PricingHero() {
     const { t } = useLanguage();
@@ -58,6 +59,11 @@ export default function PricingHero() {
                 >
                     <Link
                         href="https://signup.homemadechefs.com"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            const url = trackSignupClick('pricing-hero');
+                            window.open(url, '_blank');
+                        }}
                         className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#0F1E19] text-white px-8 py-5 md:py-4 rounded-full font-bold text-lg hover:bg-white hover:text-[#0F1E19] transition-all duration-300 shadow-xl"
                     >
                         {t('pricingHero.cta')} <ArrowRight size={20} />

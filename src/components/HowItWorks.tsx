@@ -15,7 +15,7 @@ export default function HowItWorks() {
             description: t('howItWorks.step1Desc'),
             icon: UserPlus,
             color: "bg-orange-100 text-orange-600",
-            image: "/journey_step_1_create_profile.png"
+            image: "/hero-real-1.png" // Create Your Profile
         },
         {
             id: 2,
@@ -23,7 +23,7 @@ export default function HowItWorks() {
             description: t('howItWorks.step2Desc'),
             icon: Utensils,
             color: "bg-green-100 text-green-600",
-            image: "/journey_step_2_post_menu.png"
+            image: "/hero-real-2.png" // Post Your Menu
         },
         {
             id: 3,
@@ -31,7 +31,7 @@ export default function HowItWorks() {
             description: t('howItWorks.step3Desc'),
             icon: ChefHat,
             color: "bg-teal-100 text-teal-600",
-            image: "/journey_step_3_cook_connect.png"
+            image: "/cinematic-serving.png" // Cook & Connect
         },
         {
             id: 4,
@@ -39,7 +39,7 @@ export default function HowItWorks() {
             description: t('howItWorks.step4Desc'),
             icon: Wallet,
             color: "bg-yellow-100 text-yellow-600",
-            image: "/journey_step_4_earn_thrive.png"
+            image: "/hero-real-4.png" // Earn & Thrive
         }
     ];
 

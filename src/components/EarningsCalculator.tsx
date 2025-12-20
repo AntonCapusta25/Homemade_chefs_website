@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from '@/context/LanguageContext';
+import { trackSignupClick } from '@/lib/fbPixel';
 
 export default function EarningsCalculator() {
     const { t } = useLanguage();
@@ -153,7 +154,15 @@ export default function EarningsCalculator() {
                         </div>
                     </div>
 
-                    <Link href="https://signup.homemadechefs.com" className="group block w-full bg-[#1A1A1A] text-white font-serif font-bold text-xl py-5 rounded-xl transition-all hover:bg-black hover:scale-[1.02] shadow-xl text-center">
+                    <Link
+                        href="https://signup.homemadechefs.com"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            const url = trackSignupClick('earnings-calculator');
+                            window.open(url, '_blank');
+                        }}
+                        className="group block w-full bg-[#1A1A1A] text-white font-serif font-bold text-xl py-5 rounded-xl transition-all hover:bg-black hover:scale-[1.02] shadow-xl text-center"
+                    >
                         {t('earnings.startEarningToday')}
                     </Link>
 

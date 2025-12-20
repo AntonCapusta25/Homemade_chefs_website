@@ -161,7 +161,7 @@ export default function LearningPage() {
 
                     <div className="grid md:grid-cols-3 gap-8">
                         {featuredArticles.map(article => (
-                            <Link key={article.id} href={`/ ${language} /learning/${article.slug} `} className="group block">
+                            <Link key={article.id} href={`/${language}/learning/${article.slug}`} className="group block">
                                 <div className="relative h-64 rounded-2xl overflow-hidden mb-6 bg-gray-100">
                                     {article.hero_image ? (
                                         <Image
@@ -260,7 +260,7 @@ export default function LearningPage() {
                         {videos.map(video => {
                             const videoId = extractYouTubeId(video.youtube_url || '');
                             return (
-                                <Link key={video.id} href={`/ ${language} /learning/${video.slug} `} className="flex gap-6 group cursor-pointer hover:bg-white p-4 rounded-2xl transition-colors">
+                                <Link key={video.id} href={`/${language}/learning/${video.slug}`} className="flex gap-6 group cursor-pointer hover:bg-white p-4 rounded-2xl transition-colors">
                                     <div className="relative w-40 h-28 flex-shrink-0 bg-gray-200 rounded-xl overflow-hidden">
                                         {videoId ? (
                                             <>

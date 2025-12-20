@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { trackSignupClick } from '@/lib/fbPixel';
 
 const features = [
     {
@@ -121,6 +122,11 @@ export default function FeaturesGrid() {
                 <div className="mt-16 md:mt-24 text-center">
                     <Link
                         href="https://signup.homemadechefs.com"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            const url = trackSignupClick('features-grid');
+                            window.open(url, '_blank');
+                        }}
                         className="inline-flex items-center justify-center gap-3 bg-[#0F1E19] text-white px-8 py-4 md:px-10 md:py-5 rounded-full text-lg md:text-xl font-bold hover:bg-[#F47A44] transition-all duration-300 shadow-xl hover:shadow-orange-500/25 hover:-translate-y-1 w-full md:w-auto"
                     >
                         Become a Home Chef Now! <ArrowRight />

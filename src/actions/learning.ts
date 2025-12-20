@@ -29,6 +29,7 @@ export async function getAllLearningPages() {
 
 /**
  * Get a single learning page by slug and language
+ * Falls back to English if the requested language is not available
  */
 export async function getLearningPageBySlug(slug: string, language: string = 'en') {
     try {
@@ -36,23 +37,62 @@ export async function getLearningPageBySlug(slug: string, language: string = 'en
 
         console.log('Fetching learning page:', { slug, language });
 
+        // Try to fetch the page in the requested language
         const { data: page, error } = await supabase
             .from('learning_pages')
             .select('*')
             .eq('slug', slug)
             .eq('language', language)
-            // Temporarily removed: .eq('is_published', true)
+            .eq('is_published', true)
             .single();
 
         if (error) {
-            console.error('Error fetching learning page:', { slug, language, error });
-            return { success: false, data: null, error: error.message };
+            // Log ALL error properties to see what's actually happening
+            console.error('=== SUPABASE ERROR DETAILS ===');
+            console.error('Slug:', slug);
+            console.error('Language:', language);
+            console.error('Error Code:', error.code);
+            console.error('Error Message:', error.message);
+            console.error('Error Details:', error.details);
+            console.error('Error Hint:', error.hint);
+            console.error('Full Error Object:', error);
+            console.error('Error Keys:', Object.keys(error));
+            console.error('================================');
+
+            // If the page doesn't exist in the requested language, try English as fallback
+            if (language !== 'en') {
+                console.log('Page not found in requested language, trying English fallback...');
+
+                const { data: englishPage, error: englishError } = await supabase
+                    .from('learning_pages')
+                    .select('*')
+                    .eq('slug', slug)
+                    .eq('language', 'en')
+                    .eq('is_published', true)
+                    .single();
+
+                if (englishError) {
+                    console.error('English fallback also failed:', englishError);
+                    return { success: false, data: null, error: `Page not found in ${language} or English` };
+                }
+
+                console.log('Successfully fetched English fallback:', englishPage?.title);
+                return { success: true, data: englishPage, error: null, fallbackLanguage: 'en' };
+            }
+
+            return { success: false, data: null, error: error.message || 'Failed to fetch learning page' };
         }
 
         console.log('Successfully fetched page:', page?.title);
         return { success: true, data: page, error: null };
     } catch (error) {
-        console.error('Error in getLearningPageBySlug:', { slug, language, error });
+        console.error('Error in getLearningPageBySlug:', {
+            slug,
+            language,
+            error,
+            errorType: typeof error,
+            errorString: String(error)
+        });
         return { success: false, data: null, error: 'Failed to fetch learning page' };
     }
 }

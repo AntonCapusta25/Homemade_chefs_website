@@ -6,6 +6,7 @@ import { CheckCircle2, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
+import { trackSignupClick } from '@/lib/fbPixel';
 
 export default function FeaturesHorizontalScroll() {
     const { t } = useLanguage();
@@ -117,7 +118,15 @@ export default function FeaturesHorizontalScroll() {
                     <div className="flex-shrink-0 w-[80vw] md:w-[60vw] lg:w-[40vw] h-[70vh] flex items-center justify-center bg-[#0F1E19] rounded-[3rem] text-white p-12 text-center">
                         <div>
                             <h3 className="font-serif text-4xl mb-6">{t('features.readyToStart')}</h3>
-                            <Link href="https://signup.homemadechefs.com" className="inline-flex items-center gap-2 bg-[#F47A44] hover:bg-[#E86825] px-8 py-4 rounded-full font-bold text-lg transition-colors">
+                            <Link
+                                href="https://signup.homemadechefs.com"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    const url = trackSignupClick('features-scroll');
+                                    window.open(url, '_blank');
+                                }}
+                                className="inline-flex items-center gap-2 bg-[#F47A44] hover:bg-[#E86825] px-8 py-4 rounded-full font-bold text-lg transition-colors"
+                            >
                                 {t('features.joinNow')} <ArrowRight />
                             </Link>
                         </div>

@@ -6,7 +6,7 @@ import enTranslations from '@/translations/en.json';
 import nlTranslations from '@/translations/nl.json';
 import frTranslations from '@/translations/fr.json';
 
-type Language = 'EN' | 'NL' | 'FR';
+type Language = 'en' | 'nl' | 'fr';
 
 interface LanguageContextType {
     language: Language;
@@ -23,9 +23,9 @@ type TranslationObject = {
 
 // Translation dictionaries loaded from JSON files
 const translations: Record<Language, TranslationObject> = {
-    EN: enTranslations as TranslationObject,
-    NL: nlTranslations as TranslationObject,
-    FR: frTranslations as TranslationObject,
+    en: enTranslations as TranslationObject,
+    nl: nlTranslations as TranslationObject,
+    fr: frTranslations as TranslationObject,
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -35,7 +35,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     const pathname = usePathname();
 
     // Initialize language from URL or localStorage
-    const [language, setLanguageState] = useState<Language>('EN');
+    const [language, setLanguageState] = useState<Language>('en');
     const [isInitialized, setIsInitialized] = useState(false);
     const [alternatePaths, setAlternatePaths] = useState<Record<string, string | null>>({});
 
@@ -45,12 +45,13 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
         const segments = pathname.split('/').filter(Boolean);
         const urlLang = segments[0]?.toUpperCase();
 
-        // If URL has NL or FR prefix, use that
-        if (urlLang && ['NL', 'FR'].includes(urlLang)) {
-            setLanguageState(urlLang as Language);
+        // If URL has nl or fr prefix, use that
+        const lowerLang = urlLang?.toLowerCase();
+        if (lowerLang && ['nl', 'fr'].includes(lowerLang)) {
+            setLanguageState(lowerLang as Language);
         } else {
             // No prefix means English (default)
-            setLanguageState('EN');
+            setLanguageState('en');
         }
         setIsInitialized(true);
     }, [pathname]);
@@ -71,14 +72,15 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
         const currentLang = segments[0]?.toUpperCase();
 
         // Remove existing language prefix if present
-        if (currentLang && ['EN', 'NL', 'FR'].includes(currentLang)) {
+        const lowerCurrentLang = currentLang?.toLowerCase();
+        if (lowerCurrentLang && ['en', 'nl', 'fr'].includes(lowerCurrentLang)) {
             segments.shift();
         }
 
-        // Add new language prefix (except for EN which is default)
-        const newPath = lang === 'EN'
+        // Add new language prefix (except for en which is default)
+        const newPath = lang === 'en'
             ? `/${segments.join('/')}`
-            : `/${lang.toLowerCase()}/${segments.join('/')}`;
+            : `/${lang}/${segments.join('/')}`;
 
         router.push(newPath || '/');
     };
@@ -93,7 +95,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
                 value = value[k];
             } else {
                 // Fallback to English if key not found
-                let fallback: string | TranslationObject = translations.EN;
+                let fallback: string | TranslationObject = translations.en;
                 for (const fk of keys) {
                     if (typeof fallback === 'object' && fallback !== null && fk in fallback) {
                         fallback = fallback[fk];

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { ArrowUpRight, Play, Star, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
+import { trackSignupClick, trackAppDownload } from '@/lib/fbPixel';
 
 interface GrandHeroProps {
     title?: string;
@@ -151,6 +152,11 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                             href="https://signup.homemadechefs.com"
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                const url = trackSignupClick('hero-section');
+                                window.open(url, '_blank');
+                            }}
                             className="group inline-flex items-center justify-center gap-2 bg-[#F47A44] hover:bg-[#E86825] text-white px-8 py-4 rounded-full font-bold text-lg transition-all hover:scale-105 shadow-2xl w-full sm:w-auto"
                         >
                             {primaryCta || t("hero.calculateEarnings")}
@@ -160,6 +166,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                             href="https://play.google.com/store/apps/details?id=com.customer.homemademeals"
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={() => trackAppDownload('google-play')}
                             className="group inline-flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-full font-bold text-lg transition-all border border-white/20 w-full sm:w-auto"
                         >
                             <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">

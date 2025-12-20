@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
+import { trackSignupClick } from '@/lib/fbPixel';
 
 export default function Navbar() {
     const [hidden, setHidden] = React.useState(false);
@@ -16,10 +17,10 @@ export default function Navbar() {
     const { language, setLanguage, t } = useLanguage();
     const [isLangOpen, setIsLangOpen] = useState(false);
 
-    const languages: { code: 'EN' | 'NL' | 'FR'; label: string }[] = [
-        { code: 'EN', label: 'English' },
-        { code: 'NL', label: 'Nederlands' },
-        { code: 'FR', label: 'Français' },
+    const languages: { code: 'en' | 'nl' | 'fr'; label: string }[] = [
+        { code: 'en', label: 'English' },
+        { code: 'nl', label: 'Nederlands' },
+        { code: 'fr', label: 'Français' },
     ];
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -75,7 +76,7 @@ export default function Navbar() {
                 <div className="bg-white/80 backdrop-blur-xl border border-white/40 shadow-xl shadow-black/5 rounded-full px-6 py-3 flex items-center justify-between gap-6 md:gap-12 max-w-5xl w-full relative z-50">
 
                     {/* Logo */}
-                    <Link href={language === 'EN' ? '/' : `/${language.toLowerCase()}`} className="flex items-center gap-2 flex-shrink-0 group relative z-50">
+                    <Link href={language === 'en' ? '/' : `/${language}`} className="flex items-center gap-2 flex-shrink-0 group relative z-50">
                         <div className="relative w-24 md:w-28 h-7 md:h-8">
                             <Image
                                 src="/logo-full.png"
@@ -135,6 +136,11 @@ export default function Navbar() {
                             href="https://signup.homemadechefs.com"
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                const url = trackSignupClick('navbar-desktop');
+                                window.open(url, '_blank');
+                            }}
                             className="bg-[#0F1E19] text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-[#F47A44] transition-all duration-300 flex items-center gap-2 shadow-lg shadow-black/10"
                         >
                             {t('nav.join')} <ArrowRight size={14} />
@@ -215,6 +221,11 @@ export default function Navbar() {
                                 href="https://signup.homemadechefs.com"
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    const url = trackSignupClick('navbar-mobile');
+                                    window.open(url, '_blank');
+                                }}
                                 className="w-full bg-[#F47A44] text-white px-8 py-5 rounded-full text-lg font-bold hover:bg-[#E86825] transition-all duration-300 flex items-center justify-center gap-2 shadow-xl shadow-orange-500/20"
                             >
                                 {t('nav.join')} <ArrowRight size={20} />
@@ -234,9 +245,9 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
     const { language } = useLanguage();
 
     // Add language prefix for NL/FR, keep root URLs for EN
-    const localizedHref = language === 'EN'
+    const localizedHref = language === 'en'
         ? href
-        : `/${language.toLowerCase()}${href}`;
+        : `/${language}${href}`;
 
     // Check if current path matches (with or without language prefix)
     const pathWithoutLang = pathname.replace(/^\/(nl|fr)/, '') || '/';

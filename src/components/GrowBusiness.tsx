@@ -52,13 +52,16 @@ export default function GrowBusiness() {
                 </div>
 
                 <div className="flex justify-center">
-                    <motion.button
+                    <motion.a
+                        href="https://calendly.com/homemademeals-info/interview-with-homemade"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="bg-[#0F1E19] text-[#EBE9E1] px-10 py-4 rounded-full font-bold text-lg hover:bg-black transition-colors shadow-xl"
+                        className="bg-[#0F1E19] text-[#EBE9E1] px-10 py-4 rounded-full font-bold text-lg hover:bg-black transition-colors shadow-xl inline-block"
                     >
                         {t('growBusiness.cta')}
-                    </motion.button>
+                    </motion.a>
                 </div>
 
             </div>

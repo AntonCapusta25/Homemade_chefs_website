@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Smartphone } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import { trackSignupClick, trackAppDownload } from '@/lib/fbPixel';
 
 interface CallToActionProps {
     title?: string;
@@ -56,6 +57,11 @@ export default function CallToAction({ title, subtitle, buttonText }: CallToActi
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                             <Link
                                 href="https://signup.homemadechefs.com"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    const url = trackSignupClick('cta-section');
+                                    window.open(url, '_blank');
+                                }}
                                 className="w-full sm:w-auto px-8 py-5 bg-[#F47A44] hover:bg-[#E86825] text-white rounded-full font-bold text-lg transition-all transform hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/30 flex items-center justify-center gap-2 group"
                             >
                                 {buttonText || t('cta.getStarted')}
@@ -66,6 +72,7 @@ export default function CallToAction({ title, subtitle, buttonText }: CallToActi
                                 href="https://play.google.com/store/apps/details?id=com.customer.homemademeals"
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                onClick={() => trackAppDownload('google-play')}
                                 className="w-full sm:w-auto px-8 py-5 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 rounded-full font-bold text-lg transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2"
                             >
                                 <Smartphone size={20} />

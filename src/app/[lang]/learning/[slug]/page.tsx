@@ -49,6 +49,7 @@ export default async function LearningPageDetail({
 
     const page = result.data;
     const videoId = extractYouTubeId(page.youtube_url || '');
+    const isFallback = (result as any).fallbackLanguage && (result as any).fallbackLanguage !== validLang;
 
     // Get all other learning pages for sidebar
     const allPages = await getAllLearningPages();
@@ -107,6 +108,29 @@ export default async function LearningPageDetail({
                     </div>
                 </div>
             </section>
+
+            {/* Language Fallback Notice */}
+            {isFallback && (
+                <div className="bg-[#F47A44]/10 border-l-4 border-[#F47A44] py-4 px-6 mx-auto max-w-7xl mt-8">
+                    <div className="flex items-start gap-3">
+                        <svg className="w-6 h-6 text-[#F47A44] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <div>
+                            <p className="font-semibold text-[#0F1E19]">
+                                {validLang === 'nl' && 'Deze pagina is nog niet beschikbaar in het Nederlands'}
+                                {validLang === 'fr' && 'Cette page n\'est pas encore disponible en français'}
+                                {validLang === 'de' && 'Diese Seite ist noch nicht auf Deutsch verfügbar'}
+                            </p>
+                            <p className="text-sm text-[#0F1E19]/70 mt-1">
+                                {validLang === 'nl' && 'We tonen de Engelse versie.'}
+                                {validLang === 'fr' && 'Nous affichons la version anglaise.'}
+                                {validLang === 'de' && 'Wir zeigen die englische Version.'}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Main Content with Sidebar */}
             <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 py-20">
