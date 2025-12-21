@@ -1,14 +1,30 @@
 import { getContentStatic } from '@/actions/cms';
+import dynamic from 'next/dynamic';
 import GrandHero from '@/components/GrandHero';
-import HowItWorks from '@/components/HowItWorks';
-import CallToAction from '@/components/CallToAction';
 import FeaturesHorizontalScroll from '@/components/FeaturesHorizontalScroll';
-import EarningsCalculator from '@/components/EarningsCalculator';
-import FoodSafety from '@/components/FoodSafety';
-import GrowBusiness from '@/components/GrowBusiness';
-// import LiveSupport from '@/components/LiveSupport';
-import PricingPlans from '@/components/PricingPlans';
-import FAQCreative from '@/components/FAQCreative';
+
+// Lazy load below-the-fold components to improve initial load time
+const HowItWorks = dynamic(() => import('@/components/HowItWorks'), {
+  loading: () => <div className="min-h-screen" />
+});
+const EarningsCalculator = dynamic(() => import('@/components/EarningsCalculator'), {
+  loading: () => <div className="min-h-screen" />
+});
+const FoodSafety = dynamic(() => import('@/components/FoodSafety'), {
+  loading: () => <div className="min-h-screen" />
+});
+const GrowBusiness = dynamic(() => import('@/components/GrowBusiness'), {
+  loading: () => <div className="min-h-screen" />
+});
+const PricingPlans = dynamic(() => import('@/components/PricingPlans'), {
+  loading: () => <div className="min-h-screen" />
+});
+const FAQCreative = dynamic(() => import('@/components/FAQCreative'), {
+  loading: () => <div className="min-h-screen" />
+});
+const CallToAction = dynamic(() => import('@/components/CallToAction'), {
+  loading: () => <div className="min-h-[200px]" />
+});
 
 export default async function Home() {
   const content = await getContentStatic();

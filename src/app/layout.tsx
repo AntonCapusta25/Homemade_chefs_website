@@ -11,11 +11,13 @@ const serifFont = DM_Serif_Display({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-serif",
+  display: 'swap', // Prevent invisible text during font load
 });
 
 const sansFont = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: 'swap', // Prevent invisible text during font load
 });
 
 export const metadata: Metadata = {
