@@ -76,10 +76,11 @@ export default function EarningsCalculator() {
                     <div className="space-y-8 mb-10">
                         <div>
                             <div className="flex justify-between items-end mb-4">
-                                <label className="font-bold text-[#1A1A1A] text-lg">{t('earnings.pricePerMeal')}</label>
+                                <label htmlFor="price-per-meal" className="font-bold text-[#1A1A1A] text-lg">{t('earnings.pricePerMeal')}</label>
                                 <span className="text-[#F47A44] font-bold text-xl">€{pricePerMeal}</span>
                             </div>
                             <input
+                                id="price-per-meal"
                                 type="range"
                                 min="10"
                                 max="100"
@@ -96,10 +97,11 @@ export default function EarningsCalculator() {
 
                         <div>
                             <div className="flex justify-between items-end mb-4">
-                                <label className="font-bold text-[#1A1A1A] text-lg">{t('earnings.daysPerWeek')}</label>
+                                <label htmlFor="days-per-week" className="font-bold text-[#1A1A1A] text-lg">{t('earnings.daysPerWeek')}</label>
                                 <span className="text-[#F47A44] font-bold text-xl">{daysPerWeek} {t('earnings.days')}</span>
                             </div>
                             <input
+                                id="days-per-week"
                                 type="range"
                                 min="1"
                                 max="7"
@@ -115,10 +117,11 @@ export default function EarningsCalculator() {
 
                         <div>
                             <div className="flex justify-between items-end mb-4">
-                                <label className="font-bold text-[#1A1A1A] text-lg">{t('earnings.mealsPerDay')}</label>
+                                <label htmlFor="meals-per-day" className="font-bold text-[#1A1A1A] text-lg">{t('earnings.mealsPerDay')}</label>
                                 <span className="text-[#F47A44] font-bold text-xl">{mealsPerDay} {t('earnings.meals')}</span>
                             </div>
                             <input
+                                id="meals-per-day"
                                 type="range"
                                 min="5"
                                 max="50"

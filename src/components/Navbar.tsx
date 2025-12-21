@@ -149,11 +149,11 @@ export default function Navbar() {
                         </Link>
                     </div>
 
-                    {/* Mobile Hamburger Toggle */}
+                    {/* Mobile Menu Toggle */}
                     <button
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        aria-label="Toggle mobile menu"
-                        className="md:hidden relative z-50 w-10 h-10 flex items-center justify-center bg-[#0F1E19] rounded-full text-white hover:bg-[#1a2f28] transition-colors"
+                        className="md:hidden flex-shrink-0 w-8 h-8 rounded-full hover:bg-[#0F1E19]/10 flex items-center justify-center transition-colors relative z-50"
+                        aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
                     >
                         {isMobileMenuOpen ? (
                             <X size={20} className="text-white" />

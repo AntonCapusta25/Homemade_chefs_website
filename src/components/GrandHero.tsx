@@ -104,6 +104,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                         sizes="100vw"
                         className="object-cover"
                         priority
+                        fetchPriority="high"
                     />
                     {/* Cinematic Overlay Gradient - Darkened for text readability */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E19] via-[#0F1E19]/40 to-black/30" />

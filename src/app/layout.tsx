@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { DM_Serif_Display, Plus_Jakarta_Sans } from "next/font/google"; // Trendy fonts
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -92,9 +93,22 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://analytics.tiktok.com" />
         <link rel="dns-prefetch" href="https://www.clarity.ms" />
         <link rel="dns-prefetch" href="https://vfkmcamplptlkgurnnzi.supabase.co" />
+      </head>
+      <body className={`${serifFont.variable} ${sansFont.variable} font-sans antialiased min-h-screen flex flex-col bg-[#FDFBF7]`} suppressHydrationWarning>
+        <OrganizationSchema />
+        <Providers>
+          <Navbar />
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer />
+          <CookieBanner />
+        </Providers>
 
-        <script
-          type="text/javascript"
+        {/* Analytics scripts loaded after page interactive to improve performance */}
+        <Script
+          id="clarity-script"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               (function(c,l,a,r,i,t,y){
@@ -105,8 +119,10 @@ export default function RootLayout({
             `,
           }}
         />
-        <script
-          type="text/javascript"
+
+        <Script
+          id="facebook-pixel"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               !function(f,b,e,v,n,t,s) {
@@ -127,8 +143,10 @@ export default function RootLayout({
             __html: `<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1146527360462374&ev=PageView&noscript=1" />`,
           }}
         />
-        <script
-          type="text/javascript"
+
+        <Script
+          id="tiktok-pixel"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               !function (w, d, t) {
@@ -141,17 +159,6 @@ export default function RootLayout({
             `,
           }}
         />
-      </head>
-      <body className={`${serifFont.variable} ${sansFont.variable} font-sans antialiased min-h-screen flex flex-col bg-[#FDFBF7]`} suppressHydrationWarning>
-        <OrganizationSchema />
-        <Providers>
-          <Navbar />
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer />
-          <CookieBanner />
-        </Providers>
       </body>
     </html>
   );
