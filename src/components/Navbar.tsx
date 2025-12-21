@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 import { motion, AnimatePresence, useScroll, useMotionValueEvent, Variants } from 'framer-motion';
-import { ArrowRight, Globe, ChevronDown } from 'lucide-react';
+import { ArrowRight, Globe, ChevronDown, X, Menu } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -151,20 +151,13 @@ export default function Navbar() {
                     <button
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         aria-label="Toggle mobile menu"
-                        className="md:hidden relative z-50 w-10 h-10 flex flex-col justify-center items-center gap-1.5 bg-[#0F1E19] rounded-full text-white"
+                        className="md:hidden relative z-50 w-10 h-10 flex items-center justify-center bg-[#0F1E19] rounded-full text-white hover:bg-[#1a2f28] transition-colors"
                     >
-                        <motion.span
-                            animate={isMobileMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                            className="w-5 h-0.5 bg-white block rounded-full transition-transform"
-                        />
-                        <motion.span
-                            animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-                            className="w-5 h-0.5 bg-white block rounded-full transition-opacity"
-                        />
-                        <motion.span
-                            animate={isMobileMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                            className="w-5 h-0.5 bg-white block rounded-full transition-transform"
-                        />
+                        {isMobileMenuOpen ? (
+                            <X size={20} className="text-white" />
+                        ) : (
+                            <Menu size={20} className="text-white" />
+                        )}
                     </button>
 
                 </div>
