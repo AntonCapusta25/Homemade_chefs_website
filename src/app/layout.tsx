@@ -44,10 +44,10 @@ export const metadata: Metadata = {
     siteName: 'Homemade Chefs',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/logo-full.png',
         width: 1200,
         height: 630,
-        alt: 'Homemade Chefs Platform',
+        alt: 'Homemade Chefs Logo',
       },
     ],
     locale: 'en_US',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Homemade Chefs | Turn Your Kitchen Into a Business',
     description: 'Join 50+ chefs earning from home cooking',
-    images: ['/og-image.jpg'],
+    images: ['/logo-full.png'],
     creator: '@Homemade___',
   },
   robots: {
