@@ -6,7 +6,7 @@ import { Check, X } from 'lucide-react';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 
-const SIGNUP_URL = "https://zol4dc90rf4.typeform.com/to/vRIdX1XK";
+const SIGNUP_URL = "https://signup.homemadechefs.com/";
 
 export default function PricingDetailedComparison() {
     const { t } = useLanguage();

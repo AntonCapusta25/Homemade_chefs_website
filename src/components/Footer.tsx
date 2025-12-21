@@ -61,28 +61,26 @@ export default function Footer() {
                     <div>
                         <h4 className="font-bold text-lg mb-6">{t('footer.platform')}</h4>
                         <ul className="space-y-4 text-gray-400">
-                            <li><FooterLink href="#">{t('footer.browseMenu')}</FooterLink></li>
-                            <li><FooterLink href="#">{t('footer.becomeChef')}</FooterLink></li>
-                            <li><FooterLink href="#">{t('footer.howItWorks')}</FooterLink></li>
-                            <li><FooterLink href="#">{t('footer.giftCards')}</FooterLink></li>
+                            <li><FooterLink href="https://www.homemademeals.net/en/home">{t('footer.browseMenu')}</FooterLink></li>
+                            <li><FooterLink href="https://signup.homemadechefs.com/">{t('footer.becomeChef')}</FooterLink></li>
+                            <li><FooterLink href="/#how-it-works">{t('footer.howItWorks')}</FooterLink></li>
                         </ul>
                     </div>
                     <div>
                         <h4 className="font-bold text-lg mb-6">{t('footer.company')}</h4>
                         <ul className="space-y-4 text-gray-400">
-                            <li><FooterLink href="#">{t('footer.aboutUs')}</FooterLink></li>
-                            <li><FooterLink href="#">{t('footer.careers')}</FooterLink></li>
-                            <li><FooterLink href="#">{t('footer.press')}</FooterLink></li>
+                            <li><FooterLink href="/">{t('footer.aboutUs')}</FooterLink></li>
+                            <li><FooterLink href="https://signup.homemadechefs.com/">{t('footer.careers')}</FooterLink></li>
                             <li><FooterLink href="/blog">{t('nav.blog')}</FooterLink></li>
                         </ul>
                     </div>
                     <div>
                         <h4 className="font-bold text-lg mb-6">{t('footer.support')}</h4>
                         <ul className="space-y-4 text-gray-400">
-                            <li><FooterLink href="#">{t('footer.helpCenter')}</FooterLink></li>
-                            <li><FooterLink href="#">{t('footer.safety')}</FooterLink></li>
-                            <li><FooterLink href="#">{t('footer.terms')}</FooterLink></li>
-                            <li><FooterLink href="#">{t('footer.privacy')}</FooterLink></li>
+                            <li><FooterLink href="https://calendly.com/homemademeals/30min">{t('footer.helpCenter')}</FooterLink></li>
+                            <li><FooterLink href="/#safety">{t('footer.safety')}</FooterLink></li>
+                            <li><FooterLink href="https://drive.google.com/file/d/1d5B3niPChV8Uu5MD2EhE-O95ZNvZIywS/view">{t('footer.terms')}</FooterLink></li>
+                            <li><FooterLink href="https://drive.google.com/file/d/1d5B3niPChV8Uu5MD2EhE-O95ZNvZIywS/view">{t('footer.privacy')}</FooterLink></li>
                         </ul>
                     </div>
                     <div>
@@ -118,8 +116,8 @@ export default function Footer() {
                 <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 text-sm text-gray-500">
                     <p>© 2025 Homemade Chefs. {t('footer.allRightsReserved')}</p>
                     <div className="flex gap-6 mt-4 md:mt-0">
-                        <Link href="#" className="hover:text-white transition-colors">{t('footer.privacy')}</Link>
-                        <Link href="#" className="hover:text-white transition-colors">{t('footer.terms')}</Link>
+                        <Link href="https://drive.google.com/file/d/1d5B3niPChV8Uu5MD2EhE-O95ZNvZIywS/view" target="_blank" className="hover:text-white transition-colors">{t('footer.privacy')}</Link>
+                        <Link href="https://drive.google.com/file/d/1d5B3niPChV8Uu5MD2EhE-O95ZNvZIywS/view" target="_blank" className="hover:text-white transition-colors">{t('footer.terms')}</Link>
                         <Link href="#" className="hover:text-white transition-colors">{t('footer.cookies')}</Link>
                     </div>
                 </div>

@@ -44,7 +44,7 @@ export default function HowItWorks() {
     ];
 
     return (
-        <section className="py-24 bg-white relative overflow-hidden">
+        <section id="how-it-works" className="py-24 bg-white relative overflow-hidden">
             {/* Background elements */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                 <div className="absolute top-1/4 -right-20 w-96 h-96 bg-orange-50 rounded-full blur-3xl opacity-50" />
