@@ -85,11 +85,13 @@ export default function Footer() {
                     </div>
                     <div>
                         <h4 className="font-bold text-lg mb-6">{t('footer.downloadApp')}</h4>
-                        <ul className="space-y-4 text-gray-400">
+                        <ul className="space-y-3">
                             <li>
                                 <Link href="https://apps.apple.com/nl/app/homemade-b-v/id6547853214?l=en-GB" target="_blank" className="flex items-center gap-3 bg-white/10 hover:bg-white/20 p-3 rounded-xl border border-white/10 transition-all group">
-                                    <div className="bg-white text-black p-1 rounded-full">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 2.052c-.636 0-1.74.52-2.355 1.258-.57.684-1.07 1.763-1.07 2.82 0 1.25.96 2.65 2.18 2.65.62 0 1.63-.48 2.274-1.296.657-.833.955-1.92.955-2.77 0-1.34-1.14-2.662-1.983-2.662zm-3.235 6.425c-1.3-.06-2.42.75-3.03.75-.62 0-1.55-.72-2.55-.72-1.32 0-2.53.76-3.21 1.93-1.37 2.37-.36 5.9 1 7.84.66.95 1.45 2.02 2.5 2.02.98 0 1.42-.64 2.65-.64 1.24 0 1.6.64 2.68.64 1.07 0 1.93-1.09 2.65-2.12.83-1.2 1.17-2.37 1.19-2.43-.02-.01-2.28-.88-2.3-3.48.02-2.17 1.78-3.22 1.86-3.26-.98-1.53-2.56-1.7-3.1-1.73z" /></svg>
+                                    <div className="bg-white text-black p-2 rounded-lg flex items-center justify-center w-10 h-10 flex-shrink-0">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
+                                        </svg>
                                     </div>
                                     <div className="flex flex-col">
                                         <span className="text-[10px] uppercase font-bold text-gray-400">{t('footer.downloadOn')}</span>
@@ -99,8 +101,10 @@ export default function Footer() {
                             </li>
                             <li>
                                 <Link href="https://play.google.com/store/apps/details?id=com.customer.homemademeals" target="_blank" className="flex items-center gap-3 bg-white/10 hover:bg-white/20 p-3 rounded-xl border border-white/10 transition-all group">
-                                    <div className="bg-white text-black p-1 rounded-full">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-1.61-.758V2.572a.996.996 0 0 1 1.61-.758zm10.742 10.742L19.5 7.406l1.838 1.053c1.196.685 1.196 2.397 0 3.082l-1.838 1.053-5.149-5.148zM15.15 13.5l4.634 2.655-13.447 7.7a.996.996 0 0 1-1.579-.533L15.15 13.5zm-1.004-2.863L4.76 2.678a.992.992 0 0 1 1.58-.533l12.806 7.334-4.996 2.863z" /></svg>
+                                    <div className="bg-white text-black p-2 rounded-lg flex items-center justify-center w-10 h-10 flex-shrink-0">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85a.637.637 0 0 0-.83.22l-1.88 3.24a11.46 11.46 0 0 0-8.94 0L5.65 5.67a.643.643 0 0 0-.87-.2c-.28.18-.37.54-.22.83L6.4 9.48A10.78 10.78 0 0 0 1 18h22a10.78 10.78 0 0 0-5.4-8.52zM7 15.25a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5zm10 0a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5z" />
+                                        </svg>
                                     </div>
                                     <div className="flex flex-col">
                                         <span className="text-[10px] uppercase font-bold text-gray-400">{t('footer.getItOn')}</span>
