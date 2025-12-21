@@ -21,57 +21,57 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
 
     const heroContent = [
         {
-            image: "/hero-real-1.png",
+            image: "/hero-real-1.webp",
             headline: title || t("hero.mainHeadline"),
             testimonial: {
                 quote: t("hero.slide1Quote"),
                 name: t("hero.slide1Name"),
                 role: t("hero.slide1Role"),
-                avatar: "/hero-real-1.png",
+                avatar: "/hero-real-1.webp",
                 position: "top-32 right-12"
             }
         },
         {
-            image: "/hero-real-5.png",
+            image: "/hero-real-5.webp",
             headline: title || t("hero.slide2Headline"),
             testimonial: {
                 quote: t("hero.slide2Quote"),
                 name: t("hero.slide2Name"),
                 role: t("hero.slide2Role"),
-                avatar: "/hero-real-5.png",
+                avatar: "/hero-real-5.webp",
                 position: "bottom-40 right-20"
             }
         },
         {
-            image: "/hero-real-4.png",
+            image: "/hero-real-4.webp",
             headline: title || t("hero.slide3Headline"),
             testimonial: {
                 quote: t("hero.slide3Quote"),
                 name: t("hero.slide3Name"),
                 role: t("hero.slide3Role"),
-                avatar: "/hero-real-4.png",
+                avatar: "/hero-real-4.webp",
                 position: "top-40 right-1/4"
             }
         },
         {
-            image: "/hero-real-2.png",
+            image: "/hero-real-2.webp",
             headline: title || t("hero.slide4Headline"),
             testimonial: {
                 quote: t("hero.slide4Quote"),
                 name: t("hero.slide4Name"),
                 role: t("hero.slide4Role"),
-                avatar: "/hero-real-2.png",
+                avatar: "/hero-real-2.webp",
                 position: "bottom-32 right-32"
             }
         },
         {
-            image: "/hero-real-3.png",
+            image: "/hero-real-3.webp",
             headline: title || t("hero.slide5Headline"),
             testimonial: {
                 quote: t("hero.slide5Quote"),
                 name: t("hero.slide5Name"),
                 role: t("hero.slide5Role"),
-                avatar: "/hero-real-3.png",
+                avatar: "/hero-real-3.webp",
                 position: "top-1/3 right-10"
             }
         }
