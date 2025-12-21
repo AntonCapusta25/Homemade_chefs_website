@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Providers from "@/components/Providers";
 import CookieBanner from "@/components/CookieBanner";
+import { OrganizationSchema } from "@/components/StructuredData";
 
 const serifFont = DM_Serif_Display({
   weight: "400",
@@ -18,8 +19,58 @@ const sansFont = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Homemade - Cook, Earn, Thrive",
-  description: "Turn your cooking creations into revenue.",
+  title: {
+    default: 'Homemade Chefs | Turn Your Kitchen Into a Business',
+    template: '%s | Homemade Chefs',
+  },
+  description: 'Join 50+ chefs earning from home cooking. Professional platform for home chefs to sell meals, manage orders, and grow their culinary business in Netherlands.',
+  keywords: ['home chef', 'cooking business', 'sell homemade food', 'culinary platform', 'food delivery', 'home cooking', 'chef platform', 'Netherlands'],
+  authors: [{ name: 'Homemade Chefs' }],
+  creator: 'Homemade Chefs',
+  publisher: 'Homemade Chefs',
+  metadataBase: new URL('https://homemadechefs.com'),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'en': '/',
+      'nl': '/nl',
+      'fr': '/fr',
+    },
+  },
+  openGraph: {
+    title: 'Homemade Chefs | Turn Your Kitchen Into a Business',
+    description: 'Join 50+ chefs earning from home cooking. Professional platform for home chefs.',
+    url: 'https://homemadechefs.com',
+    siteName: 'Homemade Chefs',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Homemade Chefs Platform',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Homemade Chefs | Turn Your Kitchen Into a Business',
+    description: 'Join 50+ chefs earning from home cooking',
+    images: ['/og-image.jpg'],
+    creator: '@Homemade___',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -80,6 +131,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${serifFont.variable} ${sansFont.variable} font-sans antialiased min-h-screen flex flex-col bg-[#FDFBF7]`} suppressHydrationWarning>
+        <OrganizationSchema />
         <Providers>
           <Navbar />
           <main className="flex-grow">
