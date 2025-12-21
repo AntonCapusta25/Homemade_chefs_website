@@ -1,0 +1,24 @@
+# Robots.txt for Homemade Chefs Website
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://homemadechefs.com/sitemap.xml
+
+# Disallow crawling of admin and API routes
+Disallow: /admin/
+Disallow: /api/
+
+# Disallow crawling of private files
+Disallow: /*.json$
+Disallow: /*.env$
+
+# Allow crawling of all public pages
+Allow: /en/
+Allow: /nl/
+Allow: /fr/
+Allow: /pricing
+Allow: /blog
+Allow: /learning
