@@ -89,9 +89,11 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-        <link rel="dns-prefetch" href="https://connect.facebook.net" />
-        <link rel="dns-prefetch" href="https://analytics.tiktok.com" />
-        <link rel="dns-prefetch" href="https://www.clarity.ms" />
+        {/* Preconnect to analytics domains to reduce third-party load time */}
+        <link rel="preconnect" href="https://connect.facebook.net" />
+        <link rel="preconnect" href="https://analytics.tiktok.com" />
+        <link rel="preconnect" href="https://www.clarity.ms" />
+        <link rel="preconnect" href="https://scripts.clarity.ms" />
         <link rel="dns-prefetch" href="https://vfkmcamplptlkgurnnzi.supabase.co" />
       </head>
       <body className={`${serifFont.variable} ${sansFont.variable} font-sans antialiased min-h-screen flex flex-col bg-[#FDFBF7]`} suppressHydrationWarning>
