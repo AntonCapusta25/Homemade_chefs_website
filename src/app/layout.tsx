@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Providers from "@/components/Providers";
+import CookieBanner from "@/components/CookieBanner";
 
 const serifFont = DM_Serif_Display({
   weight: "400",
@@ -85,6 +86,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <CookieBanner />
         </Providers>
       </body>
     </html>

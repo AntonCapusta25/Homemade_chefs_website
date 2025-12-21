@@ -289,5 +289,22 @@
         "readMore": "Lees Meer",
         "noRelatedArticles": "Geen gerelateerde artikelen gevonden.",
         "loading": "Laden..."
+    },
+    "cookies": {
+        "title": "We Waarderen Uw Privacy",
+        "description": "We gebruiken cookies om uw browse-ervaring te verbeteren, gepersonaliseerde inhoud te leveren en ons verkeer te analyseren. Door op 'Alles Accepteren' te klikken, stemt u in met ons gebruik van cookies.",
+        "acceptAll": "Alles Accepteren",
+        "rejectAll": "Alles Weigeren",
+        "customize": "Aanpassen",
+        "settingsTitle": "Cookie Voorkeuren",
+        "savePreferences": "Voorkeuren Opslaan",
+        "necessary": "Noodzakelijke Cookies",
+        "alwaysActive": "Altijd Actief",
+        "required": "Vereist",
+        "necessaryDesc": "Deze cookies zijn essentieel voor het correct functioneren van de website. Ze maken basisfuncties mogelijk zoals paginanavigatie en toegang tot beveiligde gebieden.",
+        "analytics": "Analytische Cookies",
+        "analyticsDesc": "Deze cookies helpen ons te begrijpen hoe bezoekers omgaan met onze website door anoniem informatie te verzamelen en te rapporteren.",
+        "marketing": "Marketing Cookies",
+        "marketingDesc": "Deze cookies worden gebruikt om bezoekers op websites te volgen om relevante advertenties weer te geven en de effectiviteit van campagnes te meten."
     }
 }

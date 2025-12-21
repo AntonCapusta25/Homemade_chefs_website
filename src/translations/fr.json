@@ -298,5 +298,22 @@
         "readMore": "Lire Plus",
         "noRelatedArticles": "Aucun article connexe trouvé.",
         "loading": "Chargement..."
+    },
+    "cookies": {
+        "title": "Nous Valorisons Votre Vie Privée",
+        "description": "Nous utilisons des cookies pour améliorer votre expérience de navigation, fournir du contenu personnalisé et analyser notre trafic. En cliquant sur 'Tout Accepter', vous consentez à notre utilisation des cookies.",
+        "acceptAll": "Tout Accepter",
+        "rejectAll": "Tout Refuser",
+        "customize": "Personnaliser",
+        "settingsTitle": "Préférences des Cookies",
+        "savePreferences": "Enregistrer les Préférences",
+        "necessary": "Cookies Nécessaires",
+        "alwaysActive": "Toujours Actif",
+        "required": "Requis",
+        "necessaryDesc": "Ces cookies sont essentiels au bon fonctionnement du site web. Ils permettent des fonctionnalités de base comme la navigation et l'accès aux zones sécurisées.",
+        "analytics": "Cookies Analytiques",
+        "analyticsDesc": "Ces cookies nous aident à comprendre comment les visiteurs interagissent avec notre site web en collectant et en rapportant des informations de manière anonyme.",
+        "marketing": "Cookies Marketing",
+        "marketingDesc": "Ces cookies sont utilisés pour suivre les visiteurs sur les sites web afin d'afficher des publicités pertinentes et mesurer l'efficacité des campagnes."
     }
 }

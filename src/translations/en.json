@@ -289,5 +289,22 @@
         "readMore": "Read More",
         "noRelatedArticles": "No related articles found.",
         "loading": "Loading..."
+    },
+    "cookies": {
+        "title": "We Value Your Privacy",
+        "description": "We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking 'Accept All', you consent to our use of cookies.",
+        "acceptAll": "Accept All",
+        "rejectAll": "Reject All",
+        "customize": "Customize",
+        "settingsTitle": "Cookie Preferences",
+        "savePreferences": "Save Preferences",
+        "necessary": "Necessary Cookies",
+        "alwaysActive": "Always Active",
+        "required": "Required",
+        "necessaryDesc": "These cookies are essential for the website to function properly. They enable basic features like page navigation and access to secure areas.",
+        "analytics": "Analytics Cookies",
+        "analyticsDesc": "These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.",
+        "marketing": "Marketing Cookies",
+        "marketingDesc": "These cookies are used to track visitors across websites to display relevant advertisements and measure campaign effectiveness."
     }
 }
