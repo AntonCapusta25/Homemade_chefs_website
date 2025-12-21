@@ -101,6 +101,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                         src={heroContent[index].image}
                         alt="Home Chef"
                         fill
+                        sizes="100vw"
                         className="object-cover"
                         priority
                     />
@@ -190,6 +191,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                                         src={`/chef-avatar-${i}.png`}
                                         alt={`Chef ${i}`}
                                         fill
+                                        sizes="64px"
                                         className="object-cover"
                                     />
                                 </div>

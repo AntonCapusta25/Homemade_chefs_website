@@ -163,6 +163,7 @@ function FeatureCard({ feature }: { feature: FeatureProps }) {
                     src={feature.image}
                     alt={feature.title}
                     fill
+                    sizes="(max-width: 768px) 85vw, (max-width: 1024px) 35vw, 30vw"
                     className="object-cover object-center transform group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className={`absolute top-4 left-4 ${feature.badgeColor} px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider`}>

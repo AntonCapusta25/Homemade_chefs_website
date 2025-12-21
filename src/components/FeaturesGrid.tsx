@@ -83,6 +83,7 @@ export default function FeaturesGrid() {
                                             src={feature.image}
                                             alt={feature.badge}
                                             fill
+                                            sizes="(max-width: 768px) 100vw, 400px"
                                             className="object-cover"
                                         />
                                     </div>

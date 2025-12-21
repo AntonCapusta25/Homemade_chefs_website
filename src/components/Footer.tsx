@@ -21,9 +21,10 @@ export default function Footer() {
                         <div className="relative w-48 h-14 mb-8">
                             <Image
                                 src="/logo-full.png"
-                                alt="Homemade Logo"
+                                alt="Homemade Chefs Logo"
                                 fill
-                                className="object-contain object-left invert opacity-90" // Invert color for dark bg
+                                sizes="150px"
+                                className="object-contain"
                             />
                         </div>
                         <p className="text-gray-400 text-lg leading-relaxed mb-8">

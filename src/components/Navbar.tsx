@@ -82,6 +82,8 @@ export default function Navbar() {
                                 src="/logo-full.png"
                                 alt="Homemade"
                                 fill
+                                sizes="(max-width: 768px) 96px, 112px"
+                                priority
                                 className="object-contain object-left group-hover:opacity-80 transition-opacity"
                             />
                         </div>

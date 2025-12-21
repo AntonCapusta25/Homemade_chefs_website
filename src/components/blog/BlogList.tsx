@@ -105,6 +105,7 @@ export default function BlogList({ posts, isEditor = false, categories: propCate
                                             src={post.hero_image || post.image || '/chefs-cooking.png'}
                                             alt={post.title}
                                             fill
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                             className="object-cover"
                                             onError={(e) => {
                                                 const target = e.target as HTMLImageElement;

@@ -15,6 +15,7 @@ export default function AuthorCard({ author }: { author: Author }) {
                     src={author.avatar}
                     alt={author.name}
                     fill
+                    sizes="80px"
                     className="object-cover rounded-full border-2 border-white shadow-md bg-gray-200"
                 />
             </div>

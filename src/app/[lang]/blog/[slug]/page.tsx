@@ -12,6 +12,8 @@ import CallToAction from '@/components/CallToAction';
 import en from '@/translations/en.json';
 import nl from '@/translations/nl.json';
 import fr from '@/translations/fr.json';
+import { BlogPostSchema, BreadcrumbSchema } from '@/components/StructuredData';
+import Breadcrumb from '@/components/Breadcrumb';
 
 // Type definition for translations
 type Translations = typeof en;
@@ -71,6 +73,33 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     return (
         <main className="min-h-screen bg-[#FDFBF7]">
             <BlogLanguageManager translations={translations} />
+            <BlogPostSchema
+                title={post.title}
+                description={post.meta_description || post.excerpt}
+                image={post.hero_image}
+                datePublished={post.published_date || post.created_at}
+                dateModified={post.updated_at}
+                slug={post.slug}
+                language={validLang}
+            />
+            <BreadcrumbSchema
+                items={[
+                    { name: 'Home', url: `https://homemadechefs.com${validLang === 'en' ? '' : '/' + validLang}` },
+                    { name: t.nav.blog, url: `https://homemadechefs.com${validLang === 'en' ? '' : '/' + validLang}/blog` },
+                    { name: post.title },
+                ]}
+            />
+
+            {/* Breadcrumb Navigation */}
+            <div className="max-w-7xl mx-auto px-6 pt-8">
+                <Breadcrumb
+                    items={[
+                        { name: t.nav.blog, url: `/${validLang === 'en' ? '' : validLang + '/'}blog` },
+                        { name: post.category || 'Article' },
+                    ]}
+                />
+            </div>
+
             {/* Hero Section */}
             <section className="relative h-[70vh] min-h-[500px] flex items-end pb-20 overflow-hidden">
                 <div className="absolute inset-0 z-0">
@@ -79,6 +108,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             src={post.hero_image}
                             alt={post.title}
                             fill
+                            sizes="100vw"
                             className="object-cover scale-105"
                             priority
                         />
@@ -123,6 +153,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                             src={post.author_avatar}
                                             alt={post.author_name}
                                             fill
+                                            sizes="48px"
                                             className="object-cover"
                                         />
                                     </div>
@@ -198,6 +229,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                     src={post.author_avatar}
                                     alt={post.author_name}
                                     fill
+                                    sizes="80px"
                                     className="object-cover rounded-full border-2 border-white shadow-md"
                                 />
                             ) : (
@@ -241,6 +273,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                                     src={related.hero_image}
                                                     alt={related.title}
                                                     fill
+                                                    sizes="(max-width: 1024px) 100vw, 300px"
                                                     className="object-cover group-hover:scale-110 transition-transform duration-700"
                                                 />
                                             </div>
