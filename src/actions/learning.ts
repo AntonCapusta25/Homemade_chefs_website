@@ -47,21 +47,9 @@ export async function getLearningPageBySlug(slug: string, language: string = 'en
             .single();
 
         if (error) {
-            // Log ALL error properties to see what's actually happening
-            console.error('=== SUPABASE ERROR DETAILS ===');
-            console.error('Slug:', slug);
-            console.error('Language:', language);
-            console.error('Error Code:', error.code);
-            console.error('Error Message:', error.message);
-            console.error('Error Details:', error.details);
-            console.error('Error Hint:', error.hint);
-            console.error('Full Error Object:', error);
-            console.error('Error Keys:', Object.keys(error));
-            console.error('================================');
-
             // If the page doesn't exist in the requested language, try English as fallback
             if (language !== 'en') {
-                console.log('Page not found in requested language, trying English fallback...');
+                console.log(`Learning page "${slug}" not found in ${language}, trying English fallback...`);
 
                 const { data: englishPage, error: englishError } = await supabase
                     .from('learning_pages')
@@ -72,14 +60,15 @@ export async function getLearningPageBySlug(slug: string, language: string = 'en
                     .single();
 
                 if (englishError) {
-                    console.error('English fallback also failed:', englishError);
+                    console.error(`Learning page "${slug}" not found in ${language} or English`);
                     return { success: false, data: null, error: `Page not found in ${language} or English` };
                 }
 
-                console.log('Successfully fetched English fallback:', englishPage?.title);
+                console.log(`✓ Using English version for "${slug}"`);
                 return { success: true, data: englishPage, error: null, fallbackLanguage: 'en' };
             }
 
+            console.error(`Learning page "${slug}" not found in English`);
             return { success: false, data: null, error: error.message || 'Failed to fetch learning page' };
         }
 
