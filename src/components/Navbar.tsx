@@ -156,9 +156,9 @@ export default function Navbar() {
                         aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
                     >
                         {isMobileMenuOpen ? (
-                            <X size={20} className="text-white" />
+                            <X size={20} className="text-[#0F1E19]" />
                         ) : (
-                            <Menu size={20} className="text-white" />
+                            <Menu size={20} className="text-[#0F1E19]" />
                         )}
                     </button>
 
