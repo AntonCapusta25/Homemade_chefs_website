@@ -70,16 +70,16 @@ export default function CtaOverlay() {
                                         <p className="text-gray-800 font-semibold text-sm">Book your private chef today.</p>
                                         <p className="text-gray-500 text-xs mt-0.5">Unforgettable experiences at home.</p>
                                     </div>
-                                    <motion.button
+                                    <motion.a
+                                        href="https://zol4dc90rf4.typeform.com/to/MUaBZhSV"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
-                                        className="px-5 py-2.5 bg-black text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl transition-all whitespace-nowrap"
-                                        onClick={() => {
-                                            window.open('https://zol4dc90rf4.typeform.com/to/MUaBZhSV', '_blank');
-                                        }}
+                                        className="px-5 py-2.5 bg-black text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl transition-all whitespace-nowrap inline-block"
                                     >
                                         Book Now
-                                    </motion.button>
+                                    </motion.a>
                                 </div>
                             </div>
                         </div>
