@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Providers from "@/components/Providers";
 import CookieBanner from "@/components/CookieBanner";
+import CtaOverlay from "@/components/CtaOverlay";
 import { OrganizationSchema } from "@/components/StructuredData";
 
 const serifFont = DM_Serif_Display({
@@ -105,6 +106,7 @@ export default function RootLayout({
           </main>
           <Footer />
           <CookieBanner />
+          <CtaOverlay />
         </Providers>
 
         {/* Analytics scripts loaded after page interactive to improve performance */}
