@@ -121,8 +121,8 @@ export default function Footer() {
                 <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 text-sm text-gray-500">
                     <p>© 2025 Homemade Chefs. {t('footer.allRightsReserved')}</p>
                     <div className="flex gap-6 mt-4 md:mt-0">
-                        <Link href="https://drive.google.com/file/d/1d5B3niPChV8Uu5MD2EhE-O95ZNvZIywS/view" target="_blank" className="hover:text-white transition-colors">{t('footer.privacy')}</Link>
-                        <Link href="https://drive.google.com/file/d/1d5B3niPChV8Uu5MD2EhE-O95ZNvZIywS/view" target="_blank" className="hover:text-white transition-colors">{t('footer.terms')}</Link>
+                        <Link href="/privacy" className="hover:text-white transition-colors">{t('footer.privacy')}</Link>
+                        <Link href="/terms" className="hover:text-white transition-colors">{t('footer.terms')}</Link>
                         <Link href="#" className="hover:text-white transition-colors">{t('footer.cookies')}</Link>
                     </div>
                 </div>
