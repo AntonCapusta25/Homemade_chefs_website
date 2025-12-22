@@ -24,7 +24,7 @@ export default function CtaOverlay() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 20, scale: 0.95 }}
                     transition={{ duration: 0.5, type: "spring", bounce: 0.4 }}
-                    className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50 w-[90vw] md:w-[450px] max-w-lg"
+                    className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[10001] w-[90vw] md:w-[450px] max-w-lg"
                 >
                     <div className="relative group perspective-1000">
                         {/* Glassmorphism Card Container */}
@@ -70,16 +70,14 @@ export default function CtaOverlay() {
                                         <p className="text-gray-800 font-semibold text-sm">Book your private chef today.</p>
                                         <p className="text-gray-500 text-xs mt-0.5">Unforgettable experiences at home.</p>
                                     </div>
-                                    <motion.a
+                                    <a
                                         href="https://zol4dc90rf4.typeform.com/to/MUaBZhSV"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className="px-5 py-2.5 bg-black text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl transition-all whitespace-nowrap inline-block"
+                                        className="px-5 py-2.5 bg-black text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl transition-all whitespace-nowrap inline-block transform hover:scale-105 active:scale-95"
                                     >
                                         Book Now
-                                    </motion.a>
+                                    </a>
                                 </div>
                             </div>
                         </div>
