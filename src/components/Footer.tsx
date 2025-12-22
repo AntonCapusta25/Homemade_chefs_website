@@ -80,8 +80,8 @@ export default function Footer() {
                         <ul className="space-y-4 text-gray-400">
                             <li><FooterLink href="https://calendly.com/homemademeals/30min">{t('footer.helpCenter')}</FooterLink></li>
                             <li><FooterLink href="/#safety">{t('footer.safety')}</FooterLink></li>
-                            <li><FooterLink href="https://drive.google.com/file/d/1d5B3niPChV8Uu5MD2EhE-O95ZNvZIywS/view">{t('footer.terms')}</FooterLink></li>
-                            <li><FooterLink href="https://drive.google.com/file/d/1d5B3niPChV8Uu5MD2EhE-O95ZNvZIywS/view">{t('footer.privacy')}</FooterLink></li>
+                            <li><FooterLink href="/terms">{t('footer.terms')}</FooterLink></li>
+                            <li><FooterLink href="/privacy">{t('footer.privacy')}</FooterLink></li>
                         </ul>
                     </div>
                     <div>
