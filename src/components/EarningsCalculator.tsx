@@ -41,7 +41,7 @@ export default function EarningsCalculator() {
                     viewport={{ once: true }}
                     className="space-y-8"
                 >
-                    <h2 className="font-serif text-5xl md:text-6xl font-bold text-[#0F1E19]">
+                    <h2 className="font-serif text-4xl md:text-6xl font-bold text-[#0F1E19]">
                         {t('earnings.title')}
                     </h2>
 
@@ -66,7 +66,7 @@ export default function EarningsCalculator() {
                     initial={{ opacity: 0, x: 30 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    className="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-2xl border border-gray-100"
+                    className="bg-white rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-10 shadow-2xl border border-gray-100"
                 >
                     <div className="text-center mb-10">
                         <h3 className="font-serif text-3xl font-bold text-[#1A1A1A] mb-2">{t('earnings.calcTitle')}</h3>
@@ -138,14 +138,14 @@ export default function EarningsCalculator() {
 
                     <div className="bg-[#F47A44] rounded-3xl p-8 text-center text-white shadow-xl mb-8">
                         <p className="text-white/90 font-medium mb-2 text-lg">{t('earnings.youCouldEarn')}</p>
-                        <div className="font-serif text-7xl font-bold mb-2 tracking-tight">
+                        <div className="font-serif text-5xl md:text-7xl font-bold mb-2 tracking-tight">
                             €{earnings.monthly.toLocaleString()}
                         </div>
                         <p className="text-white/90 font-medium mb-8">{t('earnings.perMonth')}</p>
 
                         <div className="w-full h-px bg-white/30 mb-8" />
 
-                        <div className="flex justify-between px-8">
+                        <div className="flex flex-col sm:flex-row gap-6 sm:gap-0 justify-between px-4 sm:px-8">
                             <div className="text-center">
                                 <p className="text-white/90 text-sm font-medium mb-1">{t('earnings.perWeek')}</p>
                                 <p className="font-bold text-2xl">€{earnings.weekly.toLocaleString()}</p>
