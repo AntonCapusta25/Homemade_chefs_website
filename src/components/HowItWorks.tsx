@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { UserPlus, Utensils, ChefHat, Wallet } from 'lucide-react';
+import { Store, Camera, CookingPot, TrendingUp } from 'lucide-react';
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -13,33 +13,33 @@ export default function HowItWorks() {
             id: 1,
             title: t('howItWorks.step1Title'),
             description: t('howItWorks.step1Desc'),
-            icon: UserPlus,
+            icon: Store,
             color: "bg-orange-100 text-orange-600",
-            image: "/hero-real-1.png" // Create Your Profile
+            image: "/hiw-profile-setup.png" // Create Your Profile
         },
         {
             id: 2,
             title: t('howItWorks.step2Title'),
             description: t('howItWorks.step2Desc'),
-            icon: Utensils,
+            icon: Camera,
             color: "bg-green-100 text-green-600",
-            image: "/hero-real-2.png" // Post Your Menu
+            image: "/hiw-food-photo.png" // Post Your Menu
         },
         {
             id: 3,
             title: t('howItWorks.step3Title'),
             description: t('howItWorks.step3Desc'),
-            icon: ChefHat,
+            icon: CookingPot,
             color: "bg-teal-100 text-teal-600",
-            image: "/cinematic-serving.png" // Cook & Connect
+            image: "/hiw-serving-food.png" // Cook & Connect
         },
         {
             id: 4,
             title: t('howItWorks.step4Title'),
             description: t('howItWorks.step4Desc'),
-            icon: Wallet,
+            icon: TrendingUp,
             color: "bg-yellow-100 text-yellow-600",
-            image: "/hero-real-4.png" // Earn & Thrive
+            image: "/hiw-earnings-growth.png" // Earn & Thrive
         }
     ];
 
