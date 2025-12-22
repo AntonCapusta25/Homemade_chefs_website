@@ -64,7 +64,7 @@ export default function FeaturesGrid() {
                     </h2>
                 </div>
 
-                <div className="space-y-16 md:space-y-24">
+                <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-8 -mx-4 px-4 md:block md:space-y-24 md:overflow-visible md:pb-0 md:mx-0 md:px-0 scrollbar-hide">
                     {features.map((feature, index) => (
                         <motion.div
                             key={index}
@@ -72,7 +72,7 @@ export default function FeaturesGrid() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-100px" }}
                             transition={{ duration: 0.5 }}
-                            className={`flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-20 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
+                            className={`min-w-[85vw] snap-center flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-20 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
                         >
                             {/* Image Side */}
                             <div className="flex-1 w-full px-2 md:px-0">
@@ -96,12 +96,12 @@ export default function FeaturesGrid() {
                             </div>
 
                             {/* Content Side */}
-                            <div className="flex-1 space-y-6 md:space-y-8 text-center md:text-left">
-                                <h3 className="font-serif text-2xl md:text-4xl font-bold text-[#0F1E19] leading-tight px-4 md:px-0">
+                            <div className="flex-1 space-y-4 md:space-y-8 text-center md:text-left">
+                                <h3 className="font-serif text-2xl md:text-4xl font-bold text-[#0F1E19] leading-tight px-4 md:px-0 mt-4 md:mt-0">
                                     {feature.title}
                                 </h3>
 
-                                <div className="space-y-4 md:space-y-6 text-left inline-block md:block">
+                                <div className="space-y-3 md:space-y-6 text-left inline-block md:block px-4 md:px-0">
                                     {feature.points.map((point, i) => (
                                         <div key={i} className="flex gap-3 md:gap-4">
                                             <div className="flex-shrink-0 mt-1">
@@ -109,7 +109,7 @@ export default function FeaturesGrid() {
                                                     <CheckCircle2 size={14} className="md:w-4 md:h-4" strokeWidth={3} />
                                                 </div>
                                             </div>
-                                            <p className="text-gray-600 text-base md:text-lg font-medium leading-relaxed">
+                                            <p className="text-gray-600 text-sm md:text-lg font-medium leading-relaxed">
                                                 {point}
                                             </p>
                                         </div>
