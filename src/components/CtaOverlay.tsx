@@ -24,7 +24,8 @@ export default function CtaOverlay() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 20, scale: 0.95 }}
                     transition={{ duration: 0.5, type: "spring", bounce: 0.4 }}
-                    className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[10001] w-[90vw] md:w-[450px] max-w-lg"
+                    className="fixed bottom-4 right-4 md:bottom-8 md:right-8 w-[90vw] md:w-[450px] max-w-lg"
+                    style={{ zIndex: 999999 }} // Force highest z-index via inline style
                 >
                     <div className="relative group perspective-1000">
                         {/* Glassmorphism Card Container */}
