@@ -88,8 +88,8 @@ export default function FeaturesGrid() {
                                         />
                                     </div>
 
-                                    {/* Floating Badge - Optimized for Mobile */}
-                                    <div className={`absolute -top-4 md:-top-6 ${index % 2 === 0 ? 'left-4 md:-left-6' : 'right-4 md:-right-6'} ${feature.badgeColor} px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-xs md:text-base shadow-lg transform group-hover:scale-105 transition-transform duration-300 z-10 flex items-center gap-2 border border-white`}>
+                                    {/* Floating Badge - Optimized for Mobile (Hidden on mobile, shown on desktop) */}
+                                    <div className={`hidden md:flex absolute -top-4 md:-top-6 ${index % 2 === 0 ? 'left-4 md:-left-6' : 'right-4 md:-right-6'} ${feature.badgeColor} px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-xs md:text-base shadow-lg transform group-hover:scale-105 transition-transform duration-300 z-10 items-center gap-2 border border-white`}>
                                         {feature.badge}
                                     </div>
                                 </div>
@@ -97,7 +97,11 @@ export default function FeaturesGrid() {
 
                             {/* Content Side */}
                             <div className="flex-1 space-y-4 md:space-y-8 text-center md:text-left">
-                                <h3 className="font-serif text-2xl md:text-4xl font-bold text-[#0F1E19] leading-tight px-4 md:px-0 mt-4 md:mt-0">
+                                {/* Mobile Inline Badge */}
+                                <div className={`md:hidden inline-block ${feature.badgeColor} px-4 py-1.5 rounded-full font-bold text-xs shadow-sm mb-2 border border-white/50`}>
+                                    {feature.badge}
+                                </div>
+                                <h3 className="font-serif text-2xl md:text-4xl font-bold text-[#0F1E19] leading-tight px-4 md:px-0 mt-2 md:mt-0">
                                     {feature.title}
                                 </h3>
 
