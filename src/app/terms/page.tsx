@@ -3,7 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 
 export default function TermsOfService() {
     return (
-        <div className="min-h-screen bg-[#FDFBF7]">
+        <div className="min-h-screen bg-[#FDFBF7] pt-24">
             <div className="max-w-4xl mx-auto px-6 md:px-12 py-12">
                 {/* Back Button */}
                 <Link
