@@ -29,7 +29,7 @@ export default function LiveSupport() {
                         initial={{ opacity: 0, y: 20, scale: 0.9 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.9 }}
-                        className="fixed bottom-24 right-6 w-[350px] bg-white rounded-2xl shadow-2xl z-50 overflow-hidden border border-gray-100 font-sans"
+                        className="fixed bottom-24 right-6 w-[calc(100vw-3rem)] max-w-[350px] bg-white rounded-2xl shadow-2xl z-50 overflow-hidden border border-gray-100 font-sans"
                     >
                         <div className="bg-[#E76F3C] p-4 flex justify-between items-center text-white">
                             <div className="flex items-center gap-3">

@@ -145,7 +145,7 @@ export default function PricingDetailedComparison() {
                             className="bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-gray-100"
                         >
                             <div className="overflow-x-auto">
-                                <div className="min-w-[800px]">
+                                <div className="min-w-[800px] w-full overflow-x-auto">
                                     {/* Header Row */}
                                     <div className="grid grid-cols-[1.5fr_1fr_1fr_1fr] gap-4 p-6 bg-gradient-to-r from-[#F47A44] to-[#E86825]">
                                         <div className="flex items-end pb-2">

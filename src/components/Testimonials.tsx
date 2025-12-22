@@ -80,7 +80,7 @@ export default function Testimonials() {
                     <motion.div
                         key={index}
                         whileHover={{ scale: 1.02, y: -10 }}
-                        className={`relative w-[300px] md:w-[350px] rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 bg-white group flex-shrink-0`}
+                        className={`relative w-[85vw] max-w-[350px] rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 bg-white group flex-shrink-0`}
                     >
                         {/* Quote Decoration */}
                         <div className="absolute top-4 right-4 z-10 opacity-10 font-serif text-8xl leading-none">&quot;</div>
