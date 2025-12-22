@@ -91,12 +91,12 @@ export default function FeaturesHorizontalScroll() {
     const x = useTransform(scrollYProgress, [0, 1], ["0px", `-${scrollDistance}px`]);
 
     return (
-        <section ref={targetRef} className="relative h-[400vh] bg-[#FDFBF7]">
+        <section ref={targetRef} className="relative h-auto md:h-[400vh] bg-[#FDFBF7]">
 
-            <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+            <div className="relative h-auto md:sticky md:top-0 md:h-screen flex flex-col justify-center overflow-hidden py-16 md:py-0">
 
                 {/* Header */}
-                <div className="absolute top-12 left-0 right-0 z-10 text-center px-4">
+                <div className="relative md:absolute top-0 md:top-12 left-0 right-0 z-10 text-center px-4 mb-10 md:mb-0">
                     <h2 className="font-serif text-3xl md:text-5xl font-bold text-[#0F1E19] mb-2">
                         {t('features.title')}
                     </h2>
@@ -105,17 +105,41 @@ export default function FeaturesHorizontalScroll() {
                     </p>
                 </div>
 
-                {/* The Horizontal Scrolling Track */}
+                {/* MOBILE: Native Horizontal Scroll Track */}
+                <div className="flex md:hidden overflow-x-auto snap-x snap-mandatory gap-4 px-4 w-full pb-8 scrollbar-hide cursor-grab active:cursor-grabbing">
+                    {features.map((feature, index) => (
+                        <div key={index} className="snap-center flex-shrink-0">
+                            <FeatureCard feature={feature} />
+                        </div>
+                    ))}
+                    {/* Mobile CTA Card */}
+                    <div className="snap-center flex-shrink-0 w-[85vw] bg-[#0F1E19] rounded-3xl text-white p-8 text-center flex flex-col items-center justify-center shadow-lg">
+                        <h3 className="font-serif text-3xl mb-6">{t('features.readyToStart')}</h3>
+                        <Link
+                            href="https://signup.homemadechefs.com"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                const url = trackSignupClick('features-scroll');
+                                window.open(url, '_blank');
+                            }}
+                            className="inline-flex items-center gap-2 bg-[#F47A44] hover:bg-[#E86825] px-8 py-4 rounded-full font-bold text-lg transition-colors shadow-md"
+                        >
+                            {t('features.joinNow')} <ArrowRight />
+                        </Link>
+                    </div>
+                </div>
+
+                {/* DESKTOP: Animated Horizontal Scroll Track */}
                 <motion.div
                     ref={contentRef}
                     style={{ x: contentWidth > 0 ? x : 0 }}
-                    className="flex gap-12 px-12 md:px-24 w-max"
+                    className="hidden md:flex gap-12 px-24 w-max"
                 >
                     {features.map((feature, index) => (
                         <FeatureCard key={index} feature={feature} />
                     ))}
-                    {/* Final Call to Action Card at the end of scroll */}
-                    <div className="flex-shrink-0 w-[80vw] md:w-[60vw] lg:w-[40vw] h-[70vh] flex items-center justify-center bg-[#0F1E19] rounded-[3rem] text-white p-12 text-center">
+                    {/* Desktop Final Call to Action Card */}
+                    <div className="flex-shrink-0 w-[60vw] lg:w-[40vw] h-[70vh] flex items-center justify-center bg-[#0F1E19] rounded-[3rem] text-white p-12 text-center">
                         <div>
                             <h3 className="font-serif text-4xl mb-6">{t('features.readyToStart')}</h3>
                             <Link
@@ -133,8 +157,8 @@ export default function FeaturesHorizontalScroll() {
                     </div>
                 </motion.div>
 
-                {/* Scroll Progress Indicator */}
-                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-2">
+                {/* Scroll Progress Indicator (Desktop Only) */}
+                <div className="hidden md:flex absolute bottom-12 left-1/2 -translate-x-1/2 gap-2">
                     <div className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('features.scrollToExplore')}</div>
                 </div>
 
@@ -154,11 +178,11 @@ interface FeatureProps {
 
 function FeatureCard({ feature }: { feature: FeatureProps }) {
     return (
-        <div className="flex-shrink-0 w-[85vw] md:w-[70vw] lg:w-[60vw] h-[70vh] bg-white rounded-[3rem] border border-gray-100 p-8 md:p-12 shadow-sm flex flex-col md:flex-row gap-8 md:gap-12 relative overflow-hidden group hover:shadow-2xl transition-shadow duration-500">
+        <div className="flex-shrink-0 w-[85vw] md:w-[70vw] lg:w-[60vw] h-auto md:h-[70vh] bg-white rounded-3xl md:rounded-[3rem] border border-gray-100 p-5 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.06)] md:shadow-sm flex flex-col md:flex-row gap-6 md:gap-12 relative overflow-hidden group hover:shadow-xl md:hover:shadow-2xl transition-all duration-500">
 
             {/* Visual Side */}
-            <div className="w-full md:w-1/2 relative min-h-[250px] md:min-h-full rounded-[2rem] overflow-hidden bg-gray-50 border border-gray-100">
-                <div className={`absolute inset-0 ${feature.color} opacity-50`}></div>
+            <div className="w-full md:w-1/2 relative aspect-video md:aspect-auto md:h-full rounded-2xl md:rounded-[2rem] overflow-hidden bg-gray-50 border border-gray-100">
+                <div className={`hidden md:block absolute inset-0 ${feature.color} opacity-50`}></div>
                 <Image
                     src={feature.image}
                     alt={feature.title}
@@ -166,23 +190,30 @@ function FeatureCard({ feature }: { feature: FeatureProps }) {
                     sizes="(max-width: 768px) 85vw, (max-width: 1024px) 35vw, 30vw"
                     className="object-cover object-center transform group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className={`absolute top-4 left-4 ${feature.badgeColor} px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider`}>
+
+                {/* Mobile Badge (Inside Image) */}
+                <div className={`md:hidden absolute top-3 left-3 ${feature.badgeColor} px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-sm backdrop-blur-md bg-opacity-95 border border-white/40`}>
+                    {feature.badge}
+                </div>
+
+                {/* Desktop Badge (Overlay) */}
+                <div className={`hidden md:block absolute top-4 left-4 ${feature.badgeColor} px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider`}>
                     {feature.badge}
                 </div>
             </div>
 
             {/* Content Side */}
-            <div className="w-full md:w-1/2 flex flex-col justify-center">
-                <h3 className="font-serif text-3xl md:text-4xl font-bold text-[#0F1E19] mb-8 leading-tight">
+            <div className="w-full md:w-1/2 flex flex-col justify-center pb-2 md:pb-0">
+                <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F1E19] mb-4 md:mb-8 leading-tight">
                     {feature.title}
                 </h3>
-                <div className="space-y-6">
+                <div className="space-y-4 md:space-y-6">
                     {feature.points.map((point: string, i: number) => (
-                        <div key={i} className="flex gap-4">
+                        <div key={i} className="flex gap-3 md:gap-4 items-start">
                             <div className="flex-shrink-0 mt-1 text-[#F47A44]">
-                                <CheckCircle2 size={24} fill="#FFF" strokeWidth={3} className="bg-orange-100 rounded-full" />
+                                <CheckCircle2 size={18} fill="#FFF" strokeWidth={3} className="bg-orange-100 rounded-full md:w-6 md:h-6" />
                             </div>
-                            <p className="text-gray-600 text-lg md:text-xl font-medium leading-relaxed">
+                            <p className="text-gray-600 text-sm md:text-lg lg:text-xl font-medium leading-relaxed">
                                 {point}
                             </p>
                         </div>

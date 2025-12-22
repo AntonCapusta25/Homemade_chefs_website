@@ -72,13 +72,16 @@ export default function FeaturesGrid() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-100px" }}
                             transition={{ duration: 0.5 }}
-                            className={`min-w-[85vw] snap-center flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-20 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
+                            className={`min-w-[85vw] snap-center flex flex-col lg:flex-row items-center gap-0 md:gap-12 lg:gap-20 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''} bg-white rounded-3xl p-5 shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-gray-100 md:bg-transparent md:rounded-none md:p-0 md:shadow-none md:border-none`}
                         >
                             {/* Image Side */}
-                            <div className="flex-1 w-full px-2 md:px-0">
+                            <div className="flex-1 w-full px-0 md:px-0 mb-6 md:mb-0">
                                 <div className="relative group">
-                                    <div className={`absolute inset-0 ${feature.color} rounded-[2rem] md:rounded-[3rem] transform rotate-3 group-hover:rotate-6 transition-transform duration-500`} />
-                                    <div className="relative rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden shadow-xl border border-gray-100 bg-white aspect-[4/3] transform transition-transform duration-500 group-hover:-translate-y-2">
+                                    {/* Desktop Background Blob (Hidden Mobile) */}
+                                    <div className={`hidden md:block absolute inset-0 ${feature.color} rounded-[2rem] md:rounded-[3rem] transform rotate-3 group-hover:rotate-6 transition-transform duration-500`} />
+
+                                    {/* Image Container */}
+                                    <div className="relative rounded-2xl md:rounded-[2.5rem] overflow-hidden shadow-sm md:shadow-xl border border-gray-100 bg-white aspect-video md:aspect-[4/3] transform transition-transform duration-500 group-hover:-translate-y-2">
                                         <Image
                                             src={feature.image}
                                             alt={feature.badge}
@@ -86,9 +89,14 @@ export default function FeaturesGrid() {
                                             sizes="(max-width: 768px) 100vw, 400px"
                                             className="object-cover"
                                         />
+
+                                        {/* Mobile Badge (Inside Image, Top Left) */}
+                                        <div className={`md:hidden absolute top-3 left-3 ${feature.badgeColor} px-3 py-1.5 rounded-full font-bold text-[10px] shadow-sm backdrop-blur-md bg-opacity-90 border border-white/50`}>
+                                            {feature.badge}
+                                        </div>
                                     </div>
 
-                                    {/* Floating Badge - Optimized for Mobile (Hidden on mobile, shown on desktop) */}
+                                    {/* Desktop Floating Badge */}
                                     <div className={`hidden md:flex absolute -top-4 md:-top-6 ${index % 2 === 0 ? 'left-4 md:-left-6' : 'right-4 md:-right-6'} ${feature.badgeColor} px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-xs md:text-base shadow-lg transform group-hover:scale-105 transition-transform duration-300 z-10 items-center gap-2 border border-white`}>
                                         {feature.badge}
                                     </div>
@@ -96,21 +104,17 @@ export default function FeaturesGrid() {
                             </div>
 
                             {/* Content Side */}
-                            <div className="flex-1 space-y-4 md:space-y-8 text-center md:text-left">
-                                {/* Mobile Inline Badge */}
-                                <div className={`md:hidden inline-block ${feature.badgeColor} px-4 py-1.5 rounded-full font-bold text-xs shadow-sm mb-2 border border-white/50`}>
-                                    {feature.badge}
-                                </div>
-                                <h3 className="font-serif text-2xl md:text-4xl font-bold text-[#0F1E19] leading-tight px-4 md:px-0 mt-2 md:mt-0">
+                            <div className="flex-1 space-y-4 md:space-y-8 text-center md:text-left w-full">
+                                <h3 className="font-serif text-2xl md:text-4xl font-bold text-[#0F1E19] leading-tight px-1 md:px-0">
                                     {feature.title}
                                 </h3>
 
-                                <div className="space-y-3 md:space-y-6 text-left inline-block md:block px-4 md:px-0">
+                                <div className="space-y-3 md:space-y-6 text-left inline-block md:block px-1 md:px-0">
                                     {feature.points.map((point, i) => (
-                                        <div key={i} className="flex gap-3 md:gap-4">
+                                        <div key={i} className="flex gap-3 md:gap-4 items-start">
                                             <div className="flex-shrink-0 mt-1">
                                                 <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#F47A44]/10 flex items-center justify-center text-[#F47A44]">
-                                                    <CheckCircle2 size={14} className="md:w-4 md:h-4" strokeWidth={3} />
+                                                    <CheckCircle2 size={13} className="md:w-4 md:h-4" strokeWidth={3} />
                                                 </div>
                                             </div>
                                             <p className="text-gray-600 text-sm md:text-lg font-medium leading-relaxed">
