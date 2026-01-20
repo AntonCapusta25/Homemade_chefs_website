@@ -49,11 +49,11 @@ export default async function Home() {
         <EarningsCalculator />
       </div>
 
-      {/* --- FOOD SAFETY --- */}
-      <FoodSafety />
-
       {/* --- GROW YOUR BUSINESS --- */}
       <GrowBusiness />
+
+      {/* --- FOOD SAFETY --- */}
+      <FoodSafety />
 
       {/* --- PRICING PLANS --- */}
       <PricingPlans />
