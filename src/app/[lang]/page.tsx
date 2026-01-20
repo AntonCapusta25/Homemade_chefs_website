@@ -41,13 +41,13 @@ export default async function Home() {
       {/* --- FEATURE CARDS (HORIZONTAL SCROLL) --- */}
       <FeaturesHorizontalScroll />
 
-      {/* --- HOW IT WORKS --- */}
-      <HowItWorks />
-
       {/* --- EARNINGS CALCULATOR --- */}
       <div id="earnings">
         <EarningsCalculator />
       </div>
+
+      {/* --- HOW IT WORKS --- */}
+      <HowItWorks />
 
       {/* --- GROW YOUR BUSINESS --- */}
       <GrowBusiness />
