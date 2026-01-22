@@ -164,18 +164,6 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                             {primaryCta || t("hero.startCooking")}
                             <ArrowUpRight className="group-hover:rotate-45 transition-transform" size={20} />
                         </Link>
-                        <Link
-                            href="https://play.google.com/store/apps/details?id=com.customer.homemademeals"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => trackAppDownload('google-play')}
-                            className="group inline-flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-full font-bold text-lg transition-all border border-white/20 w-full sm:w-auto"
-                        >
-                            <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                                <Play size={16} fill="white" className="ml-0.5" />
-                            </div>
-                            {secondaryCta || t("hero.downloadApp")}
-                        </Link>
                     </motion.div>
 
                     {/* Social Proof */}
