@@ -1,6 +1,7 @@
 import { getContentStatic } from '@/actions/cms';
 import dynamic from 'next/dynamic';
 import GrandHero from '@/components/GrandHero';
+import Partners from '@/components/Partners';
 import FeaturesHorizontalScroll from '@/components/FeaturesHorizontalScroll';
 
 // Lazy load below-the-fold components to improve initial load time
@@ -57,6 +58,9 @@ export default async function Home() {
 
       {/* --- PRICING PLANS --- */}
       <PricingPlans />
+
+      {/* --- PARTNERS SECTION --- */}
+      <Partners />
 
 
       {/* --- FAQ --- */}

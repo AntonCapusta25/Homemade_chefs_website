@@ -20,7 +20,12 @@ body {
   font-family: var(--font-sans);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-serif);
 }
 
@@ -30,11 +35,25 @@ html {
 }
 
 @keyframes shine {
-    100% {
-        left: 125%;
-    }
+  100% {
+    left: 125%;
+  }
 }
 
 .animate-shine {
-    animation: shine 1s;
+  animation: shine 1s;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 120s linear infinite;
 }

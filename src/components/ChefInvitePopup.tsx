@@ -16,11 +16,11 @@ export default function ChefInvitePopup() {
         const hasSeenPopup = localStorage.getItem("chef_invite_seen");
         if (hasSeenPopup) return;
 
-        // Show after 5 seconds
+        // Show after 45 seconds
         const timer = setTimeout(() => {
             setIsVisible(true);
             triggerConfetti();
-        }, 5000);
+        }, 45000);
 
         return () => clearTimeout(timer);
     }, []);

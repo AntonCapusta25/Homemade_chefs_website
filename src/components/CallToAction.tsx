@@ -68,16 +68,7 @@ export default function CallToAction({ title, subtitle, buttonText }: CallToActi
                                 <ArrowRight className="group-hover:translate-x-1 transition-transform" />
                             </Link>
 
-                            <Link
-                                href="https://play.google.com/store/apps/details?id=com.customer.homemademeals"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={() => trackAppDownload('google-play')}
-                                className="w-full sm:w-auto px-8 py-5 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 rounded-full font-bold text-lg transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2"
-                            >
-                                <Smartphone size={20} />
-                                {t('cta.downloadApp')}
-                            </Link>
+
                         </div>
 
                         <p className="mt-8 text-sm text-gray-500">

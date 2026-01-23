@@ -94,6 +94,7 @@ export default function Navbar() {
                         <NavLink href="/pricing">{t('nav.pricing')}</NavLink>
                         <NavLink href="/blog">{t('nav.blog')}</NavLink>
                         <NavLink href="/learning">{t('nav.learning')}</NavLink>
+                        <NavLink href="/about">About Us</NavLink>
                     </div>
 
                     {/* Desktop Right Actions */}
@@ -180,7 +181,8 @@ export default function Navbar() {
                             {[
                                 { href: '/pricing', label: t('nav.pricing') },
                                 { href: '/blog', label: t('nav.blog') },
-                                { href: '/learning', label: t('nav.learning') }
+                                { href: '/learning', label: t('nav.learning') },
+                                { href: '/about', label: 'About Us' }
                             ].map((item, i) => (
                                 <motion.div custom={i} variants={linkVariants} key={item.href}>
                                     <Link

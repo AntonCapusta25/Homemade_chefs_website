@@ -273,10 +273,70 @@ export default function LearningPage() {
                         Enter your email to access our complete library of food safety documents and checklists.
                     </p>
                     <div className="flex flex-col md:flex-row gap-4 justify-center max-w-lg mx-auto">
-                        <input type="email" placeholder="Your email address" className="px-6 py-4 rounded-full text-[#0F1E19] flex-grow outline-none focus:ring-4 focus:ring-white/30" />
-                        <button className="bg-[#0F1E19] text-white px-8 py-4 rounded-full font-bold hover:bg-black transition-colors">
-                            Get Access
-                        </button>
+
+                        <form
+                            onSubmit={async (e) => {
+                                e.preventDefault();
+                                const emailInput = (e.target as any).email;
+                                const email = emailInput.value;
+                                if (!email) return;
+
+                                const btn = e.currentTarget.querySelector('button');
+                                if (btn) {
+                                    btn.disabled = true;
+                                    btn.innerHTML = 'Submitting...';
+                                }
+
+                                try {
+                                    const response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/newsletter-subscribe`, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
+                                        },
+                                        body: JSON.stringify({ email }),
+                                    });
+
+                                    const data = await response.json();
+
+                                    if (response.ok) {
+                                        if (btn) {
+                                            btn.innerHTML = 'Success! Check your email.';
+                                            btn.classList.remove('bg-[#0F1E19]', 'text-white');
+                                            btn.classList.add('bg-white', 'text-[#0F1E19]');
+                                        }
+                                        emailInput.value = '';
+                                        alert(data.message || 'Successfully subscribed! You now have full access.');
+                                    } else {
+                                        if (btn) {
+                                            btn.disabled = false;
+                                            btn.innerHTML = 'Get Access';
+                                        }
+                                        alert(data.error || 'Something went wrong. Please try again.');
+                                    }
+                                } catch (error) {
+                                    console.error('Subscription error:', error);
+                                    if (btn) {
+                                        btn.disabled = false;
+                                        btn.innerHTML = 'Get Access';
+                                    }
+                                    alert('Failed to subscribe. Please try again.');
+                                }
+                            }}
+                            className="flex flex-col md:flex-row gap-4 w-full"
+                        >
+                            <input
+                                name="email"
+                                type="email"
+                                placeholder="Your email address"
+                                className="px-6 py-4 rounded-full text-[#0F1E19] flex-grow outline-none focus:ring-4 focus:ring-white/30"
+                                required
+                            />
+                            <button className="bg-[#0F1E19] text-white px-8 py-4 rounded-full font-bold hover:bg-black transition-colors disabled:opacity-70 disabled:cursor-not-allowed">
+                                Get Access
+                            </button>
+                        </form>
+
                     </div>
                 </div>
             </section>
