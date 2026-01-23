@@ -25,11 +25,11 @@ const sansFont = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Homemade Chefs | Turn Your Kitchen Into a Business',
+    default: 'Start Your Home Food Business in Netherlands | Homemade Chefs',
     template: '%s | Homemade Chefs',
   },
-  description: 'Join 50+ chefs earning from home cooking. Professional platform for home chefs to sell meals, manage orders, and grow their culinary business in Netherlands.',
-  keywords: ['home chef', 'cooking business', 'sell homemade food', 'culinary platform', 'food delivery', 'home cooking', 'chef platform', 'Netherlands'],
+  description: 'The #1 platform to start your catering or food delivery business from home in the Netherlands. Sell homemade meals, manage orders, and grow your culinary brand with 0 startup costs.',
+  keywords: ['start catering business', 'sell food from home', 'home chef netherlands', 'cooking business', 'homemade food delivery', 'culinary entrepreneur', 'hobby chef platform', 'Netherlands'],
   authors: [{ name: 'Homemade Chefs' }],
   creator: 'Homemade Chefs',
   publisher: 'Homemade Chefs',
@@ -43,8 +43,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Homemade Chefs | Turn Your Kitchen Into a Business',
-    description: 'Join 50+ chefs earning from home cooking. Professional platform for home chefs.',
+    title: 'Start Your Home Food Business in Netherlands | Homemade Chefs',
+    description: 'The #1 platform to start your catering or food delivery business from home in the Netherlands. Sell homemade meals, manage orders, and grow your culinary brand with 0 startup costs.',
     url: 'https://homemadechefs.com',
     siteName: 'Homemade Chefs',
     images: [
