@@ -113,7 +113,7 @@ export default function ChefInvitePopup() {
                         </button>
 
                         {/* Left Side - Content */}
-                        <div className="w-full md:w-1/2 p-8 md:p-10 flex flex-col justify-center items-start text-left z-10 bg-white">
+                        <div className="w-full md:w-1/2 p-8 md:p-10 flex flex-col justify-center items-center text-center md:items-start md:text-left z-10 bg-white">
 
                             {/* Badge */}
                             <motion.div
@@ -135,7 +135,7 @@ export default function ChefInvitePopup() {
                             </p>
 
                             {/* Timer */}
-                            <div className="flex items-center gap-4 mb-8 w-full">
+                            <div className="flex items-center justify-center md:justify-start gap-4 mb-8 w-full">
                                 <div className="bg-[#F8F9FA] px-4 py-3 rounded-xl border border-gray-100 flex items-center gap-3">
                                     <Clock size={20} className="text-[#F47A44]" />
                                     <span className="font-mono font-bold text-2xl text-gray-900">{formatTime(timeLeft)}</span>
