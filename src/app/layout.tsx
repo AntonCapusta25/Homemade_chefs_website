@@ -7,8 +7,8 @@ import Footer from "../components/Footer";
 import Providers from "../components/Providers";
 import CookieBanner from "../components/CookieBanner";
 
-// import ChefInvitePopup from "../components/ChefInvitePopup";
-// import LimitedSpotsBanner from "../components/LimitedSpotsBanner";
+import ChefInvitePopup from "../components/ChefInvitePopup";
+import LimitedSpotsBanner from "../components/LimitedSpotsBanner";
 import { OrganizationSchema } from "../components/StructuredData";
 
 const serifFont = DM_Serif_Display({
@@ -117,8 +117,8 @@ export default function RootLayout({
           </main>
           <Footer />
           <CookieBanner />
-          {/* <ChefInvitePopup /> */}
-          {/* <LimitedSpotsBanner /> */}
+          <ChefInvitePopup />
+          <LimitedSpotsBanner />
         </Providers>
 
         {/* Analytics scripts loaded after page interactive to improve performance */}
