@@ -106,58 +106,7 @@ export default function LearningPage() {
 
                 <div className="max-w-7xl mx-auto text-center relative z-10">
 
-                    <div className="flex justify-center mb-8">
-                        <div className="flex justify-center mb-8">
-                            {isLoggedIn ? (
-                                <div className="inline-flex items-center gap-4 px-8 py-4 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md text-white shadow-2xl animate-fade-in-up">
-                                    <div className="w-12 h-12 rounded-full bg-[#F47A44] flex items-center justify-center shadow-lg shadow-[#F47A44]/20">
-                                        <ChefHat size={24} className="text-[#0F1E19]" />
-                                    </div>
-                                    <div className="text-left">
-                                        <p className="text-xs text-[#F47A44] font-extrabold uppercase tracking-wider mb-1">Welcome Back</p>
-                                        <p className="font-serif font-bold text-2xl leading-none">Chef Marco</p>
-                                    </div>
-                                </div>
-                            ) : (
-                                <form
-                                    onSubmit={(e) => {
-                                        e.preventDefault();
-                                        // Mock Login Logic
-                                        document.cookie = "mock_logged_in=true; path=/";
-                                        setIsLoggedIn(true);
-                                    }}
-                                    className="inline-flex flex-col sm:flex-row items-center gap-2 p-2 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md shadow-2xl w-full max-w-lg"
-                                >
-                                    <div className="flex-1 w-full px-2 flex flex-col gap-2">
-                                        <div className="flex items-center gap-3 px-4 py-3 bg-white/5 rounded-xl border border-white/5 focus-within:bg-white/10 focus-within:border-white/20 transition-colors">
-                                            <ChefHat size={20} className="text-[#F47A44]" />
-                                            <input
-                                                type="email"
-                                                placeholder="Enter your chef email..."
-                                                className="bg-transparent border-none outline-none text-white placeholder-white/40 w-full font-medium"
-                                                required
-                                            />
-                                        </div>
-                                        <div className="flex items-center gap-3 px-4 py-3 bg-white/5 rounded-xl border border-white/5 focus-within:bg-white/10 focus-within:border-white/20 transition-colors">
-                                            <Lock size={20} className="text-[#F47A44]" />
-                                            <input
-                                                type="password"
-                                                placeholder="Password"
-                                                className="bg-transparent border-none outline-none text-white placeholder-white/40 w-full font-medium"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        className="w-full sm:w-auto bg-[#F47A44] text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-[#d6602d] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-xl shadow-[#F47A44]/20 flex items-center justify-center gap-2 whitespace-nowrap"
-                                    >
-                                        Access Resources
-                                    </button>
-                                </form>
-                            )}
-                        </div>
-                    </div>
+
 
                     <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6">
                         Chef Resources
@@ -165,6 +114,58 @@ export default function LearningPage() {
                     <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto mb-10">
                         Essential guides on food safety, hygiene, and kitchen operations.
                     </p>
+
+                    {/* LOGIN / WELCOME CARD */}
+                    <div className="flex justify-center mt-12 mb-8 animate-fade-in-up">
+                        {isLoggedIn ? (
+                            <div className="inline-flex items-center gap-4 px-8 py-4 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md text-white shadow-2xl">
+                                <div className="w-12 h-12 rounded-full bg-[#F47A44] flex items-center justify-center shadow-lg shadow-[#F47A44]/20">
+                                    <ChefHat size={24} className="text-[#0F1E19]" />
+                                </div>
+                                <div className="text-left">
+                                    <p className="text-xs text-[#F47A44] font-extrabold uppercase tracking-wider mb-1">Welcome Back</p>
+                                    <p className="font-serif font-bold text-2xl leading-none">Chef Marco</p>
+                                </div>
+                            </div>
+                        ) : (
+                            <form
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    // Mock Login Logic
+                                    document.cookie = "mock_logged_in=true; path=/";
+                                    setIsLoggedIn(true);
+                                }}
+                                className="inline-flex flex-col sm:flex-row items-center gap-2 p-2 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md shadow-2xl w-full max-w-lg"
+                            >
+                                <div className="flex-1 w-full px-2 flex flex-col gap-2">
+                                    <div className="flex items-center gap-3 px-4 py-3 bg-white/5 rounded-xl border border-white/5 focus-within:bg-white/10 focus-within:border-white/20 transition-colors">
+                                        <ChefHat size={20} className="text-[#F47A44]" />
+                                        <input
+                                            type="email"
+                                            placeholder="Enter your chef email..."
+                                            className="bg-transparent border-none outline-none text-white placeholder-white/40 w-full font-medium"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="flex items-center gap-3 px-4 py-3 bg-white/5 rounded-xl border border-white/5 focus-within:bg-white/10 focus-within:border-white/20 transition-colors">
+                                        <Lock size={20} className="text-[#F47A44]" />
+                                        <input
+                                            type="password"
+                                            placeholder="Password"
+                                            className="bg-transparent border-none outline-none text-white placeholder-white/40 w-full font-medium"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <button
+                                    type="submit"
+                                    className="w-full sm:w-auto bg-[#F47A44] text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-[#d6602d] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-xl shadow-[#F47A44]/20 flex items-center justify-center gap-2 whitespace-nowrap"
+                                >
+                                    Access Resources
+                                </button>
+                            </form>
+                        )}
+                    </div>
 
                     {/* SEARCH BAR */}
                     {isLoggedIn && (
