@@ -20,7 +20,13 @@ export async function getAllLearningPages() {
             return [];
         }
 
-        return pages || [];
+        // MOCK DATA INJECTION
+        // Randomly assign premium status and some progress for demo 
+        return (pages || []).map((page, index) => ({
+            ...page,
+            is_premium: index % 3 === 0, // Every 3rd item is premium
+            progress: index === 0 ? 75 : (index === 1 ? 30 : 0) // Mock progress for first two items
+        }));
     } catch (error) {
         console.error('Error in getAllLearningPages:', error);
         return [];
@@ -73,7 +79,16 @@ export async function getLearningPageBySlug(slug: string, language: string = 'en
         }
 
         console.log('Successfully fetched page:', page?.title);
-        return { success: true, data: page, error: null };
+
+        // MOCK DATA INJECTION
+        const isPremium = page.id % 3 === 0; // consistent with list view
+        const mockPage = {
+            ...page,
+            is_premium: isPremium,
+            progress: page.id === 1 ? 75 : 0 // consistent-ish
+        };
+
+        return { success: true, data: mockPage, error: null };
     } catch (error) {
         console.error('Error in getLearningPageBySlug:', {
             slug,

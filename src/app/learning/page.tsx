@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Search, PlayCircle, BookOpen, ArrowRight, Star, Clock, ShieldCheck, ClipboardCheck, AlertTriangle, Thermometer } from 'lucide-react';
+import { Search, PlayCircle, ArrowRight, Star, ShieldCheck, ClipboardCheck, AlertTriangle, Thermometer, Lock, ChefHat } from 'lucide-react';
 import { getAllLearningPages } from '@/actions/learning';
 
 interface LearningPage {
@@ -14,6 +14,20 @@ interface LearningPage {
     hero_image: string | null;
     youtube_url: string | null;
     meta_description: string | null;
+    is_premium?: boolean;
+    progress?: number;
+}
+
+function ProgressBar({ progress }: { progress: number }) {
+    if (progress === undefined || progress === 0) return null;
+    return (
+        <div className="w-full h-1.5 bg-gray-100 rounded-full mt-3 overflow-hidden">
+            <div
+                className="h-full bg-[#F47A44] rounded-full transition-all duration-1000 ease-out"
+                style={{ width: `${progress}%` }}
+            />
+        </div>
+    );
 }
 
 // Extract YouTube video ID from URL
@@ -49,13 +63,21 @@ const categories = [
 export default function LearningPage() {
     const [searchQuery, setSearchQuery] = useState("");
     const [pages, setPages] = useState<LearningPage[]>([]);
-    const [loading, setLoading] = useState(true);
+
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
+        // Check for mock login
+        const checkLogin = () => {
+            const loggedIn = document.cookie.includes('mock_logged_in=true');
+            setIsLoggedIn(loggedIn);
+        }
+        checkLogin();
+
         async function loadPages() {
             const data = await getAllLearningPages();
             setPages(data as LearningPage[]);
-            setLoading(false);
         }
         loadPages();
     }, []);
@@ -85,11 +107,47 @@ export default function LearningPage() {
                 <div className="max-w-7xl mx-auto text-center relative z-10">
 
                     <div className="flex justify-center mb-8">
-                        <Link href="#access-form" className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md text-white hover:bg-white/10 hover:scale-105 transition-all cursor-pointer group shadow-2xl shadow-[#F47A44]/10">
-                            <span className="bg-[#F47A44] text-[#0F1E19] text-xs font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider">Free Access</span>
-                            <span className="font-medium text-sm md:text-base">Unlock the complete Safety Library</span>
-                            <ArrowRight size={16} className="text-[#F47A44] group-hover:translate-x-1 transition-transform" />
-                        </Link>
+                        <div className="flex justify-center mb-8">
+                            {isLoggedIn ? (
+                                <div className="inline-flex items-center gap-4 px-8 py-4 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md text-white shadow-2xl animate-fade-in-up">
+                                    <div className="w-12 h-12 rounded-full bg-[#F47A44] flex items-center justify-center shadow-lg shadow-[#F47A44]/20">
+                                        <ChefHat size={24} className="text-[#0F1E19]" />
+                                    </div>
+                                    <div className="text-left">
+                                        <p className="text-xs text-[#F47A44] font-extrabold uppercase tracking-wider mb-1">Welcome Back</p>
+                                        <p className="font-serif font-bold text-2xl leading-none">Chef Marco</p>
+                                    </div>
+                                </div>
+                            ) : (
+                                <form
+                                    onSubmit={(e) => {
+                                        e.preventDefault();
+                                        // Mock Login Logic
+                                        document.cookie = "mock_logged_in=true; path=/";
+                                        setIsLoggedIn(true);
+                                    }}
+                                    className="inline-flex flex-col sm:flex-row items-center gap-2 p-2 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md shadow-2xl w-full max-w-lg"
+                                >
+                                    <div className="flex-1 w-full px-2">
+                                        <div className="flex items-center gap-3 px-4 py-3 bg-white/5 rounded-xl border border-white/5 focus-within:bg-white/10 focus-within:border-white/20 transition-colors">
+                                            <ChefHat size={20} className="text-[#F47A44]" />
+                                            <input
+                                                type="email"
+                                                placeholder="Enter your chef email..."
+                                                className="bg-transparent border-none outline-none text-white placeholder-white/40 w-full font-medium"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        className="w-full sm:w-auto bg-[#F47A44] text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-[#d6602d] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-xl shadow-[#F47A44]/20 flex items-center justify-center gap-2 whitespace-nowrap"
+                                    >
+                                        Access Resources
+                                    </button>
+                                </form>
+                            )}
+                        </div>
                     </div>
 
                     <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6">
@@ -111,6 +169,54 @@ export default function LearningPage() {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
+                    </div>
+                </div>
+            </section>
+
+            {/* BENEFITS / IMPACT SECTION */}
+            <section className="bg-white py-20 px-6 border-b border-gray-100">
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-16">
+                        <span className="text-[#F47A44] font-bold tracking-wider uppercase text-sm mb-2 block">Why Learn With Us?</span>
+                        <h2 className="font-serif text-3xl md:text-5xl font-bold text-[#0F1E19] mb-6">Elevate Your Craft & Career</h2>
+                        <p className="text-xl text-gray-500 max-w-3xl mx-auto">
+                            Professional development isn&apos;t just about compliance. It&apos;s about building a sustainable, high-quality culinary business that customers trust.
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-12">
+                        {/* Benefit 1 */}
+                        <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-[#FDFBF7] hover:bg-white border border-transparent hover:border-[#F47A44]/20 hover:shadow-xl transition-all duration-300 group">
+                            <div className="w-16 h-16 rounded-full bg-[#FFE5D9] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <Star className="text-[#F47A44]" size={32} />
+                            </div>
+                            <h3 className="font-serif text-2xl font-bold mb-4 text-[#0F1E19]">Deliver Excellence</h3>
+                            <p className="text-gray-600 leading-relaxed">
+                                Consistent training ensures every dish meets the highest standards. Delight your customers with quality they can taste and trust every time.
+                            </p>
+                        </div>
+
+                        {/* Benefit 2 */}
+                        <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-[#FDFBF7] hover:bg-white border border-transparent hover:border-[#F47A44]/20 hover:shadow-xl transition-all duration-300 group">
+                            <div className="w-16 h-16 rounded-full bg-[#E8F5E9] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <ShieldCheck className="text-green-600" size={32} />
+                            </div>
+                            <h3 className="font-serif text-2xl font-bold mb-4 text-[#0F1E19]">Ensure Safety</h3>
+                            <p className="text-gray-600 leading-relaxed">
+                                Protect your customers and your reputation. Master food safety protocols to prevent hazards and maintain a spotless hygiene record.
+                            </p>
+                        </div>
+
+                        {/* Benefit 3 */}
+                        <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-[#FDFBF7] hover:bg-white border border-transparent hover:border-[#F47A44]/20 hover:shadow-xl transition-all duration-300 group">
+                            <div className="w-16 h-16 rounded-full bg-[#E3F2FD] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <Thermometer className="text-blue-600" size={32} />
+                            </div>
+                            <h3 className="font-serif text-2xl font-bold mb-4 text-[#0F1E19]">Boost Efficiency</h3>
+                            <p className="text-gray-600 leading-relaxed">
+                                Streamline your kitchen operations. Well-trained staff work smarter, reduce waste, and create a more organized, less stressful environment.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -156,19 +262,29 @@ export default function LearningPage() {
                                             <span className="opacity-20 text-6xl">🛡️</span>
                                         </div>
                                     )}
-                                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-[#0F1E19]">
-                                        Guide
+                                    <div className="absolute top-4 left-4 flex gap-2">
+                                        <span className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-[#0F1E19]">
+                                            Guide
+                                        </span>
+                                        {article.is_premium && (
+                                            <span className="bg-[#F47A44] text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                                                <Lock size={10} /> Premium
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                                    <span className="flex items-center gap-1"><Clock size={14} /> 5 min read</span>
-                                    <span className="flex items-center gap-1"><BookOpen size={14} /> Guide</span>
+                                <div className="mb-3">
+                                    <h3 className="font-serif text-2xl font-bold mb-1 group-hover:text-[#F47A44] transition-colors leading-tight">
+                                        {article.title}
+                                    </h3>
+                                    {isLoggedIn && article.progress ? (
+                                        <div className="flex items-center gap-2 text-xs font-bold text-[#F47A44] mb-2">
+                                            <span>{article.progress}% COMPLETE</span>
+                                            <ProgressBar progress={article.progress} />
+                                        </div>
+                                    ) : null}
                                 </div>
-
-                                <h3 className="font-serif text-2xl font-bold mb-3 group-hover:text-[#F47A44] transition-colors leading-tight">
-                                    {article.title}
-                                </h3>
                                 <p className="text-gray-600 line-clamp-2">
                                     {article.meta_description || getTextSnippet(article.body_content)}
                                 </p>

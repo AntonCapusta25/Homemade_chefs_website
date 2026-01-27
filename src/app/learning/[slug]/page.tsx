@@ -1,11 +1,12 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, Clock, PlayCircle } from 'lucide-react';
+import { ArrowLeft, Clock, PlayCircle, Lock, ChefHat } from 'lucide-react';
 import { getLearningPageBySlug, getAllLearningPages } from '@/actions/learning';
 import SocialSidebar from '@/components/SocialSidebar';
 import CallToAction from '@/components/CallToAction';
-// import LiveSupport from '@/components/LiveSupport';
+import { cookies } from 'next/headers';
+import ClientProgressButton from '@/components/ClientProgressButton'; // We'll create this small client component
 
 // Extract YouTube video ID from URL
 function extractYouTubeId(url: string): string {
@@ -33,6 +34,11 @@ export default async function LearningPageDetail({ params }: { params: Promise<{
     const page = result.data;
     const videoId = extractYouTubeId(page.youtube_url || '');
 
+    // CHECK MOCK LOGIN
+    const cookieStore = await cookies();
+    const isLoggedIn = cookieStore.get('mock_logged_in')?.value === 'true';
+    const isLocked = page.is_premium && !isLoggedIn;
+
     // Get all other learning pages for sidebar
     const allPages = await getAllLearningPages();
     const relatedPages = (allPages as any[])
@@ -49,7 +55,7 @@ export default async function LearningPageDetail({ params }: { params: Promise<{
                             src={page.hero_image}
                             alt={page.title}
                             fill
-                            className="object-cover scale-105"
+                            className={`object-cover scale-105 ${isLocked ? 'blur-md' : ''}`}
                             priority
                         />
                     )}
@@ -72,6 +78,11 @@ export default async function LearningPageDetail({ params }: { params: Promise<{
                             <span className="bg-[#F47A44]/20 backdrop-blur-sm px-4 py-1.5 rounded-lg border border-[#F47A44]/30">
                                 Guide
                             </span>
+                            {page.is_premium && (
+                                <span className="bg-[#0F1E19]/60 backdrop-blur-sm text-white px-4 py-1.5 rounded-lg border border-white/20 flex items-center gap-2">
+                                    <Lock size={14} /> Premium
+                                </span>
+                            )}
                             <span className="text-white/60">•</span>
                             <span className="text-white flex items-center gap-2">
                                 <Clock size={16} /> 5 Min Read
@@ -92,14 +103,44 @@ export default async function LearningPageDetail({ params }: { params: Promise<{
             </section>
 
             {/* Main Content with Sidebar */}
-            <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 py-20">
+            <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 py-20 relative">
+
+                {/* LOCKED CONTENT OVERLAY */}
+                {isLocked && (
+                    <div className="absolute inset-0 z-50 flex items-start justify-center pt-20 px-6 backdrop-blur-sm bg-white/50 h-full w-full">
+                        <div className="bg-white p-10 rounded-[2rem] shadow-2xl max-w-2xl w-full text-center border border-gray-100 sticky top-32">
+                            <div className="w-20 h-20 bg-[#0F1E19] rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl shadow-[#0F1E19]/20">
+                                <Lock className="text-[#F47A44]" size={40} />
+                            </div>
+                            <h2 className="font-serif text-4xl font-bold mb-4 text-[#0F1E19]">Premium Chef Content</h2>
+                            <p className="text-xl text-gray-500 mb-8 max-w-lg mx-auto">
+                                This comprehensive guide is part of our Chef Profile training library. Log in to access the full content, templates, and progress tracking.
+                            </p>
+                            <div className="flex flex-col sm:flex-row justify-center gap-4">
+                                <Link
+                                    href="/login"
+                                    className="bg-[#F47A44] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#d6602d] transition-colors shadow-lg shadow-[#F47A44]/20 flex items-center justify-center gap-2"
+                                >
+                                    <ChefHat size={20} /> Log In to Access
+                                </Link>
+                                <Link
+                                    href="/pricing"
+                                    className="bg-gray-100 text-[#0F1E19] px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-200 transition-colors flex items-center justify-center"
+                                >
+                                    Get a Chef Profile
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
                 {/* Social Share Sidebar */}
                 <aside className="hidden lg:block lg:col-span-1">
                     <SocialSidebar />
                 </aside>
 
                 {/* Article Content */}
-                <article className="lg:col-span-8">
+                <article className={`lg:col-span-8 ${isLocked ? 'blur-sm select-none pointer-events-none opacity-50' : ''}`}>
                     {/* YouTube Video */}
                     {videoId && (
                         <div className="mb-12 rounded-2xl overflow-hidden bg-black shadow-2xl">
@@ -126,10 +167,14 @@ export default async function LearningPageDetail({ params }: { params: Promise<{
                         first-letter:text-5xl first-letter:font-serif first-letter:font-bold first-letter:text-[#F47A44] first-letter:mr-3 first-letter:float-left"
                         dangerouslySetInnerHTML={{ __html: page.body_content }}
                     />
+
+                    {/* Completion Button (Only if logged in) */}
+                    {isLoggedIn && !isLocked && <ClientProgressButton />}
+
                 </article>
 
                 {/* Right Sidebar - Related Learning Pages */}
-                <div className="lg:col-span-3">
+                <div className={`lg:col-span-3 ${isLocked ? 'blur-sm opacity-50' : ''}`}>
                     <div className="sticky top-32">
                         <h3 className="font-serif text-2xl font-bold text-[#0F1E19] mb-6 border-b border-[#0F1E19]/10 pb-4">
                             More Guides
@@ -187,11 +232,8 @@ export default async function LearningPageDetail({ params }: { params: Promise<{
                 </div>
             </div>
 
-            {/* Call to Action */}
-            <CallToAction />
-
-            {/* Live Support Chatbot */}
-            {/* <LiveSupport /> */}
+            {/* Call to Action - Only show if not logged in */}
+            {!isLoggedIn && <CallToAction />}
         </main>
     );
 }

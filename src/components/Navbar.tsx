@@ -135,6 +135,8 @@ export default function Navbar() {
                             </AnimatePresence>
                         </div>
 
+
+
                         <Link
                             href="https://signup.homemadechefs.com"
                             target="_blank"
@@ -213,6 +215,8 @@ export default function Navbar() {
                                     </button>
                                 ))}
                             </div>
+
+
 
                             <Link
                                 href="https://signup.homemadechefs.com"
