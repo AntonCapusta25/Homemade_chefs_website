@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Search, PlayCircle, ArrowRight, Star, ShieldCheck, ClipboardCheck, AlertTriangle, Thermometer, Lock, ChefHat } from 'lucide-react';
 import { getAllLearningPages } from '@/actions/learning';
+import { createClient } from '@/lib/supabase/client';
 
 interface LearningPage {
     id: number;
@@ -16,6 +17,12 @@ interface LearningPage {
     meta_description: string | null;
     is_premium?: boolean;
     progress?: number;
+}
+
+interface ChefUser {
+    id: string;
+    email: string;
+    full_name: string;
 }
 
 function ProgressBar({ progress }: { progress: number }) {
@@ -63,24 +70,103 @@ const categories = [
 export default function LearningPage() {
     const [searchQuery, setSearchQuery] = useState("");
     const [pages, setPages] = useState<LearningPage[]>([]);
-
-
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [chef, setChef] = useState<ChefUser | null>(null);
+    const [loginError, setLoginError] = useState('');
+    const [isLoggingIn, setIsLoggingIn] = useState(false);
+
+    const supabase = createClient();
 
     useEffect(() => {
-        // Check for mock login
-        const checkLogin = () => {
-            const loggedIn = document.cookie.includes('mock_logged_in=true');
-            setIsLoggedIn(loggedIn);
-        }
-        checkLogin();
-
-        async function loadPages() {
-            const data = await getAllLearningPages();
-            setPages(data as LearningPage[]);
-        }
+        checkAuth();
         loadPages();
     }, []);
+
+    const checkAuth = async () => {
+        const { data: { user } } = await supabase.auth.getUser();
+
+        if (user) {
+            setIsLoggedIn(true);
+
+            // Fetch chef profile
+            const { data: chefData, error: chefError } = await supabase
+                .from('chef_users')
+                .select('*')
+                .eq('id', user.id)
+                .single();
+
+            if (chefError) {
+                console.error('Error fetching chef profile:', chefError);
+            }
+
+            if (chefData) {
+                console.log('Chef data loaded:', chefData);
+                setChef(chefData);
+            } else {
+                console.warn('No chef profile found for user:', user.id);
+            }
+        }
+    };
+
+    const loadPages = async () => {
+        const data = await getAllLearningPages();
+        setPages(data as LearningPage[]);
+    };
+
+    const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLoginError('');
+        setIsLoggingIn(true);
+
+        const formData = new FormData(e.currentTarget);
+        const email = formData.get('email') as string;
+        const password = formData.get('password') as string;
+
+        try {
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+            });
+
+            if (error) {
+                setLoginError(error.message);
+                setIsLoggingIn(false);
+                return;
+            }
+
+            if (data.user) {
+                // Fetch chef profile
+                const { data: chefData, error: chefError } = await supabase
+                    .from('chef_users')
+                    .select('*')
+                    .eq('id', data.user.id)
+                    .single();
+
+                if (chefError) {
+                    console.error('Error fetching chef profile after login:', chefError);
+                }
+
+                if (chefData) {
+                    console.log('Chef profile loaded after login:', chefData);
+                    setChef(chefData);
+                } else {
+                    console.warn('No chef profile found after login for user:', data.user.id);
+                }
+
+                setIsLoggedIn(true);
+                setIsLoggingIn(false);
+            }
+        } catch (err: any) {
+            setLoginError('An unexpected error occurred');
+            setIsLoggingIn(false);
+        }
+    };
+
+    const handleSignOut = async () => {
+        await supabase.auth.signOut();
+        setIsLoggedIn(false);
+        setChef(null);
+    };
 
     // Separate pages with and without videos
     const pagesWithVideos = pages.filter(p => p.youtube_url);
@@ -124,46 +210,71 @@ export default function LearningPage() {
                                 </div>
                                 <div className="text-left">
                                     <p className="text-xs text-[#F47A44] font-extrabold uppercase tracking-wider mb-1">Welcome Back</p>
-                                    <p className="font-serif font-bold text-2xl leading-none">Chef Marco</p>
-                                </div>
-                            </div>
-                        ) : (
-                            <form
-                                onSubmit={(e) => {
-                                    e.preventDefault();
-                                    // Mock Login Logic
-                                    document.cookie = "mock_logged_in=true; path=/";
-                                    setIsLoggedIn(true);
-                                }}
-                                className="inline-flex flex-col sm:flex-row items-center gap-2 p-2 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md shadow-2xl w-full max-w-lg"
-                            >
-                                <div className="flex-1 w-full px-2 flex flex-col gap-2">
-                                    <div className="flex items-center gap-3 px-4 py-3 bg-white/5 rounded-xl border border-white/5 focus-within:bg-white/10 focus-within:border-white/20 transition-colors">
-                                        <ChefHat size={20} className="text-[#F47A44]" />
-                                        <input
-                                            type="email"
-                                            placeholder="Enter your chef email..."
-                                            className="bg-transparent border-none outline-none text-white placeholder-white/40 w-full font-medium"
-                                            required
-                                        />
-                                    </div>
-                                    <div className="flex items-center gap-3 px-4 py-3 bg-white/5 rounded-xl border border-white/5 focus-within:bg-white/10 focus-within:border-white/20 transition-colors">
-                                        <Lock size={20} className="text-[#F47A44]" />
-                                        <input
-                                            type="password"
-                                            placeholder="Password"
-                                            className="bg-transparent border-none outline-none text-white placeholder-white/40 w-full font-medium"
-                                            required
-                                        />
-                                    </div>
+                                    <p className="font-serif font-bold text-2xl leading-none">{chef?.full_name || 'Chef'}</p>
                                 </div>
                                 <button
-                                    type="submit"
-                                    className="w-full sm:w-auto bg-[#F47A44] text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-[#d6602d] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-xl shadow-[#F47A44]/20 flex items-center justify-center gap-2 whitespace-nowrap"
+                                    onClick={handleSignOut}
+                                    className="ml-4 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-sm font-medium transition-colors"
                                 >
-                                    Access Resources
+                                    Sign Out
                                 </button>
-                            </form>
+                            </div>
+                        ) : (
+                            <div className="relative group w-full max-w-sm mx-auto">
+                                {/* Glow Effect */}
+                                <div className="absolute -inset-1 bg-gradient-to-r from-[#F47A44] to-[#E86825] rounded-[2rem] opacity-30 group-hover:opacity-50 blur-xl transition-opacity duration-500"></div>
+
+                                <form
+                                    onSubmit={handleLogin}
+                                    className="relative flex flex-col gap-5 p-8 rounded-[2rem] bg-[#0F1E19]/80 border border-white/10 backdrop-blur-xl shadow-2xl"
+                                >
+                                    <div className="text-center mb-2">
+                                        <h3 className="font-serif text-2xl font-bold text-white mb-1">Chef Login</h3>
+                                        <p className="text-white/60 text-sm">Access your premium resources</p>
+                                    </div>
+
+                                    <div className="space-y-4">
+                                        <div className="group/input relative flex items-center gap-3 px-4 py-3.5 bg-black/20 rounded-xl border border-white/5 focus-within:border-[#F47A44]/50 focus-within:bg-black/40 transition-all duration-300">
+                                            <ChefHat size={18} className="text-[#F47A44] group-focus-within/input:scale-110 transition-transform" />
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                placeholder="Chef Email"
+                                                className="bg-transparent border-none outline-none text-white placeholder-white/40 w-full font-medium text-sm"
+                                                required
+                                            />
+                                        </div>
+                                        <div className="group/input relative flex items-center gap-3 px-4 py-3.5 bg-black/20 rounded-xl border border-white/5 focus-within:border-[#F47A44]/50 focus-within:bg-black/40 transition-all duration-300">
+                                            <Lock size={18} className="text-[#F47A44] group-focus-within/input:scale-110 transition-transform" />
+                                            <input
+                                                type="password"
+                                                name="password"
+                                                placeholder="Password"
+                                                className="bg-transparent border-none outline-none text-white placeholder-white/40 w-full font-medium text-sm"
+                                                required
+                                            />
+                                        </div>
+                                        {loginError && (
+                                            <p className="text-red-300 text-sm text-center">{loginError}</p>
+                                        )}
+                                    </div>
+
+                                    <button
+                                        type="submit"
+                                        disabled={isLoggingIn}
+                                        className="w-full bg-gradient-to-r from-[#F47A44] to-[#E86825] text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-lg hover:shadow-[#F47A44]/25 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 group/button hover:ring-2 ring-white/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        {isLoggingIn ? (
+                                            <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                                        ) : (
+                                            <>
+                                                <span>Sign In</span>
+                                                <ArrowRight size={18} className="opacity-80 group-hover/button:translate-x-1 transition-transform" />
+                                            </>
+                                        )}
+                                    </button>
+                                </form>
+                            </div>
                         )}
                     </div>
 
@@ -315,41 +426,75 @@ export default function LearningPage() {
                 <div className="grid lg:grid-cols-2 gap-12">
                     {/* Featured Video */}
                     {videos.length > 0 ? (
-                        <Link
-                            href={`/learning/${videos[0].slug}`}
-                            className="relative rounded-[2rem] overflow-hidden group cursor-pointer h-[400px] md:h-[500px]"
-                        >
-                            <div className="absolute inset-0 bg-black">
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
-                                {extractYouTubeId(videos[0].youtube_url || '') ? (
-                                    <Image
-                                        src={`https://img.youtube.com/vi/${extractYouTubeId(videos[0].youtube_url || '')}/maxresdefault.jpg`}
-                                        alt={videos[0].title}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                ) : (
-                                    <div className="absolute inset-0 bg-gray-800 flex items-center justify-center">
-                                        <span className="text-gray-600">No Video</span>
+                        <div className="relative">
+                            <Link
+                                href={videos[0].is_premium && !isLoggedIn ? '#' : `/learning/${videos[0].slug}`}
+                                onClick={(e) => {
+                                    if (videos[0].is_premium && !isLoggedIn) {
+                                        e.preventDefault();
+                                    }
+                                }}
+                                className={`relative rounded-[2rem] overflow-hidden group cursor-pointer h-[400px] md:h-[500px] block ${videos[0].is_premium && !isLoggedIn ? 'pointer-events-none' : ''}`}
+                            >
+                                <div className="absolute inset-0 bg-black">
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                                    {extractYouTubeId(videos[0].youtube_url || '') ? (
+                                        <Image
+                                            src={`https://img.youtube.com/vi/${extractYouTubeId(videos[0].youtube_url || '')}/maxresdefault.jpg`}
+                                            alt={videos[0].title}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    ) : (
+                                        <div className="absolute inset-0 bg-gray-800 flex items-center justify-center">
+                                            <span className="text-gray-600">No Video</span>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="absolute bottom-0 left-0 p-8 z-20 w-full">
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <span className="bg-[#F47A44] text-white px-3 py-1 rounded-full text-xs font-bold">FEATURED</span>
+                                        {videos[0].is_premium && (
+                                            <span className="bg-gradient-to-r from-amber-400 to-yellow-500 text-black px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                                                <Lock size={12} /> PREMIUM
+                                            </span>
+                                        )}
+                                        <span className="text-gray-300 text-sm">Video Tutorial</span>
                                     </div>
-                                )}
-                            </div>
-                            <div className="absolute bottom-0 left-0 p-8 z-20 w-full">
-                                <div className="flex items-center gap-3 mb-4">
-                                    <span className="bg-[#F47A44] text-white px-3 py-1 rounded-full text-xs font-bold">FEATURED</span>
-                                    <span className="text-gray-300 text-sm">Video Tutorial</span>
+                                    <h3 className="text-white font-serif text-3xl md:text-4xl font-bold mb-2">{videos[0].title}</h3>
+                                    <div className="flex items-center gap-2 text-white/80 group-hover:text-white transition-colors">
+                                        <span>Start Watching</span> <ArrowRight size={18} />
+                                    </div>
                                 </div>
-                                <h3 className="text-white font-serif text-3xl md:text-4xl font-bold mb-2">{videos[0].title}</h3>
-                                <div className="flex items-center gap-2 text-white/80 group-hover:text-white transition-colors">
-                                    <span>Start Watching</span> <ArrowRight size={18} />
+                                <div className="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
+                                        <PlayCircle size={40} className="text-white fill-white/20" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
-                                    <PlayCircle size={40} className="text-white fill-white/20" />
+                            </Link>
+
+                            {/* Premium Lock Overlay */}
+                            {videos[0].is_premium && !isLoggedIn && (
+                                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm rounded-[2rem] z-30 flex items-center justify-center">
+                                    <div className="text-center px-6">
+                                        <div className="w-16 h-16 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 flex items-center justify-center mx-auto mb-4">
+                                            <Lock size={32} className="text-black" />
+                                        </div>
+                                        <h4 className="text-white font-bold text-xl mb-2">Premium Content</h4>
+                                        <p className="text-white/80 text-sm mb-4">Sign in to access this video</p>
+                                        <button
+                                            onClick={() => {
+                                                const loginForm = document.querySelector('form');
+                                                loginForm?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                            }}
+                                            className="bg-gradient-to-r from-[#F47A44] to-[#E86825] text-white px-6 py-2 rounded-lg font-bold text-sm hover:shadow-lg transition-all"
+                                        >
+                                            Sign In to Watch
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </Link>
+                            )}
+                        </div>
                     ) : (
                         <div className="text-gray-500 p-8">No videos available</div>
                     )}
@@ -357,114 +502,65 @@ export default function LearningPage() {
                     <div className="space-y-6">
                         {videos.map(video => {
                             const videoId = extractYouTubeId(video.youtube_url || '');
+                            const isLocked = video.is_premium && !isLoggedIn;
+
                             return (
-                                <Link key={video.id} href={`/learning/${video.slug}`} className="flex gap-6 group cursor-pointer hover:bg-white p-4 rounded-2xl transition-colors">
-                                    <div className="relative w-40 h-28 flex-shrink-0 bg-gray-200 rounded-xl overflow-hidden">
-                                        {videoId ? (
-                                            <>
-                                                <Image
-                                                    src={`https://img.youtube.com/vi/${videoId}/mqdefault.jpg`}
-                                                    alt={video.title}
-                                                    fill
-                                                    className="object-cover"
-                                                />
+                                <div key={video.id} className="relative">
+                                    <Link
+                                        href={isLocked ? '#' : `/learning/${video.slug}`}
+                                        onClick={(e) => {
+                                            if (isLocked) {
+                                                e.preventDefault();
+                                                const loginForm = document.querySelector('form');
+                                                loginForm?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                            }
+                                        }}
+                                        className={`flex gap-6 group cursor-pointer hover:bg-white p-4 rounded-2xl transition-colors ${isLocked ? 'opacity-60' : ''}`}
+                                    >
+                                        <div className="relative w-40 h-28 flex-shrink-0 bg-gray-200 rounded-xl overflow-hidden">
+                                            {videoId ? (
+                                                <>
+                                                    <Image
+                                                        src={`https://img.youtube.com/vi/${videoId}/mqdefault.jpg`}
+                                                        alt={video.title}
+                                                        fill
+                                                        className="object-cover"
+                                                    />
+                                                    <div className="absolute inset-0 flex items-center justify-center">
+                                                        {isLocked ? (
+                                                            <div className="w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center">
+                                                                <Lock size={20} className="text-amber-400" />
+                                                            </div>
+                                                        ) : (
+                                                            <PlayCircle size={24} className="text-white drop-shadow-lg" />
+                                                        )}
+                                                    </div>
+                                                </>
+                                            ) : (
                                                 <div className="absolute inset-0 flex items-center justify-center">
-                                                    <PlayCircle size={24} className="text-white drop-shadow-lg" />
+                                                    <PlayCircle size={24} className="text-gray-400" />
                                                 </div>
-                                            </>
-                                        ) : (
-                                            <div className="absolute inset-0 flex items-center justify-center">
-                                                <PlayCircle size={24} className="text-gray-400" />
+                                            )}
+                                        </div>
+                                        <div className="flex flex-col justify-center flex-1">
+                                            <div className="flex items-center gap-2 mb-2">
+                                                <h4 className="font-serif text-xl font-bold group-hover:text-[#F47A44] transition-colors">{video.title}</h4>
+                                                {video.is_premium && (
+                                                    <span className="bg-gradient-to-r from-amber-400 to-yellow-500 text-black px-2 py-0.5 rounded-full text-xs font-bold flex items-center gap-1">
+                                                        <Lock size={10} /> PREMIUM
+                                                    </span>
+                                                )}
                                             </div>
-                                        )}
-                                    </div>
-                                    <div className="flex flex-col justify-center">
-                                        <h4 className="font-serif text-xl font-bold mb-2 group-hover:text-[#F47A44] transition-colors">{video.title}</h4>
-                                        <span className="text-sm text-gray-500">Video • Training</span>
-                                    </div>
-                                </Link>
+                                            <span className="text-sm text-gray-500">Video • Training</span>
+                                        </div>
+                                    </Link>
+                                </div>
                             );
                         })}
 
                         <button className="w-full py-4 rounded-xl border-2 border-[#0F1E19] font-bold text-[#0F1E19] hover:bg-[#0F1E19] hover:text-white transition-colors mt-4">
                             View All Training Modules
                         </button>
-                    </div>
-                </div>
-            </section>
-
-            {/* ACCESS CTA */}
-            <section id="access-form" className="bg-[#F47A44] py-20 px-6">
-                <div className="max-w-4xl mx-auto text-center text-white">
-                    <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6">Get Full Access</h2>
-                    <p className="text-xl mb-10 opacity-90 max-w-2xl mx-auto">
-                        Enter your email to access our complete library of food safety documents and checklists.
-                    </p>
-                    <div className="flex flex-col md:flex-row gap-4 justify-center max-w-lg mx-auto">
-
-                        <form
-                            onSubmit={async (e) => {
-                                e.preventDefault();
-                                const emailInput = (e.target as any).email;
-                                const email = emailInput.value;
-                                if (!email) return;
-
-                                const btn = e.currentTarget.querySelector('button');
-                                if (btn) {
-                                    btn.disabled = true;
-                                    btn.innerHTML = 'Submitting...';
-                                }
-
-                                try {
-                                    const response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/newsletter-subscribe`, {
-                                        method: 'POST',
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
-                                        },
-                                        body: JSON.stringify({ email }),
-                                    });
-
-                                    const data = await response.json();
-
-                                    if (response.ok) {
-                                        if (btn) {
-                                            btn.innerHTML = 'Success! Check your email.';
-                                            btn.classList.remove('bg-[#0F1E19]', 'text-white');
-                                            btn.classList.add('bg-white', 'text-[#0F1E19]');
-                                        }
-                                        emailInput.value = '';
-                                        alert(data.message || 'Successfully subscribed! You now have full access.');
-                                    } else {
-                                        if (btn) {
-                                            btn.disabled = false;
-                                            btn.innerHTML = 'Get Access';
-                                        }
-                                        alert(data.error || 'Something went wrong. Please try again.');
-                                    }
-                                } catch (error) {
-                                    console.error('Subscription error:', error);
-                                    if (btn) {
-                                        btn.disabled = false;
-                                        btn.innerHTML = 'Get Access';
-                                    }
-                                    alert('Failed to subscribe. Please try again.');
-                                }
-                            }}
-                            className="flex flex-col md:flex-row gap-4 w-full"
-                        >
-                            <input
-                                name="email"
-                                type="email"
-                                placeholder="Your email address"
-                                className="px-6 py-4 rounded-full text-[#0F1E19] flex-grow outline-none focus:ring-4 focus:ring-white/30"
-                                required
-                            />
-                            <button className="bg-[#0F1E19] text-white px-8 py-4 rounded-full font-bold hover:bg-black transition-colors disabled:opacity-70 disabled:cursor-not-allowed">
-                                Get Access
-                            </button>
-                        </form>
-
                     </div>
                 </div>
             </section>

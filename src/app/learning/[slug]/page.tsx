@@ -5,8 +5,8 @@ import { ArrowLeft, Clock, PlayCircle, Lock, ChefHat } from 'lucide-react';
 import { getLearningPageBySlug, getAllLearningPages } from '@/actions/learning';
 import SocialSidebar from '@/components/SocialSidebar';
 import CallToAction from '@/components/CallToAction';
-import { cookies } from 'next/headers';
-import ClientProgressButton from '@/components/ClientProgressButton'; // We'll create this small client component
+import { createClient } from '@/lib/supabase/server';
+import ClientProgressButton from '@/components/ClientProgressButton';
 
 // Extract YouTube video ID from URL
 function extractYouTubeId(url: string): string {
@@ -34,9 +34,10 @@ export default async function LearningPageDetail({ params }: { params: Promise<{
     const page = result.data;
     const videoId = extractYouTubeId(page.youtube_url || '');
 
-    // CHECK MOCK LOGIN
-    const cookieStore = await cookies();
-    const isLoggedIn = cookieStore.get('mock_logged_in')?.value === 'true';
+    // CHECK REAL SUPABASE AUTH
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    const isLoggedIn = !!user;
     const isLocked = page.is_premium && !isLoggedIn;
 
     // Get all other learning pages for sidebar
@@ -118,17 +119,20 @@ export default async function LearningPageDetail({ params }: { params: Promise<{
                             </p>
                             <div className="flex flex-col sm:flex-row justify-center gap-4">
                                 <Link
-                                    href="/login"
+                                    href="/learning"
                                     className="bg-[#F47A44] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#d6602d] transition-colors shadow-lg shadow-[#F47A44]/20 flex items-center justify-center gap-2"
                                 >
                                     <ChefHat size={20} /> Log In to Access
                                 </Link>
-                                <Link
-                                    href="/pricing"
-                                    className="bg-gray-100 text-[#0F1E19] px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-200 transition-colors flex items-center justify-center"
+                                <a
+                                    href="https://signup.homemadechefs.com/onboarding"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="bg-gray-100 text-[#0F1E19] px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
                                 >
+                                    <ChefHat size={20} />
                                     Get a Chef Profile
-                                </Link>
+                                </a>
                             </div>
                         </div>
                     </div>
