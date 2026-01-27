@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { DM_Serif_Display, Plus_Jakarta_Sans } from "next/font/google"; // Trendy fonts
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import Providers from "@/components/Providers";
-import CookieBanner from "@/components/CookieBanner";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import Providers from "../components/Providers";
+import CookieBanner from "../components/CookieBanner";
 
-import ChefInvitePopup from "@/components/ChefInvitePopup";
-import LimitedSpotsBanner from "@/components/LimitedSpotsBanner";
-import { OrganizationSchema } from "@/components/StructuredData";
+// import ChefInvitePopup from "../components/ChefInvitePopup";
+// import LimitedSpotsBanner from "../components/LimitedSpotsBanner";
+import { OrganizationSchema } from "../components/StructuredData";
 
 const serifFont = DM_Serif_Display({
   weight: "400",
@@ -117,8 +117,8 @@ export default function RootLayout({
           </main>
           <Footer />
           <CookieBanner />
-          <ChefInvitePopup />
-          <LimitedSpotsBanner />
+          {/* <ChefInvitePopup /> */}
+          {/* <LimitedSpotsBanner /> */}
         </Providers>
 
         {/* Analytics scripts loaded after page interactive to improve performance */}

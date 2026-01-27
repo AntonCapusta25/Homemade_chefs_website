@@ -6,7 +6,7 @@ import { ArrowRight, Globe, ChevronDown, X, Menu } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { useLanguage } from '@/context/LanguageContext';
+import { useLanguage } from '../context/LanguageContext';
 import { trackSignupClick } from '@/lib/fbPixel';
 
 export default function Navbar() {
