@@ -128,12 +128,21 @@ export default function LearningPage() {
                                     }}
                                     className="inline-flex flex-col sm:flex-row items-center gap-2 p-2 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md shadow-2xl w-full max-w-lg"
                                 >
-                                    <div className="flex-1 w-full px-2">
+                                    <div className="flex-1 w-full px-2 flex flex-col gap-2">
                                         <div className="flex items-center gap-3 px-4 py-3 bg-white/5 rounded-xl border border-white/5 focus-within:bg-white/10 focus-within:border-white/20 transition-colors">
                                             <ChefHat size={20} className="text-[#F47A44]" />
                                             <input
                                                 type="email"
                                                 placeholder="Enter your chef email..."
+                                                className="bg-transparent border-none outline-none text-white placeholder-white/40 w-full font-medium"
+                                                required
+                                            />
+                                        </div>
+                                        <div className="flex items-center gap-3 px-4 py-3 bg-white/5 rounded-xl border border-white/5 focus-within:bg-white/10 focus-within:border-white/20 transition-colors">
+                                            <Lock size={20} className="text-[#F47A44]" />
+                                            <input
+                                                type="password"
+                                                placeholder="Password"
                                                 className="bg-transparent border-none outline-none text-white placeholder-white/40 w-full font-medium"
                                                 required
                                             />
@@ -158,18 +167,38 @@ export default function LearningPage() {
                     </p>
 
                     {/* SEARCH BAR */}
-                    <div className="max-w-2xl mx-auto relative group">
-                        <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                            <Search className="text-gray-400 group-focus-within:text-[#F47A44] transition-colors" />
+                    {isLoggedIn && (
+                        <div className="max-w-2xl mx-auto relative group">
+                            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+                                <Search className="text-gray-400 group-focus-within:text-[#F47A44] transition-colors" />
+                            </div>
+                            <input
+                                type="text"
+                                placeholder="Search topics (e.g., Temperature, Hygiene)..."
+                                className="w-full pl-12 pr-6 py-5 rounded-full text-[#0F1E19] text-lg outline-none focus:ring-4 focus:ring-[#F47A44]/50 transition-all shadow-xl"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
                         </div>
-                        <input
-                            type="text"
-                            placeholder="Search topics (e.g., Temperature, Hygiene)..."
-                            className="w-full pl-12 pr-6 py-5 rounded-full text-[#0F1E19] text-lg outline-none focus:ring-4 focus:ring-[#F47A44]/50 transition-all shadow-xl"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                        />
-                    </div>
+                    )}
+                </div>
+            </section>
+
+            {/* CATEGORIES */}
+            <section className="max-w-7xl mx-auto px-6 py-16">
+                <div className="flex justify-between items-end mb-8">
+                    <h2 className="font-serif text-3xl md:text-4xl font-bold">Topics</h2>
+                </div>
+
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                    {categories.map((cat, idx) => (
+                        <button key={idx} className="flex flex-col items-center justify-center p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all group">
+                            <div className={`w-14 h-14 rounded-full flex items-center justify-center text-2xl mb-3 ${cat.color} group-hover:scale-110 transition-transform`}>
+                                {typeof cat.icon === 'string' ? cat.icon : React.cloneElement(cat.icon as React.ReactElement<any>, { size: 24 })}
+                            </div>
+                            <span className="font-bold text-sm md:text-base text-center text-gray-700">{cat.name}</span>
+                        </button>
+                    ))}
                 </div>
             </section>
 
@@ -218,24 +247,6 @@ export default function LearningPage() {
                             </p>
                         </div>
                     </div>
-                </div>
-            </section>
-
-            {/* CATEGORIES */}
-            <section className="max-w-7xl mx-auto px-6 py-16">
-                <div className="flex justify-between items-end mb-8">
-                    <h2 className="font-serif text-3xl md:text-4xl font-bold">Topics</h2>
-                </div>
-
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                    {categories.map((cat, idx) => (
-                        <button key={idx} className="flex flex-col items-center justify-center p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all group">
-                            <div className={`w-14 h-14 rounded-full flex items-center justify-center text-2xl mb-3 ${cat.color} group-hover:scale-110 transition-transform`}>
-                                {typeof cat.icon === 'string' ? cat.icon : React.cloneElement(cat.icon as React.ReactElement<any>, { size: 24 })}
-                            </div>
-                            <span className="font-bold text-sm md:text-base text-center text-gray-700">{cat.name}</span>
-                        </button>
-                    ))}
                 </div>
             </section>
 
