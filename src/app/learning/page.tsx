@@ -177,8 +177,18 @@ export default function LearningPage() {
         ? pagesWithoutVideos.slice(0, 3)
         : [...pagesWithoutVideos, ...pagesWithVideos].slice(0, 3);
 
+    const [showAllVideos, setShowAllVideos] = useState(false);
+
     // Get video list (all pages with videos)
-    const videos = pagesWithVideos.slice(0, 3);
+    const allVideos = pagesWithVideos;
+    const videos = showAllVideos ? allVideos : allVideos.slice(0, 3);
+
+    // DEBUG: Check premium status
+    useEffect(() => {
+        if (allVideos.length > 0) {
+            console.log('Video Premium Status Check:', allVideos.map(v => ({ title: v.title, is_premium: v.is_premium })));
+        }
+    }, [allVideos]);
 
     return (
         <div className="bg-[#FDFBF7] min-h-screen font-sans text-[#0F1E19]">
@@ -558,9 +568,14 @@ export default function LearningPage() {
                             );
                         })}
 
-                        <button className="w-full py-4 rounded-xl border-2 border-[#0F1E19] font-bold text-[#0F1E19] hover:bg-[#0F1E19] hover:text-white transition-colors mt-4">
-                            View All Training Modules
-                        </button>
+                        {allVideos.length > 3 && (
+                            <button
+                                onClick={() => setShowAllVideos(!showAllVideos)}
+                                className="w-full py-4 rounded-xl border-2 border-[#0F1E19] font-bold text-[#0F1E19] hover:bg-[#0F1E19] hover:text-white transition-colors mt-4"
+                            >
+                                {showAllVideos ? 'Show Less' : 'View All Training Modules'}
+                            </button>
+                        )}
                     </div>
                 </div>
             </section>

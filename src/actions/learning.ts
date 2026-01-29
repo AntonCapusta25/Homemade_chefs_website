@@ -13,19 +13,24 @@ export async function getAllLearningPages() {
             .from('learning_pages')
             .select('*')
             .eq('is_published', true)
+            .eq('is_published', true)
             .order('created_at', { ascending: false });
+
+        if (pages && pages.length > 0) {
+            console.log('SERVER ACTION: Fetched pages count:', pages.length);
+            console.log('SERVER ACTION: First page sample:', JSON.stringify(pages[0], null, 2));
+            console.log('SERVER ACTION: Premium statuses:', pages.map(p => ({ id: p.id, title: p.title?.substring(0, 20), is_premium: p.is_premium })));
+        }
 
         if (error) {
             console.error('Error fetching learning pages:', error);
             return [];
         }
 
-        // MOCK DATA INJECTION
-        // Randomly assign premium status and some progress for demo 
         return (pages || []).map((page, index) => ({
             ...page,
-            is_premium: index % 3 === 0, // Every 3rd item is premium
-            progress: index === 0 ? 75 : (index === 1 ? 30 : 0) // Mock progress for first two items
+            // Mock progress only, premium status comes from DB
+            progress: index === 0 ? 75 : (index === 1 ? 30 : 0)
         }));
     } catch (error) {
         console.error('Error in getAllLearningPages:', error);
@@ -81,11 +86,10 @@ export async function getLearningPageBySlug(slug: string, language: string = 'en
         console.log('Successfully fetched page:', page?.title);
 
         // MOCK DATA INJECTION
-        const isPremium = page.id % 3 === 0; // consistent with list view
         const mockPage = {
             ...page,
-            is_premium: isPremium,
-            progress: page.id === 1 ? 75 : 0 // consistent-ish
+            // is_premium comes from DB now
+            progress: page.id === 1 ? 75 : 0
         };
 
         return { success: true, data: mockPage, error: null };

@@ -57,23 +57,6 @@ serve(async (req) => {
       )
     }
 
-    // Check if user already exists
-    const { data: existingUser } = await supabaseAdmin
-      .from('chef_users')
-      .select('email')
-      .eq('email', email)
-      .single()
-
-    if (existingUser) {
-      return new Response(
-        JSON.stringify({ error: 'Chef already has an account' }),
-        {
-          status: 409,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-        }
-      )
-    }
-
     // Generate a secure random password (12 characters)
     const generatePassword = () => {
       const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%^&*'
@@ -88,60 +71,98 @@ serve(async (req) => {
 
     const temporaryPassword = generatePassword()
 
-    // Create the Supabase Auth user immediately
-    const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
-      email,
-      password: temporaryPassword,
-      email_confirm: true, // Auto-confirm email since they were invited
-      user_metadata: {
-        full_name: name,
-      }
-    })
+    // Check if user already exists
+    const { data: existingUser } = await supabaseAdmin
+      .from('chef_users')
+      .select('id, email')
+      .eq('email', email)
+      .single()
 
-    if (authError || !authData.user) {
-      console.error('Error creating auth user:', authError)
-      return new Response(
-        JSON.stringify({
-          error: 'Failed to create user account',
-          details: authError?.message
-        }),
+    let userId = ''
+
+    if (existingUser) {
+      console.log(`User ${email} already exists. Updating password and resending invite.`)
+      userId = existingUser.id
+
+      // Update the existing user's password
+      const { error: updateError } = await supabaseAdmin.auth.admin.updateUserById(
+        userId,
         {
-          status: 500,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          password: temporaryPassword,
+          user_metadata: { full_name: name }
         }
       )
-    }
 
-    console.log(`Created auth user for ${email}`)
-
-    // Create chef profile
-    const { error: profileError } = await supabaseAdmin
-      .from('chef_users')
-      .insert({
-        id: authData.user.id,
+      if (updateError) {
+        console.error('Error updating auth user:', updateError)
+        return new Response(
+          JSON.stringify({
+            error: 'Failed to update user account',
+            details: updateError.message
+          }),
+          {
+            status: 500,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        )
+      }
+    } else {
+      // Create the Supabase Auth user immediately
+      const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
         email,
-        full_name: name,
-        metadata: metadata || {}
+        password: temporaryPassword,
+        email_confirm: true, // Auto-confirm email since they were invited
+        user_metadata: {
+          full_name: name,
+        }
       })
 
-    if (profileError) {
-      console.error('Error creating chef profile:', profileError)
-      // Try to clean up auth user if profile creation fails
-      await supabaseAdmin.auth.admin.deleteUser(authData.user.id)
+      if (authError || !authData.user) {
+        console.error('Error creating auth user:', authError)
+        return new Response(
+          JSON.stringify({
+            error: 'Failed to create user account',
+            details: authError?.message
+          }),
+          {
+            status: 500,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        )
+      }
 
-      return new Response(
-        JSON.stringify({
-          error: 'Failed to create chef profile',
-          details: profileError.message
-        }),
-        {
-          status: 500,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-        }
-      )
+      userId = authData.user.id
+      console.log(`Created auth user for ${email}`)
+
+      // Create chef profile
+      const { error: profileError } = await supabaseAdmin
+        .from('chef_users')
+        .insert({
+          id: userId,
+          email,
+          full_name: name,
+          metadata: metadata || {}
+        })
+
+      if (profileError) {
+        console.error('Error creating chef profile:', profileError)
+        // Try to clean up auth user if profile creation fails
+        await supabaseAdmin.auth.admin.deleteUser(userId)
+
+        return new Response(
+          JSON.stringify({
+            error: 'Failed to create chef profile',
+            details: profileError.message
+          }),
+          {
+            status: 500,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        )
+      }
+
+      console.log(`Created chef profile for ${email}`)
     }
-
-    console.log(`Created chef profile for ${email}`)
 
     // Send credentials email
     const learningPlatformUrl = Deno.env.get('LEARNING_PLATFORM_URL') ?? 'https://www.homemadechefs.com'
