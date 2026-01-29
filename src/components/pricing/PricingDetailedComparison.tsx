@@ -29,7 +29,7 @@ export default function PricingDetailedComparison() {
         { name: t('pricing.kvkSupport'), basic: true, pro: true, advance: true },
         { name: t('pricing.brandingSupport'), basic: true, pro: true, advance: true },
         { name: "B2B Catering", basic: false, pro: false, advance: true },
-        { name: "Ad Creatives Per Month", basic: "1 Videos", pro: "2 Videos", advance: "3+ Videos" },
+        { name: "Ad Creatives Per Month", basic: false, pro: "2 Posts", advance: "3+ Videos" },
         { name: "Homemade Feature Per Month", basic: false, pro: "Once", advance: "3 Times" },
     ];
 
