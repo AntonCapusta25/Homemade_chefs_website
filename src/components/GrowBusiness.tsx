@@ -53,7 +53,7 @@ export default function GrowBusiness() {
 
                 <div className="flex justify-center">
                     <motion.a
-                        href="https://calendly.com/homemademeals-info/interview-with-homemade"
+                        href="https://calendly.com/homemademeals-info/30min"
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.05 }}

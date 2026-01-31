@@ -78,7 +78,7 @@ export default function Footer() {
                     <div>
                         <h4 className="font-bold text-lg mb-6">{t('footer.support')}</h4>
                         <ul className="space-y-4 text-gray-400">
-                            <li><FooterLink href="https://calendly.com/homemademeals/30min">{t('footer.helpCenter')}</FooterLink></li>
+                            <li><FooterLink href="https://calendly.com/homemademeals-info/30min">{t('footer.helpCenter')}</FooterLink></li>
                             <li><FooterLink href="/#safety">{t('footer.safety')}</FooterLink></li>
                             <li><FooterLink href="/terms">{t('footer.terms')}</FooterLink></li>
                             <li><FooterLink href="/privacy">{t('footer.privacy')}</FooterLink></li>

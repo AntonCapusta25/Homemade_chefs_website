@@ -70,7 +70,7 @@ export default function FoodSafety() {
                     transition={{ delay: 0.6 }}
                 >
                     <Link
-                        href="https://calendly.com/homemademeals-info/interview-with-homemade"
+                        href="https://calendly.com/homemademeals-info/30min"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 bg-[#0F1E19] text-[#EBE9E1] px-10 py-5 rounded-full font-bold text-lg hover:bg-black transition-all hover:scale-105 shadow-xl"
