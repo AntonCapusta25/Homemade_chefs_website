@@ -26,6 +26,9 @@ const FAQCreative = dynamic(() => import('@/components/FAQCreative'), {
 const CallToAction = dynamic(() => import('@/components/CallToAction'), {
   loading: () => <div className="min-h-[200px]" />
 });
+const MissionVisionSection = dynamic(() => import('@/components/MissionVisionSection'), {
+  loading: () => <div className="min-h-[400px]" />
+});
 
 export default async function Home() {
   const content = await getContentStatic();
@@ -41,6 +44,9 @@ export default async function Home() {
 
       {/* --- FEATURE CARDS (HORIZONTAL SCROLL) --- */}
       <FeaturesHorizontalScroll />
+
+      {/* --- MISSION & VISION --- */}
+      <MissionVisionSection />
 
       {/* --- EARNINGS CALCULATOR --- */}
       <div id="earnings">

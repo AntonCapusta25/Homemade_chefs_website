@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { ArrowDown, Target, Globe } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 
 export default function AboutHero() {
     const scrollToContent = () => {
@@ -86,48 +86,6 @@ export default function AboutHero() {
                 </div>
             </section>
 
-            {/* --- MISSION & VISION (Split Section) --- */}
-            <section id="about-content" className="py-24 md:py-32 bg-[#FDFBF7]">
-                <div className="container mx-auto px-4">
-                    <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
-                        {/* Mission Bento Card (Dark) */}
-                        <motion.div
-                            initial={{ opacity: 0, x: -30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.2 }}
-                            className="bg-[#0F1E19] text-white p-8 md:p-12 rounded-[2.5rem] shadow-2xl relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500"
-                        >
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-[#F47A44]/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none" />
-                            <div className="bg-white/10 w-12 h-12 rounded-2xl flex items-center justify-center mb-8 backdrop-blur-sm border border-white/10">
-                                <Target className="w-6 h-6 text-white" />
-                            </div>
-                            <h2 className="text-3xl md:text-4xl font-serif mb-6">Our Mission</h2>
-                            <p className="text-lg md:text-xl text-white/80 leading-relaxed font-light">
-                                To democratize the food industry by giving every talented home cook the tools, platform, and specific legal framework they need to turn their passion into a thriving, legitimate business. We are lowering the barrier to entry for food entrepreneurs.
-                            </p>
-                        </motion.div>
-
-                        {/* Vision Bento Card (Light/Accent) */}
-                        <motion.div
-                            initial={{ opacity: 0, x: 30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.4 }}
-                            className="bg-white text-[#0F1E19] p-8 md:p-12 rounded-[2.5rem] shadow-2xl border border-gray-100 relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500"
-                        >
-                            <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#F47A44]/5 rounded-full blur-3xl -ml-16 -mb-16 pointer-events-none" />
-                            <div className="bg-[#E86825]/10 w-12 h-12 rounded-2xl flex items-center justify-center mb-8 border border-[#E86825]/20">
-                                <Globe className="w-6 h-6 text-[#E86825]" />
-                            </div>
-                            <h2 className="text-3xl md:text-4xl font-serif mb-6 text-[#0F1E19]">Our Vision</h2>
-                            <p className="text-lg md:text-xl text-gray-600 leading-relaxed font-light">
-                                A world where local food economies are powered by neighbors. We envision a future where ordering authentic, homemade meals is as common as ordering pizza, connecting communities through the universal language of food and culture.
-                            </p>
-                        </motion.div>
-                    </div>
-                </div>
-            </section>
         </>
     );
 }

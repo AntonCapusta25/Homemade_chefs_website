@@ -1,5 +1,6 @@
 import { getContentStatic } from '@/actions/cms';
 import AboutHero from '@/components/AboutHero';
+import MissionVisionSection from '@/components/MissionVisionSection';
 import TeamSection from '@/components/TeamSection';
 import CallToAction from '@/components/CallToAction';
 import FAQCreative from '@/components/FAQCreative';
@@ -43,6 +44,9 @@ export default async function AboutPage() {
         <div className="bg-[#FDFBF7] min-h-screen">
             {/* --- HERO SECTION --- */}
             <AboutHero />
+
+            {/* --- MISSION & VISION --- */}
+            <MissionVisionSection />
 
             {/* --- TEAM SECTION --- */}
             <TeamSection />
