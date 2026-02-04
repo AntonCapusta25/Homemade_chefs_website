@@ -12,6 +12,14 @@
   --foreground: #0F1E19;
   --primary-orange: #E86825;
   --primary-dark: #0F1E19;
+  --font-serif: 'NewSpirit', serif;
+}
+
+@font-face {
+  font-family: 'NewSpirit';
+  src: url('https://firebasestorage.googleapis.com/v0/b/homemademeals-7040d.appspot.com/o/fonts%2FNewSpirit-BoldCondensed.ttf?alt=media&token=c8efe058-eff2-4ae3-937e-5ec9d0d760cd') format('truetype');
+  font-weight: bold;
+  font-style: normal;
 }
 
 body {

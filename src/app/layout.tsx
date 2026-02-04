@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { DM_Serif_Display, Plus_Jakarta_Sans } from "next/font/google"; // Trendy fonts
+import { Plus_Jakarta_Sans } from "next/font/google"; // Trendy fonts
 import "./globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -11,12 +11,7 @@ import ChefInvitePopup from "../components/ChefInvitePopup";
 import LimitedSpotsBanner from "../components/LimitedSpotsBanner";
 import { OrganizationSchema } from "../components/StructuredData";
 
-const serifFont = DM_Serif_Display({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-serif",
-  display: 'swap', // Prevent invisible text during font load
-});
+
 
 const sansFont = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -108,7 +103,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://scripts.clarity.ms" />
         <link rel="dns-prefetch" href="https://vfkmcamplptlkgurnnzi.supabase.co" />
       </head>
-      <body className={`${serifFont.variable} ${sansFont.variable} font-sans antialiased min-h-screen flex flex-col bg-[#FDFBF7]`} suppressHydrationWarning>
+      <body className={`${sansFont.variable} font-sans antialiased min-h-screen flex flex-col bg-[#FDFBF7]`} suppressHydrationWarning>
         <OrganizationSchema />
         <Providers>
           <Navbar />
