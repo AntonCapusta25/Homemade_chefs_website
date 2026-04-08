@@ -110,11 +110,18 @@ export default function PricingDetailedComparison() {
                                 {activeTab === 'advance' && t('pricing.advancePlan')}
                             </h3>
                             {billingCycle === 'monthly' && (
-                                <div className="text-3xl font-black text-[#F47A44] mb-2">
-                                    {activeTab === 'basic' && '€25'}
-                                    {activeTab === 'pro' && '€35'}
-                                    {activeTab === 'advance' && '€45'}
-                                    <span className="text-sm font-medium text-gray-500 ml-1">/mo</span>
+                                <div className="text-center mb-2">
+                                    <div className="text-3xl font-black text-[#F47A44]">
+                                        {activeTab === 'basic' && '€25'}
+                                        {activeTab === 'pro' && '€35'}
+                                        {activeTab === 'advance' && '€45'}
+                                        <span className="text-sm font-medium text-gray-500 ml-1">/mo</span>
+                                    </div>
+                                    <div className="text-sm font-bold text-[#0F1E19]/60">
+                                        + {activeTab === 'basic' && '5%'}
+                                        {activeTab === 'pro' && '6%'}
+                                        {activeTab === 'advance' && '7%'} {t('pricing.commission')}
+                                    </div>
                                 </div>
                             )}
                         </div>
@@ -158,7 +165,8 @@ export default function PricingDetailedComparison() {
                                             {billingCycle === 'monthly' ? (
                                                 <>
                                                     <div className="text-3xl font-black text-white">€25</div>
-                                                    <div className="text-xs text-white/80">per month</div>
+                                                    <div className="text-xs text-white/80 leading-tight">per month</div>
+                                                    <div className="text-xs font-bold text-white mt-1">+ 5% {t('pricing.commission')}</div>
                                                 </>
                                             ) : (
                                                 <div className="text-3xl font-black text-white">10%</div>
@@ -170,7 +178,8 @@ export default function PricingDetailedComparison() {
                                             {billingCycle === 'monthly' ? (
                                                 <>
                                                     <div className="text-3xl font-black text-[#F47A44]">€35</div>
-                                                    <div className="text-xs text-gray-600">per month</div>
+                                                    <div className="text-xs text-gray-600 leading-tight">per month</div>
+                                                    <div className="text-xs font-bold text-[#F47A44] mt-1">+ 6% {t('pricing.commission')}</div>
                                                 </>
                                             ) : (
                                                 <div className="text-3xl font-black text-[#F47A44]">12%</div>
@@ -185,7 +194,8 @@ export default function PricingDetailedComparison() {
                                             {billingCycle === 'monthly' ? (
                                                 <>
                                                     <div className="text-3xl font-black text-white">€45</div>
-                                                    <div className="text-xs text-white/80">per month</div>
+                                                    <div className="text-xs text-white/80 leading-tight">per month</div>
+                                                    <div className="text-xs font-bold text-white mt-1">+ 7% {t('pricing.commission')}</div>
                                                 </>
                                             ) : (
                                                 <div className="text-3xl font-black text-white">14%</div>
