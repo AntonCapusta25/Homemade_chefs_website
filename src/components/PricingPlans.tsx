@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Check, X } from "lucide-react";
+import { Check, X, Info } from "lucide-react";
 import { useLanguage } from '@/context/LanguageContext';
 import Link from 'next/link';
 
@@ -16,6 +16,7 @@ export default function PricingPlans() {
         {
             name: t('pricing.basicPlan'),
             price: 25,
+            commission: "5%",
             className: "bg-transparent border-2 border-[#0F1E19]",
             textColor: "text-[#0F1E19]",
             buttonStyle: "bg-[#0F1E19] text-white hover:bg-black",
@@ -31,6 +32,7 @@ export default function PricingPlans() {
         {
             name: t('pricing.proPlan'),
             price: 35,
+            commission: "6%",
             className: "bg-[#EBE9E1] border-2 border-[#EBE9E1]",
             textColor: "text-[#0F1E19]",
             buttonStyle: "bg-[#F47A44] text-white hover:bg-[#d6602d]",
@@ -46,6 +48,7 @@ export default function PricingPlans() {
         {
             name: t('pricing.advancePlan'),
             price: 45,
+            commission: "7%",
             className: "bg-[#0F1E19] border-2 border-[#0F1E19]",
             textColor: "text-white",
             buttonStyle: "bg-white text-[#0F1E19] hover:bg-gray-100",
@@ -124,9 +127,24 @@ export default function PricingPlans() {
                             <div className={`${plan.textColor} mb-6`}>
                                 <h3 className="font-serif text-2xl font-bold mb-2">{plan.name}</h3>
                                 {billingCycle === 'monthly' ? (
-                                    <div className="flex items-baseline gap-1">
-                                        <span className="text-5xl font-black">€{plan.price}</span>
-                                        <span className="text-lg opacity-70">/month</span>
+                                    <div className="space-y-3">
+                                        <div className="flex items-center gap-2">
+                                            <div className="flex items-baseline gap-1">
+                                                <span className="text-5xl font-black">€{plan.price}</span>
+                                                <span className="text-lg opacity-70">/month</span>
+                                            </div>
+                                            {/* Info Icon with Tooltip */}
+                                            <div className="relative group/tooltip">
+                                                <Info className="w-5 h-5 opacity-40 hover:opacity-100 cursor-help transition-opacity" />
+                                                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-64 p-4 bg-[#0F1E19] text-white text-xs leading-relaxed rounded-2xl opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all duration-300 z-50 shadow-2xl border border-white/10">
+                                                    {t('pricing.quarterlyBillingInfo')}
+                                                    <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-[#0F1E19]" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="text-lg font-bold opacity-90 flex items-center gap-1">
+                                            + {plan.commission} <span className="text-sm font-medium opacity-70">{t('pricing.commission')}</span>
+                                        </div>
                                     </div>
                                 ) : (
                                     <div className="text-2xl font-black">
@@ -134,6 +152,8 @@ export default function PricingPlans() {
                                     </div>
                                 )}
                             </div>
+
+
 
                             <ul className="space-y-4 mb-8">
                                 {featureLabels.map((feature) => {

@@ -115,8 +115,10 @@
         "training": "Formation & Ressources",
         "cancelAnytime": "Annuler à Tout Moment",
         "platformExclusive": "Exclusif à la Plateforme",
-        "monthNotice": "Préavis de 2 mois"
+        "monthNotice": "Préavis de 2 mois",
+        "quarterlyBillingInfo": "Le paiement est facturé par trimestre. Même avec un abonnement mensuel, la facturation s'effectue sur une base trimestrielle."
     },
+
     "faq": {
         "title": "Des Questions?",
         "chatWithUs": "Discutez avec nous",

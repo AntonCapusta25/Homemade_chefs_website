@@ -114,8 +114,10 @@
         "training": "Training & Bronnen",
         "cancelAnytime": "Altijd Opzegbaar",
         "platformExclusive": "Platform Exclusief",
-        "monthNotice": "2 maanden opzegtermijn"
+        "monthNotice": "2 maanden opzegtermijn",
+        "quarterlyBillingInfo": "Het geld wordt per kwartaal in rekening gebracht. Zelfs bij een maandelijks abonnement vindt de facturering op kwartaalbasis plaats."
     },
+
     "faq": {
         "title": "Vragen?",
         "chatWithUs": "Chat met ons",
