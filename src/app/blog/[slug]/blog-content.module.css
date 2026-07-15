@@ -5,10 +5,10 @@
     color: rgba(15, 30, 25, 0.8);
 }
 
-/* Headings - HUGE sizes */
+/* Headings - HUGE sizes, responsive with clamp() */
 .blogContent h2 {
-    font-family: var(--font-dm-serif-display);
-    font-size: 42px !important;
+    font-family: var(--font-serif);
+    font-size: clamp(28px, 5vw, 42px) !important;
     font-weight: 700;
     color: #0F1E19;
     margin-top: 80px;
@@ -18,8 +18,8 @@
 }
 
 .blogContent h3 {
-    font-family: var(--font-dm-serif-display);
-    font-size: 32px !important;
+    font-family: var(--font-serif);
+    font-size: clamp(22px, 4vw, 32px) !important;
     font-weight: 700;
     color: rgba(15, 30, 25, 0.9);
     margin-top: 64px;
@@ -28,8 +28,8 @@
 }
 
 .blogContent h4 {
-    font-family: var(--font-dm-serif-display);
-    font-size: 26px !important;
+    font-family: var(--font-serif);
+    font-size: clamp(20px, 3vw, 26px) !important;
     font-weight: 700;
     color: rgba(15, 30, 25, 0.85);
     margin-top: 48px;
@@ -38,14 +38,14 @@
 
 /* Paragraphs - Large and readable */
 .blogContent p {
-    font-size: 20px !important;
+    font-size: clamp(16px, 2.5vw, 20px) !important;
     line-height: 1.8;
     margin-bottom: 32px;
     color: rgba(15, 30, 25, 0.8);
 }
 
 .blogContent p:first-of-type {
-    font-size: 24px !important;
+    font-size: clamp(18px, 3vw, 24px) !important;
     font-weight: 500;
     color: rgba(15, 30, 25, 0.9);
     line-height: 1.7;
@@ -84,7 +84,7 @@
 }
 
 .blogContent li {
-    font-size: 20px !important;
+    font-size: clamp(16px, 2.5vw, 20px) !important;
     line-height: 1.8;
     margin-bottom: 16px;
     padding-left: 32px;
@@ -108,7 +108,7 @@
     padding: 32px 40px;
     border-radius: 0 16px 16px 0;
     margin: 48px 0;
-    font-size: 22px !important;
+    font-size: clamp(18px, 3vw, 22px) !important;
     font-weight: 500;
     font-style: normal;
     color: rgba(15, 30, 25, 0.9);

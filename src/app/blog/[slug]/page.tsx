@@ -1,5 +1,6 @@
 
 import { notFound } from 'next/navigation';
+import styles from './blog-content.module.css';
 import { getAllPosts, getPostBySlug, getPostTranslations } from '@/actions/blog';
 import SocialSidebar from '@/components/SocialSidebar';
 import BlogLanguageManager from '@/components/blog/BlogLanguageManager';
@@ -149,14 +150,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 {/* Article Content */}
                 <article className="lg:col-span-8">
                     <div
-                        className="prose prose-xl prose-stone max-w-none 
-                        prose-headings:font-serif prose-headings:text-[#0F1E19] prose-headings:font-bold 
-                        prose-p:text-[#0F1E19]/80 prose-p:leading-loose 
-                        prose-a:text-[#F47A44] prose-a:no-underline hover:prose-a:underline 
-                        prose-quoteless 
-                        prose-blockquote:border-l-4 prose-blockquote:border-[#F47A44] prose-blockquote:bg-[#F47A44]/5 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:not-italic prose-blockquote:rounded-r-lg 
-                        prose-img:rounded-2xl prose-img:shadow-xl 
-                        first-letter:text-5xl first-letter:font-serif first-letter:font-bold first-letter:text-[#F47A44] first-letter:mr-3 first-letter:float-left"
+                        className={styles.blogContent}
                         dangerouslySetInnerHTML={{ __html: sanitizeBlogHTML(post.content) }}
                     />
 
