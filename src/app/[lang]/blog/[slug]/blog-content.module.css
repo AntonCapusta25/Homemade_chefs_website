@@ -99,12 +99,12 @@
 }
 
 .blogContent li {
-    font-size: 20px !important;
-    line-height: 1.8;
-    margin-bottom: 16px;
+    font-size: 18px !important;
+    line-height: 1.85;
+    margin-bottom: 14px;
     padding-left: 32px;
     position: relative;
-    color: rgba(15, 30, 25, 0.8);
+    color: rgba(15, 30, 25, 0.82);
 }
 
 .blogContent ul>li::before {

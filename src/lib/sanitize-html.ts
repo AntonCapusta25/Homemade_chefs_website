@@ -1,90 +1,117 @@
 /**
- * Sanitize and transform HTML content for blog posts
- * - Converts H1 tags to H2 (SEO: only one H1 per page)
- * - Ensures proper heading hierarchy
- * - Adds proper spacing and structure
- * - Cleans up formatting issues
+ * Sanitize and transform HTML content for blog posts.
+ *
+ * Handles AI/editor-generated content that uses:
+ *  - <p><strong>Heading</strong></p>  →  <h2> / <h3>
+ *  - Lines starting with "- " or "• " inside <p> →  <ul><li>
+ *  - Plain-text "Item - description" list lines  →  <ul><li>
+ *  - H1 tags → H2 (SEO: only one H1 per page)
  */
 export function sanitizeBlogHTML(html: string): string {
     if (!html) return '';
 
-    let sanitized = html;
+    let s = html;
 
-    // --- PROMOTE FAKE HEADINGS TO REAL HEADINGS ---
-    // Many editors/AI writers produce <p><strong>Title</strong></p> instead of <h2>.
-    // Detect paragraphs whose ENTIRE visible content is wrapped in <strong> or <b>
-    // and convert them to proper heading tags.
-
-    // Track heading level: first promoted heading becomes h2, subsequent ones h3
-    let headingCount = 0;
-    sanitized = sanitized.replace(
-        /<p([^>]*)>\s*<(?:strong|b)([^>]*)>([\s\S]*?)<\/(?:strong|b)>\s*<\/p>/gi,
-        (_match, pAttrs, _bAttrs, content) => {
-            const text = content.replace(/<[^>]*>/g, '').trim();
-            // Skip if it looks like inline emphasis (very short or sentence-like with comma/period mid-string)
-            if (!text || text.length > 120) return _match;
-            const level = headingCount === 0 ? 2 : 3;
-            headingCount++;
-            return `<h${level}${pAttrs}>${content}</h${level}>`;
+    // ─── 1. PROMOTE BOLD-ONLY PARAGRAPHS TO HEADINGS ─────────────────────────
+    // Pattern: <p> containing ONLY <strong>…</strong> or <b>…</b> (no other text)
+    // First promoted heading → h2, subsequent ones → h3.
+    let headingIndex = 0;
+    s = s.replace(
+        /<p([^>]*)>\s*<(?:strong|b)[^>]*>([\s\S]*?)<\/(?:strong|b)>\s*<\/p>/gi,
+        (_match, pAttrs, innerContent) => {
+            const text = innerContent.replace(/<[^>]*>/g, '').trim();
+            // Skip very short (likely inline) or sentence-style text with mid-text punctuation that's clearly not a heading
+            if (!text || text.length > 100) return _match;
+            const level = headingIndex === 0 ? 2 : 3;
+            headingIndex++;
+            return `<h${level}${pAttrs}>${innerContent}</h${level}>`;
         }
     );
 
-    // Convert all H1 tags to H2 (page title is the only H1)
-    sanitized = sanitized.replace(/<h1([^>]*)>/gi, '<h2$1>');
-    sanitized = sanitized.replace(/<\/h1>/gi, '</h2>');
+    // ─── 2. CONVERT INLINE BOLD HEADINGS (not wrapped in <p>) ────────────────
+    // Pattern: standalone <strong>Short heading text</strong> followed by <br> or </p>
+    // (Some editors produce this without a wrapping <p>)
+    // We leave this for now — covered by step 1 for most cases.
 
-    // Ensure proper ID attributes for headings (for anchor links)
-    sanitized = sanitized.replace(/<h([2-6])([^>]*)>(.*?)<\/h\1>/gi, (match, level, attrs, content) => {
-        // Remove existing id attribute if present
-        const cleanAttrs = attrs.replace(/id="[^"]*"/gi, '').replace(/id='[^']*'/gi, '');
-        // Create slug from content
+    // ─── 3. PROMOTE H1 → H2 (SEO) ───────────────────────────────────────────
+    s = s.replace(/<h1([^>]*)>/gi, '<h2$1>');
+    s = s.replace(/<\/h1>/gi, '</h2>');
+
+    // ─── 4. DETECT LIST LINES INSIDE <p> TAGS ────────────────────────────────
+    // Some blog content has multiple lines inside a single <p>, separated by <br>,
+    // where each line looks like a list item ("- Item" / "• Item" / "* Item").
+    // Split such paragraphs and rebuild as <ul>.
+    s = s.replace(/<p([^>]*)>([\s\S]*?)<\/p>/gi, (_match, attrs, inner) => {
+        // Normalise <br> variants to a real newline for splitting
+        const normalised = inner
+            .replace(/<br\s*\/?>/gi, '\n')
+            .replace(/\n{2,}/g, '\n');
+
+        const lines = normalised.split('\n').map((l: string) => l.trim()).filter(Boolean);
+
+        // Count how many lines look like bullet / dash items
+        const bulletRe = /^[-•*]\s+/;
+        const bulletLines = lines.filter((l: string) => bulletRe.test(l));
+
+        // If at least half of the lines (and more than one) are bullet-style, wrap as list
+        if (bulletLines.length > 1 && bulletLines.length >= lines.length * 0.5) {
+            const items = lines.map((l: string) => {
+                const text = l.replace(bulletRe, '').trim();
+                return `<li>${text}</li>`;
+            });
+            return `<ul>${items.join('')}</ul>`;
+        }
+
+        // Otherwise reconstruct as normal paragraph (joining lines with spaces)
+        return `<p${attrs}>${lines.join(' ')}</p>`;
+    });
+
+    // ─── 5. CONVERT "Word/Phrase - description" LINES TO LIST ITEMS ──────────
+    // Pattern: a <p> that contains ONLY a short label followed by " - " and description,
+    // AND appears adjacent to other such paragraphs.
+    // We look for runs of consecutive <p> elements that all follow the pattern.
+    // Strategy: collect them, then replace with a single <ul>.
+    s = s.replace(
+        /(<p[^>]*>[^<]{1,60} [-–] [^<]+<\/p>\s*){2,}/gi,
+        (block) => {
+            const items = block.replace(/<p[^>]*>([\s\S]*?)<\/p>/gi, (_m: string, content: string) => {
+                return `<li>${content.trim()}</li>`;
+            });
+            return `<ul>${items}</ul>`;
+        }
+    );
+
+    // ─── 6. ADD IDS TO HEADINGS (anchor links) ────────────────────────────────
+    s = s.replace(/<h([2-6])([^>]*)>([\s\S]*?)<\/h\1>/gi, (_m, level, attrs, content) => {
+        const cleanAttrs = attrs.replace(/\s*id="[^"]*"/gi, '').replace(/\s*id='[^']*'/gi, '');
         const slug = content
+            .replace(/<[^>]*>/g, '')
             .toLowerCase()
-            .replace(/<[^>]*>/g, '') // Remove HTML tags
-            .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric with hyphens
-            .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
-
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
         return `<h${level}${cleanAttrs} id="${slug}">${content}</h${level}>`;
     });
 
-    // Fix paragraphs that are missing proper spacing
-    sanitized = sanitized.replace(/<\/p>\s*<p/gi, '</p>\n\n<p');
+    // ─── 7. SPACING CLEANUP ───────────────────────────────────────────────────
+    s = s.replace(/<\/p>\s*<p/gi, '</p>\n\n<p');
+    s = s.replace(/<\/h([2-6])>\s*<p/gi, '</h$1>\n\n<p');
+    s = s.replace(/<\/p>\s*<h([2-6])/gi, '</p>\n\n<h$1');
+    s = s.replace(/<\/ul>\s*<p/gi, '</ul>\n\n<p');
+    s = s.replace(/<\/p>\s*<ul/gi, '</p>\n\n<ul');
 
-    // Add spacing after headings
-    sanitized = sanitized.replace(/<\/h([2-6])>\s*<p/gi, '</h$1>\n\n<p');
+    // ─── 8. STRIP EMPTY / WHITESPACE-ONLY PARAGRAPHS ─────────────────────────
+    s = s.replace(/<p[^>]*>\s*(<br\s*\/?>|\s|&nbsp;)*\s*<\/p>/gi, '');
 
-    // Add spacing before headings
-    sanitized = sanitized.replace(/<\/p>\s*<h([2-6])/gi, '</p>\n\n<h$1');
+    // ─── 9. STRIP STRAY BR TAGS AT START/END OF PARAGRAPHS ───────────────────
+    s = s.replace(/<p([^>]*)>\s*(<br\s*\/?>)+/gi, '<p$1>');
+    s = s.replace(/(<br\s*\/?>)+\s*<\/p>/gi, '</p>');
 
-    // Fix list spacing
-    sanitized = sanitized.replace(/<\/ul>\s*<p/gi, '</ul>\n\n<p');
-    sanitized = sanitized.replace(/<\/ol>\s*<p/gi, '</ol>\n\n<p');
-    sanitized = sanitized.replace(/<\/p>\s*<ul/gi, '</p>\n\n<ul');
-    sanitized = sanitized.replace(/<\/p>\s*<ol/gi, '</p>\n\n<ol');
+    // ─── 10. COLLAPSE EMPTY ATTRIBUTES ───────────────────────────────────────
+    s = s.replace(/\s*id=""\s*/g, ' ');
+    s = s.replace(/\s*class=""\s*/g, ' ');
 
-    // Clean up empty paragraphs
-    sanitized = sanitized.replace(/<p[^>]*>\s*<\/p>/gi, '');
+    // ─── 11. COLLAPSE EXCESSIVE NEWLINES ─────────────────────────────────────
+    s = s.replace(/\n{3,}/g, '\n\n');
 
-    // Clean up paragraphs with only &nbsp; or whitespace
-    sanitized = sanitized.replace(/<p[^>]*>(\s|&nbsp;|<br\s*\/?>)*<\/p>/gi, '');
-
-    // Clean up multiple consecutive <br> tags (max 2)
-    sanitized = sanitized.replace(/(<br\s*\/?>){3,}/gi, '<br /><br />');
-
-    // Remove <br> tags at the start of paragraphs
-    sanitized = sanitized.replace(/<p([^>]*)>\s*(<br\s*\/?>)+/gi, '<p$1>');
-
-    // Remove <br> tags at the end of paragraphs
-    sanitized = sanitized.replace(/(<br\s*\/?>)+\s*<\/p>/gi, '</p>');
-
-    // Clean up empty attributes
-    sanitized = sanitized.replace(/id=""/g, '');
-    sanitized = sanitized.replace(/id=''/g, '');
-    sanitized = sanitized.replace(/class=""/g, '');
-    sanitized = sanitized.replace(/class=''/g, '');
-
-    // Trim excessive whitespace while preserving structure
-    sanitized = sanitized.replace(/\n{3,}/g, '\n\n');
-
-    return sanitized.trim();
+    return s.trim();
 }
