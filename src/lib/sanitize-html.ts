@@ -10,6 +10,25 @@ export function sanitizeBlogHTML(html: string): string {
 
     let sanitized = html;
 
+    // --- PROMOTE FAKE HEADINGS TO REAL HEADINGS ---
+    // Many editors/AI writers produce <p><strong>Title</strong></p> instead of <h2>.
+    // Detect paragraphs whose ENTIRE visible content is wrapped in <strong> or <b>
+    // and convert them to proper heading tags.
+
+    // Track heading level: first promoted heading becomes h2, subsequent ones h3
+    let headingCount = 0;
+    sanitized = sanitized.replace(
+        /<p([^>]*)>\s*<(?:strong|b)([^>]*)>([\s\S]*?)<\/(?:strong|b)>\s*<\/p>/gi,
+        (_match, pAttrs, _bAttrs, content) => {
+            const text = content.replace(/<[^>]*>/g, '').trim();
+            // Skip if it looks like inline emphasis (very short or sentence-like with comma/period mid-string)
+            if (!text || text.length > 120) return _match;
+            const level = headingCount === 0 ? 2 : 3;
+            headingCount++;
+            return `<h${level}${pAttrs}>${content}</h${level}>`;
+        }
+    );
+
     // Convert all H1 tags to H2 (page title is the only H1)
     sanitized = sanitized.replace(/<h1([^>]*)>/gi, '<h2$1>');
     sanitized = sanitized.replace(/<\/h1>/gi, '</h2>');
