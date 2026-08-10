@@ -92,12 +92,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         .eq('is_published', true)
         .order('updated_at', { ascending: false });
 
-    const blogPages: MetadataRoute.Sitemap = (blogPosts || []).map((post) => ({
-        url: `${baseUrl}/${post.language === 'en' ? '' : post.language + '/'}blog/${post.slug}`,
-        lastModified: new Date(post.updated_at),
-        changeFrequency: 'weekly' as const,
-        priority: 0.7,
-    }));
+    const blogPages: MetadataRoute.Sitemap = (blogPosts || [])
+        .filter(post => post.language !== 'nl')
+        .map((post) => ({
+            url: `${baseUrl}/${post.language === 'en' ? '' : post.language + '/'}blog/${post.slug}`,
+            lastModified: new Date(post.updated_at),
+            changeFrequency: 'weekly' as const,
+            priority: 0.7,
+        }));
 
     // Fetch learning pages
     const { data: learningPages } = await supabase

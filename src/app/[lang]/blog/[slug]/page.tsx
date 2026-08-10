@@ -1,7 +1,7 @@
 
 import { notFound } from 'next/navigation';
 import styles from './blog-content.module.css';
-import { getAllPosts, getPostBySlug, getPostTranslations } from '@/actions/blog';
+import { getAllPosts, getPostBySlug, getPostTranslations, getPostById } from '@/actions/blog';
 import SocialSidebar from '@/components/SocialSidebar';
 import BlogLanguageManager from '@/components/blog/BlogLanguageManager';
 import Image from 'next/image';
@@ -27,7 +27,21 @@ function getDictionary(lang: string): Translations {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string; lang: string }> }) {
     const { slug, lang } = await params;
-    const post = await getPostBySlug(slug, lang);
+    const validLang = ['en', 'nl', 'fr'].includes(lang?.toLowerCase()) ? lang.toLowerCase() : 'en';
+    let post = await getPostBySlug(slug, validLang);
+
+    if (!post && validLang === 'nl') {
+        post = await getPostBySlug(slug, 'en');
+    }
+
+    if (post && post.language === 'nl') {
+        const englishPostId = post.translated_from_id;
+        if (englishPostId) {
+            post = await getPostById(englishPostId);
+        } else {
+            post = null;
+        }
+    }
 
     if (!post) {
         return {
@@ -56,7 +70,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     const validLang = ['en', 'nl', 'fr'].includes(lang?.toLowerCase()) ? lang.toLowerCase() : 'en';
     const t = getDictionary(validLang);
 
-    const post = await getPostBySlug(slug, validLang);
+    let post = await getPostBySlug(slug, validLang);
+
+    if (!post && validLang === 'nl') {
+        post = await getPostBySlug(slug, 'en');
+    }
+
+    if (post && post.language === 'nl') {
+        const englishPostId = post.translated_from_id;
+        if (englishPostId) {
+            post = await getPostById(englishPostId);
+        } else {
+            post = null;
+        }
+    }
 
     if (!post) {
         notFound();
@@ -66,7 +93,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     const translations = await getPostTranslations(post.id);
 
     // Get related posts (same category, excluding current post, limit to 2 for cleaner layout)
-    const allPosts = await getAllPosts(validLang);
+    const fetchLang = validLang === 'nl' ? 'en' : validLang;
+    const allPosts = await getAllPosts(fetchLang);
     const relatedPosts = allPosts
         .filter(p => p.category === post.category && p.slug !== post.slug)
         .slice(0, 2);

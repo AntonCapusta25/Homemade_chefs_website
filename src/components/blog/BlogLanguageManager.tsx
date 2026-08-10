@@ -23,12 +23,16 @@ export default function BlogLanguageManager({ translations }: { translations: Tr
             const langCode = t.language.toLowerCase();
             if (langCode === 'en') {
                 paths.en = `/blog/${t.slug}`;
-            } else if (langCode === 'nl') {
-                paths.nl = `/nl/blog/${t.slug}`;
             } else if (langCode === 'fr') {
                 paths.fr = `/fr/blog/${t.slug}`;
             }
         });
+
+        // Hiding Dutch posts: fallback Dutch translation route to the English post slug
+        const enTranslation = translations.find(t => t.language.toLowerCase() === 'en');
+        if (enTranslation) {
+            paths.nl = `/nl/blog/${enTranslation.slug}`;
+        }
 
         // Register paths in context
         setAlternatePaths(paths);

@@ -27,7 +27,7 @@ export default function BlogPage() {
             setOffset(0);
             setHasMore(true);
 
-            const langCode = language.toLowerCase();
+            const langCode = language.toLowerCase() === 'nl' ? 'en' : language.toLowerCase();
             const fetchedPosts = await getAllPosts(langCode, POSTS_PER_PAGE, 0);
             setPosts(fetchedPosts);
             setHasMore(fetchedPosts.length === POSTS_PER_PAGE);
@@ -41,7 +41,7 @@ export default function BlogPage() {
         if (loadingMore || !hasMore) return;
 
         setLoadingMore(true);
-        const langCode = language.toLowerCase();
+        const langCode = language.toLowerCase() === 'nl' ? 'en' : language.toLowerCase();
         const newOffset = offset + POSTS_PER_PAGE;
         const morePosts = await getAllPosts(langCode, POSTS_PER_PAGE, newOffset);
 
