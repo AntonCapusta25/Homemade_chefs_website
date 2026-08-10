@@ -21,6 +21,9 @@ export default function AdminDashboard() {
                     const total = blogResult.data.length;
                     const drafts = blogResult.data.filter((p: any) => !p.is_published).length;
                     setBlogCount({ total, drafts });
+                } else if (blogResult.error === 'Not authenticated') {
+                    router.push('/admin/login');
+                    return;
                 }
             } catch (error) {
                 console.error('Error loading blog stats:', error);
@@ -32,13 +35,16 @@ export default function AdminDashboard() {
                     const total = learningResult.data.length;
                     const drafts = learningResult.data.filter((p: any) => !p.is_published).length;
                     setLearningCount({ total, drafts });
+                } else if (learningResult.error === 'Not authenticated') {
+                    router.push('/admin/login');
+                    return;
                 }
             } catch (error) {
                 console.error('Error loading learning stats:', error);
             }
         }
         loadStats();
-    }, []);
+    }, [router]);
 
     const handleLogout = async () => {
         await logout();

@@ -35,6 +35,9 @@ export default function BlogManagementPage() {
             setPosts(englishPosts);
         } else {
             setError(result.error || 'Failed to load posts');
+            if (result.error === 'Not authenticated') {
+                router.push('/admin/login');
+            }
         }
         setLoading(false);
     }
