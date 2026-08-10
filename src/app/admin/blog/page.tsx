@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Plus, Edit, Trash2, Eye, EyeOff, CheckCheck } from 'lucide-react';
-import { getAllPostsAdmin, deletePost, publishAllUnpublished } from '@/actions/blog';
+import { getAllPostsAdmin, deletePost, publishAllUnpublished, updatePost } from '@/actions/blog';
 
 interface BlogPost {
     id: number;
@@ -19,6 +19,7 @@ export default function BlogManagementPage() {
     const router = useRouter();
     const [posts, setPosts] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         loadPosts();
@@ -26,11 +27,14 @@ export default function BlogManagementPage() {
 
     async function loadPosts() {
         setLoading(true);
+        setError(null);
         const result = await getAllPostsAdmin();
         if (result.success && result.data) {
             // Only show English posts (translations are managed within each post)
             const englishPosts = result.data.filter((p: BlogPost) => p.language === 'en');
             setPosts(englishPosts);
+        } else {
+            setError(result.error || 'Failed to load posts');
         }
         setLoading(false);
     }
@@ -51,6 +55,17 @@ export default function BlogManagementPage() {
             loadPosts();
         } else {
             alert(`Failed to publish posts: ${result.error}`);
+        }
+    }
+
+    async function handleTogglePublish(id: number, currentStatus: boolean) {
+        setLoading(true);
+        const result = await updatePost(id, { is_published: !currentStatus });
+        if (result.success) {
+            loadPosts();
+        } else {
+            alert('Failed to update post status');
+            setLoading(false);
         }
     }
 
@@ -100,6 +115,11 @@ export default function BlogManagementPage() {
 
             {/* Content */}
             <main className="max-w-6xl mx-auto px-6 py-8">
+                {error && (
+                    <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-xl mb-6">
+                        {error}
+                    </div>
+                )}
                 {loading ? (
                     <div className="text-center py-12 text-gray-500">Loading...</div>
                 ) : posts.length === 0 ? (
@@ -163,6 +183,15 @@ export default function BlogManagementPage() {
                                         </td>
                                         <td className="px-6 py-4">
                                             <div className="flex items-center justify-end gap-2">
+                                                <button
+                                                    onClick={() => handleTogglePublish(post.id, post.is_published)}
+                                                    className={`p-2 rounded-lg transition-colors ${post.is_published 
+                                                        ? 'text-green-600 hover:text-[#F47A44] hover:bg-gray-100' 
+                                                        : 'text-gray-400 hover:text-green-600 hover:bg-green-50'}`}
+                                                    title={post.is_published ? "Disable / Unpublish" : "Enable / Publish"}
+                                                >
+                                                    {post.is_published ? <EyeOff size={16} /> : <Eye size={16} />}
+                                                </button>
                                                 <Link
                                                     href={`/admin/blog/${post.id}`}
                                                     className="p-2 text-gray-600 hover:text-[#F47A44] hover:bg-gray-100 rounded-lg transition-colors"
