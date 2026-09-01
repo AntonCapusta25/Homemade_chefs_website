@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 
 const frontierMembers = [
     { name: "Khaylan Lalla", role: "Sales Team" },
-    { name: "Rajayogi Nandina", role: "UI/UX Designer" },
+    { name: "Mariam", role: "Sales Team" },
+    { name: "Marek Roque", role: "UI/UX Designer" },
 ];
 
 const teamMembers = [
