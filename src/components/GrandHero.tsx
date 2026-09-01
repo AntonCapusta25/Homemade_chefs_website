@@ -21,58 +21,69 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
 
     const heroContent = [
         {
-            image: "/hero-real-1.webp",
+            image: "/hero-slide-1.png",
             headline: title || t("hero.mainHeadline"),
             testimonial: {
                 quote: t("hero.slide1Quote"),
                 name: t("hero.slide1Name"),
                 role: t("hero.slide1Role"),
-                avatar: "/hero-real-1.webp",
+                avatar: "/hero-slide-1.png",
                 position: "top-32 right-12"
             }
         },
         {
-            image: "/hero-real-5.webp",
+            image: "/hero-slide-2.png",
             headline: title || t("hero.slide2Headline"),
             testimonial: {
                 quote: t("hero.slide2Quote"),
                 name: t("hero.slide2Name"),
                 role: t("hero.slide2Role"),
-                avatar: "/hero-real-5.webp",
+                avatar: "/hero-slide-2.png",
                 position: "bottom-40 right-20"
             }
         },
         {
-            image: "/hero-real-4.webp",
+            image: "/hero-slide-3.png",
             headline: title || t("hero.slide3Headline"),
             testimonial: {
                 quote: t("hero.slide3Quote"),
                 name: t("hero.slide3Name"),
                 role: t("hero.slide3Role"),
-                avatar: "/hero-real-4.webp",
+                avatar: "/hero-slide-3.png",
                 position: "top-40 right-1/4"
             }
         },
         {
-            image: "/hero-real-2.webp",
+            image: "/hero-slide-4.png",
             headline: title || t("hero.slide4Headline"),
             testimonial: {
                 quote: t("hero.slide4Quote"),
                 name: t("hero.slide4Name"),
                 role: t("hero.slide4Role"),
-                avatar: "/hero-real-2.webp",
+                avatar: "/hero-slide-4.png",
                 position: "bottom-32 right-32"
             }
         },
         {
-            image: "/hero-real-3.webp",
+            image: "/hero-slide-5.png",
             headline: title || t("hero.slide5Headline"),
             testimonial: {
                 quote: t("hero.slide5Quote"),
                 name: t("hero.slide5Name"),
                 role: t("hero.slide5Role"),
-                avatar: "/hero-real-3.webp",
+                avatar: "/hero-slide-5.png",
                 position: "top-1/3 right-10"
+            }
+        },
+        {
+            image: "/hero-slide-6.png",
+            headline: title || t("hero.mainHeadline"),
+            testimonial: {
+                quote: t("hero.slide1Quote"),
+                name: t("hero.slide1Name"),
+                role: t("hero.slide1Role"),
+                avatar: "/hero-slide-6.png",
+                position: "bottom-36 right-16"
             }
         }
     ];
@@ -174,10 +185,10 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                         className="flex items-center gap-6 text-white/60"
                     >
                         <div className="flex -space-x-3">
-                            {[1, 2, 3, 4].map((i) => (
+                            {[1, 2, 3, 4, 5, 6].map((i) => (
                                 <div key={i} className="w-10 h-10 rounded-full border-2 border-[#0F1E19] overflow-hidden bg-white/20 relative">
                                     <Image
-                                        src={`/chef-avatar-${i}.png`}
+                                        src={`/hero-slide-${i}.png`}
                                         alt={`Chef ${i}`}
                                         fill
                                         sizes="64px"

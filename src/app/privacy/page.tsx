@@ -176,6 +176,21 @@ export default function PrivacyPolicy() {
 
                     <section className="mb-8">
                         <h2 className="font-serif text-2xl md:text-3xl font-bold text-[#0F1E19] mb-4">
+                            EU AI Act Compliance & Artificial Intelligence (Regulation (EU) 2024/1689)
+                        </h2>
+                        <p className="text-gray-700 leading-relaxed mb-4">
+                            Homemade Chefs is committed to transparency, safety, and accountability in accordance with the European Union Artificial Intelligence Act (EU AI Act - Regulation (EU) 2024/1689). When you use our platform, certain artificial intelligence (AI) and automated tools may assist you with content generation, menu optimization, copywriting, translation, customer support, and analytics.
+                        </p>
+                        <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4 mb-4">
+                            <li><strong>Transparency & AI Disclosure:</strong> Any content generated or assisted by AI tools on our platform is made clear to users in accordance with Article 50 of the EU AI Act.</li>
+                            <li><strong>Human Oversight & Non-High-Risk Use:</strong> Our AI features operate solely as supportive, non-high-risk decision tools under human oversight. We do not use automated profiling or high-risk AI classification that legally affects individuals without human review.</li>
+                            <li><strong>Data Protection & AI Training:</strong> Personal data processed by AI tools is subject to strict data minimization principles under the GDPR. Your personal information is not shared with public third-party AI models for training without explicit consent.</li>
+                            <li><strong>Automated Decision-Making Rights:</strong> You retain rights under GDPR Article 22 and the EU AI Act to request human intervention, review, or explanation regarding any AI-driven recommendation or score.</li>
+                        </ul>
+                    </section>
+
+                    <section className="mb-8">
+                        <h2 className="font-serif text-2xl md:text-3xl font-bold text-[#0F1E19] mb-4">
                             Changes to the Policy
                         </h2>
                         <p className="text-gray-700 leading-relaxed mb-4">
@@ -196,7 +211,7 @@ export default function PrivacyPolicy() {
 
                     <div className="mt-12 pt-8 border-t border-gray-200">
                         <p className="text-sm text-gray-500 text-center">
-                            Last updated: December 22, 2025
+                            Last updated: September 1, 2026 (EU AI Act Addition)
                         </p>
                     </div>
                 </div>

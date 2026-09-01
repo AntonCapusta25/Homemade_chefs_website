@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'cdn-upload.hyperzod.app',
+      },
+      {
+        protocol: 'https',
         hostname: 'vfkmcamplptlkgurnnzi.supabase.co',
         pathname: '/storage/v1/object/public/**',
       },

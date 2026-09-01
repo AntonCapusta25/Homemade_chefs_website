@@ -237,9 +237,24 @@ export default function TermsOfService() {
                         </ul>
                     </section>
 
+                    <section className="mb-8">
+                        <h2 className="font-serif text-2xl md:text-3xl font-bold text-[#0F1E19] mb-4">
+                            17. Artificial Intelligence (AI) Features & EU AI Act Governance
+                        </h2>
+                        <p className="text-gray-700 leading-relaxed mb-4">
+                            Homemade Chefs integrates artificial intelligence and machine learning tools ("AI Features") to assist chefs and users with store setup, menu creation, copywriting, translation, and analytics. In accordance with the European Union Artificial Intelligence Act (EU AI Act - Regulation (EU) 2024/1689):
+                        </p>
+                        <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                            <li><strong>Responsibility for Output:</strong> AI Features provide suggestions and assistive content only. As a chef or user, you remain solely responsible for reviewing, verifying, and ensuring the accuracy of all AI-generated content (including ingredient lists, allergen disclaimers, pricing, and food descriptions) before publishing.</li>
+                            <li><strong>Prohibited AI Inputs:</strong> You agree not to input proprietary, unlawful, defamatory, or sensitive personal data into any AI Feature provided on the Service.</li>
+                            <li><strong>AI Content Labeling:</strong> In compliance with Article 50 of the EU AI Act, AI-generated synthetic content or automated communications will be clearly disclosed to end users.</li>
+                            <li><strong>Fair Use & Operational Limits:</strong> Homemade Chefs reserves the right to rate-limit or restrict access to AI Features to prevent abuse, data scraping, or unauthorized automated interactions.</li>
+                        </ul>
+                    </section>
+
                     <div className="mt-12 pt-8 border-t border-gray-200">
                         <p className="text-sm text-gray-500 text-center">
-                            Last updated: December 22, 2025
+                            Last updated: September 1, 2026 (EU AI Act Addition)
                         </p>
                     </div>
                 </div>

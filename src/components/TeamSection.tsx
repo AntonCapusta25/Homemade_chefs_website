@@ -5,9 +5,6 @@ import { motion } from "framer-motion";
 
 const frontierMembers = [
     { name: "Khaylan Lalla", role: "Sales Team" },
-    { name: "Walid Sabihi", role: "Sales Team" },
-    { name: "Audrey Mballa", role: "Marketing Team" },
-    { name: "Nouran", role: "Video Editor" },
     { name: "Rajayogi Nandina", role: "UI/UX Designer" },
 ];
 
@@ -17,12 +14,6 @@ const teamMembers = [
         role: "CEO",
         bio: "Leading Homemade Chefs with a vision to empower home cooks globally. Mahmoud brings strategic leadership and a passion for culinary innovation to every aspect of the platform.",
         image: "/about/mahmoud-el-wakil.jpg",
-    },
-    {
-        name: "Aisha Abdelwahab",
-        role: "Marketing Manager",
-        bio: "Driving the brand's growth and connecting with our community. Aisha leads our marketing strategies to share the Homemade Chefs story with the world.",
-        image: "/about/aisha-abdelwahab.jpg",
     },
     {
         name: "Oleksandr Filippov",
