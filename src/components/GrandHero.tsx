@@ -27,7 +27,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                 quote: t("hero.slide1Quote"),
                 name: t("hero.slide1Name"),
                 role: t("hero.slide1Role"),
-                avatar: "/chef-logo-1.jpg",
+                avatar: "/chef-logo-spice-road.jpg",
                 position: "top-32 right-12"
             }
         },
@@ -38,7 +38,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                 quote: t("hero.slide2Quote"),
                 name: t("hero.slide2Name"),
                 role: t("hero.slide2Role"),
-                avatar: "/chef-logo-2.jpg",
+                avatar: "/chef-logo-bottega-da-dome.png",
                 position: "bottom-40 right-20"
             }
         },
@@ -49,7 +49,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                 quote: t("hero.slide3Quote"),
                 name: t("hero.slide3Name"),
                 role: t("hero.slide3Role"),
-                avatar: "/chef-logo-3.png",
+                avatar: "/chef-logo-la-esquina.jpg",
                 position: "top-40 right-1/4"
             }
         },
@@ -60,7 +60,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                 quote: t("hero.slide4Quote"),
                 name: t("hero.slide4Name"),
                 role: t("hero.slide4Role"),
-                avatar: "/chef-logo-4.webp",
+                avatar: "/chef-logo-recipes-by-sahar.png",
                 position: "bottom-32 right-32"
             }
         },
@@ -71,7 +71,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                 quote: t("hero.slide5Quote"),
                 name: t("hero.slide5Name"),
                 role: t("hero.slide5Role"),
-                avatar: "/chef-logo-1.jpg",
+                avatar: "/chef-logo-da-vincenzo.webp",
                 position: "top-1/3 right-10"
             }
         }
@@ -174,11 +174,17 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                         className="flex items-center gap-6 text-white/60"
                     >
                         <div className="flex -space-x-3">
-                            {["/chef-logo-1.jpg", "/chef-logo-2.jpg", "/chef-logo-3.png", "/chef-logo-4.webp"].map((logoSrc, i) => (
+                            {[
+                                "/chef-logo-spice-road.jpg",
+                                "/chef-logo-bottega-da-dome.png",
+                                "/chef-logo-la-esquina.jpg",
+                                "/chef-logo-recipes-by-sahar.png",
+                                "/chef-logo-da-vincenzo.webp"
+                            ].map((logoSrc, i) => (
                                 <div key={i} className="w-10 h-10 rounded-full border-2 border-[#0F1E19] overflow-hidden bg-white relative shadow-sm">
                                     <Image
                                         src={logoSrc}
-                                        alt={`Chef ${i + 1}`}
+                                        alt={`Chef logo ${i + 1}`}
                                         fill
                                         sizes="64px"
                                         className="object-cover"
