@@ -60,7 +60,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                 quote: t("hero.slide4Quote"),
                 name: t("hero.slide4Name"),
                 role: t("hero.slide4Role"),
-                avatar: "/chef-logo-4.png",
+                avatar: "/chef-logo-4.webp",
                 position: "bottom-32 right-32"
             }
         },
@@ -174,7 +174,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                         className="flex items-center gap-6 text-white/60"
                     >
                         <div className="flex -space-x-3">
-                            {["/chef-logo-1.jpg", "/chef-logo-2.jpg", "/chef-logo-3.png", "/chef-logo-4.png"].map((logoSrc, i) => (
+                            {["/chef-logo-1.jpg", "/chef-logo-2.jpg", "/chef-logo-3.png", "/chef-logo-4.webp"].map((logoSrc, i) => (
                                 <div key={i} className="w-10 h-10 rounded-full border-2 border-[#0F1E19] overflow-hidden bg-white relative shadow-sm">
                                     <Image
                                         src={logoSrc}
