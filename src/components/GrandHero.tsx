@@ -27,7 +27,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                 quote: t("hero.slide1Quote"),
                 name: t("hero.slide1Name"),
                 role: t("hero.slide1Role"),
-                avatar: "/hero-slide-1.jpg",
+                avatar: "/chef-logo-1.jpg",
                 position: "top-32 right-12"
             }
         },
@@ -38,7 +38,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                 quote: t("hero.slide2Quote"),
                 name: t("hero.slide2Name"),
                 role: t("hero.slide2Role"),
-                avatar: "/hero-slide-2.jpg",
+                avatar: "/chef-logo-2.jpg",
                 position: "bottom-40 right-20"
             }
         },
@@ -49,7 +49,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                 quote: t("hero.slide3Quote"),
                 name: t("hero.slide3Name"),
                 role: t("hero.slide3Role"),
-                avatar: "/hero-slide-3.jpg",
+                avatar: "/chef-logo-3.png",
                 position: "top-40 right-1/4"
             }
         },
@@ -60,7 +60,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                 quote: t("hero.slide4Quote"),
                 name: t("hero.slide4Name"),
                 role: t("hero.slide4Role"),
-                avatar: "/hero-slide-4.jpg",
+                avatar: "/chef-logo-4.png",
                 position: "bottom-32 right-32"
             }
         },
@@ -71,7 +71,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                 quote: t("hero.slide5Quote"),
                 name: t("hero.slide5Name"),
                 role: t("hero.slide5Role"),
-                avatar: "/hero-slide-5.jpg",
+                avatar: "/chef-logo-1.jpg",
                 position: "top-1/3 right-10"
             }
         }
@@ -174,11 +174,11 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                         className="flex items-center gap-6 text-white/60"
                     >
                         <div className="flex -space-x-3">
-                            {[1, 2, 3, 4, 5].map((i) => (
-                                <div key={i} className="w-10 h-10 rounded-full border-2 border-[#0F1E19] overflow-hidden bg-white/20 relative">
+                            {["/chef-logo-1.jpg", "/chef-logo-2.jpg", "/chef-logo-3.png", "/chef-logo-4.png"].map((logoSrc, i) => (
+                                <div key={i} className="w-10 h-10 rounded-full border-2 border-[#0F1E19] overflow-hidden bg-white relative shadow-sm">
                                     <Image
-                                        src={`/hero-slide-${i}.jpg`}
-                                        alt={`Chef ${i}`}
+                                        src={logoSrc}
+                                        alt={`Chef ${i + 1}`}
                                         fill
                                         sizes="64px"
                                         className="object-cover"
@@ -212,13 +212,13 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                                 &quot;{heroContent[index].testimonial.quote}&quot;
                             </p>
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-white/20 overflow-hidden">
+                                <div className="w-10 h-10 rounded-full bg-white overflow-hidden border border-white/30 relative flex-none shadow-md">
                                     <Image
                                         src={heroContent[index].testimonial.avatar}
                                         alt={heroContent[index].testimonial.name}
                                         width={40}
                                         height={40}
-                                        className="object-cover"
+                                        className="object-cover w-full h-full"
                                     />
                                 </div>
                                 <div>
