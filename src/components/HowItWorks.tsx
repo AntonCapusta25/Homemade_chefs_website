@@ -112,13 +112,13 @@ export default function HowItWorks() {
 
                                     {/* Image Card */}
                                     <div className="flex-1 w-full">
-                                        <div className={`relative h-64 md:h-80 w-full rounded-2xl overflow-hidden shadow-lg group hover:shadow-xl transition-all duration-500 ${isEven ? 'rotate-1' : '-rotate-1'} hover:rotate-0`}>
+                                        <div className={`relative h-64 md:h-80 w-full rounded-2xl overflow-hidden shadow-lg bg-[#0F1E19]/5 group hover:shadow-xl transition-all duration-500 ${isEven ? 'rotate-1' : '-rotate-1'} hover:rotate-0`}>
                                             <Image
                                                 src={step.image}
                                                 alt={step.title}
                                                 fill
                                                 sizes="(max-width: 768px) 100vw, 50vw"
-                                                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                                className="object-cover scale-90 group-hover:scale-95 transition-transform duration-700"
                                             />
                                         </div>
                                     </div>
