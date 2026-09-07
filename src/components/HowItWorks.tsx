@@ -15,7 +15,7 @@ export default function HowItWorks() {
             description: t('howItWorks.step1Desc'),
             icon: ChefHat,
             color: "text-[#F47A44]",
-            image: "/hiw-step-1.png"
+            image: "/hiw-step-1.jpg"
         },
         {
             id: 2,
@@ -23,7 +23,7 @@ export default function HowItWorks() {
             description: t('howItWorks.step2Desc'),
             icon: Utensils,
             color: "text-[#F47A44]",
-            image: "/hiw-step-2.png"
+            image: "/hiw-step-2.jpg"
         },
         {
             id: 3,
@@ -31,7 +31,7 @@ export default function HowItWorks() {
             description: t('howItWorks.step3Desc'),
             icon: Flame,
             color: "text-[#F47A44]",
-            image: "/hiw-step-3.png"
+            image: "/hiw-step-3.jpg"
         },
         {
             id: 4,
@@ -118,7 +118,7 @@ export default function HowItWorks() {
                                                 alt={step.title}
                                                 fill
                                                 sizes="(max-width: 768px) 100vw, 50vw"
-                                                className="object-cover scale-90 group-hover:scale-95 transition-transform duration-700"
+                                                className="object-cover scale-95 group-hover:scale-100 transition-transform duration-700"
                                             />
                                         </div>
                                     </div>
