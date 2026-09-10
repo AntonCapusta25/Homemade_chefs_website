@@ -181,7 +181,7 @@ function FeatureCard({ feature }: { feature: FeatureProps }) {
         <div className="flex-shrink-0 w-[85vw] md:w-[70vw] lg:w-[60vw] h-auto md:h-[70vh] bg-white rounded-3xl md:rounded-[3rem] border border-gray-100 p-5 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.06)] md:shadow-sm flex flex-col md:flex-row gap-6 md:gap-12 relative overflow-hidden group hover:shadow-xl md:hover:shadow-2xl transition-all duration-500">
 
             {/* Visual Side */}
-            <div className="w-full md:w-1/2 relative aspect-video md:aspect-auto md:h-full rounded-2xl md:rounded-[2rem] overflow-hidden bg-gray-50 border border-gray-100">
+            <div className="w-full md:w-1/2 relative h-64 sm:h-72 md:h-full md:aspect-auto rounded-2xl md:rounded-[2rem] overflow-hidden bg-gray-50 border border-gray-100">
                 <div className={`hidden md:block absolute inset-0 ${feature.color} opacity-50`}></div>
                 <Image
                     src={feature.image}
