@@ -85,7 +85,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
     }, [heroContent.length]);
 
     return (
-        <section className="relative w-full h-[82vh] min-h-[580px] max-h-[720px] md:h-screen md:min-h-0 md:max-h-none overflow-hidden bg-[#0F1E19]">
+        <section className="relative w-full h-screen min-h-[100dvh] overflow-hidden bg-[#0F1E19]">
 
             {/* --- BACKGROUND SLIDESHOW (KEN BURNS) --- */}
             <AnimatePresence mode="popLayout" initial={false}>
