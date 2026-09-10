@@ -188,7 +188,7 @@ function FeatureCard({ feature }: { feature: FeatureProps }) {
                     alt={feature.title}
                     fill
                     sizes="(max-width: 768px) 85vw, (max-width: 1024px) 35vw, 30vw"
-                    className="object-cover object-center scale-90 sm:scale-100 transform group-hover:scale-105 transition-transform duration-700"
+                    className="object-contain object-center transform group-hover:scale-105 transition-transform duration-700"
                 />
 
                 {/* Mobile Badge (Inside Image) */}
