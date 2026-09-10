@@ -14,7 +14,7 @@ const features = [
             "Build your store, menu, and pricing in one place.",
             "Upload photos, showcase your dishes, and start accepting orders."
         ],
-        image: "/hero-real-2.png",
+        image: "/features/feature-1.jpg",
         color: "bg-orange-50",
         badgeColor: "bg-blue-100 text-blue-700"
     },
@@ -25,7 +25,7 @@ const features = [
             "Built-in tools turn your phone into a sales engine.",
             "From your first order to your 5,000th, Homemade simplifies sales."
         ],
-        image: "/cinematic-serving.png",
+        image: "/features/feature-2.jpg",
         color: "bg-blue-50",
         badgeColor: "bg-purple-100 text-purple-700"
     },
@@ -36,7 +36,7 @@ const features = [
             "Manage pickup, scheduled orders, and track performance from your dashboard.",
             "Real-time order tracking for you and your customers"
         ],
-        image: "/hero-real-4.png",
+        image: "/features/feature-3.jpg",
         color: "bg-purple-50",
         badgeColor: "bg-green-100 text-green-700"
     },
@@ -47,7 +47,7 @@ const features = [
             "Create a professional storefront, logo, and branding.",
             "Use marketing tools to attract more customers and grow your business"
         ],
-        image: "/branded-merch.png",
+        image: "/features/feature-4.jpg",
         color: "bg-green-50",
         badgeColor: "bg-orange-100 text-orange-700"
     }
