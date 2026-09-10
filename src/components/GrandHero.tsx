@@ -91,7 +91,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
             <AnimatePresence mode="popLayout" initial={false}>
                 <motion.div
                     key={index}
-                    initial={{ opacity: 0, scale: 1.1 }}
+                    initial={{ opacity: 0, scale: 1.03 }}
                     animate={{ opacity: 1, scale: 1.0 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 2, ease: "easeInOut" }}
@@ -102,7 +102,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                         alt="Home Chef"
                         fill
                         sizes="100vw"
-                        className="object-cover"
+                        className="object-cover object-top sm:object-center"
                         priority
                         fetchPriority="high"
                     />
