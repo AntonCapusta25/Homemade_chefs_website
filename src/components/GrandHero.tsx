@@ -22,6 +22,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
     const heroContent = [
         {
             image: "/hero-slide-1.jpg",
+            mobileImage: "/hero-slide-1-mobile.jpg",
             headline: title || t("hero.mainHeadline"),
             testimonial: {
                 quote: t("hero.slide1Quote"),
@@ -33,6 +34,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
         },
         {
             image: "/hero-slide-3.jpg",
+            mobileImage: "/hero-slide-3-mobile.jpg",
             headline: title || t("hero.slide3Headline"),
             testimonial: {
                 quote: t("hero.slide3Quote"),
@@ -44,6 +46,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
         },
         {
             image: "/hero-slide-4.jpg",
+            mobileImage: "/hero-slide-4-mobile.jpg",
             headline: title || t("hero.slide4Headline"),
             testimonial: {
                 quote: t("hero.slide4Quote"),
@@ -55,6 +58,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
         },
         {
             image: "/hero-slide-5.jpg",
+            mobileImage: "/hero-slide-5-mobile.jpg",
             headline: title || t("hero.slide5Headline"),
             testimonial: {
                 quote: t("hero.slide5Quote"),
@@ -86,12 +90,23 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                     transition={{ duration: 2, ease: "easeInOut" }}
                     className="absolute inset-0 z-0"
                 >
+                    {/* Mobile optimized portrait image */}
+                    <Image
+                        src={heroContent[index].mobileImage || heroContent[index].image}
+                        alt="Home Chef"
+                        fill
+                        sizes="100vw"
+                        className="object-cover md:hidden"
+                        priority
+                        fetchPriority="high"
+                    />
+                    {/* Desktop widescreen image */}
                     <Image
                         src={heroContent[index].image}
                         alt="Home Chef"
                         fill
                         sizes="100vw"
-                        className="object-cover object-top sm:object-center scale-90 sm:scale-100 transition-transform duration-700"
+                        className="object-cover hidden md:block"
                         priority
                         fetchPriority="high"
                     />
