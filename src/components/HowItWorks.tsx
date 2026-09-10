@@ -97,7 +97,7 @@ export default function HowItWorks() {
                                                 alt={step.title}
                                                 fill
                                                 sizes="(max-width: 768px) 100vw, 50vw"
-                                                className="object-cover scale-90 sm:scale-100 transition-transform duration-700"
+                                                className="object-cover transition-transform duration-700"
                                             />
                                         </div>
                                     </div>
