@@ -9,9 +9,9 @@ import { trackSignupClick } from '@/lib/fbPixel';
 
 export default function EarningsCalculator() {
     const { t } = useLanguage();
-    const [pricePerMeal, setPricePerMeal] = useState(25);
+    const [pricePerMeal, setPricePerMeal] = useState(12);
     const [daysPerWeek, setDaysPerWeek] = useState(5);
-    const [mealsPerDay, setMealsPerDay] = useState(10);
+    const [mealsPerDay, setMealsPerDay] = useState(5);
 
     const weekly = pricePerMeal * mealsPerDay * daysPerWeek;
     const monthly = weekly * 4.33;
