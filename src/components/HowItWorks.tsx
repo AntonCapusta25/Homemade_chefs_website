@@ -91,7 +91,7 @@ export default function HowItWorks() {
                                 >
                                     {/* Image — always first on mobile */}
                                     <div className="w-full md:flex-1">
-                                        <div className={`relative h-72 sm:h-80 md:h-96 w-full rounded-2xl overflow-hidden shadow-lg group hover:shadow-xl transition-all duration-500 ${isEven ? 'md:rotate-1' : 'md:-rotate-1'} hover:rotate-0`}>
+                                        <div className={`relative aspect-[4/3] w-full md:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-lg group hover:shadow-xl transition-all duration-500 ${isEven ? 'md:rotate-1' : 'md:-rotate-1'} hover:rotate-0`}>
                                             <Image
                                                 src={step.image}
                                                 alt={step.title}

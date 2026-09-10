@@ -81,13 +81,13 @@ export default function FeaturesGrid() {
                                     <div className={`hidden md:block absolute inset-0 ${feature.color} rounded-[2rem] md:rounded-[3rem] transform rotate-3 group-hover:rotate-6 transition-transform duration-500`} />
 
                                     {/* Image Container */}
-                                    <div className="relative rounded-2xl md:rounded-[2.5rem] overflow-hidden shadow-sm md:shadow-xl border border-gray-100 bg-white h-72 sm:h-80 md:h-auto md:aspect-[4/3] transform transition-transform duration-500 group-hover:-translate-y-2">
+                                    <div className="relative rounded-2xl md:rounded-[2.5rem] overflow-hidden shadow-sm md:shadow-xl border border-gray-100 bg-white aspect-[4/3] w-full transform transition-transform duration-500 group-hover:-translate-y-2">
                                         <Image
                                             src={feature.image}
                                             alt={feature.badge}
                                             fill
                                             sizes="(max-width: 768px) 100vw, 400px"
-                                            className="object-contain transition-transform duration-500"
+                                            className="object-cover transition-transform duration-500"
                                         />
 
                                         {/* Mobile Badge (Inside Image, Top Left) */}
