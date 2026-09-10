@@ -32,17 +32,6 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
             }
         },
         {
-            image: "/hero-slide-2.jpg",
-            headline: title || t("hero.slide2Headline"),
-            testimonial: {
-                quote: t("hero.slide2Quote"),
-                name: t("hero.slide2Name"),
-                role: t("hero.slide2Role"),
-                avatar: "/chef-logo-bottega-da-dome.png",
-                position: "bottom-40 right-20"
-            }
-        },
-        {
             image: "/hero-slide-3.jpg",
             headline: title || t("hero.slide3Headline"),
             testimonial: {
@@ -176,7 +165,6 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                         <div className="flex -space-x-3">
                             {[
                                 "/chef-logo-spice-road.jpg",
-                                "/chef-logo-bottega-da-dome.png",
                                 "/chef-logo-la-esquina.jpg",
                                 "/chef-logo-recipes-by-sahar.png",
                                 "/chef-logo-da-vincenzo.webp"
