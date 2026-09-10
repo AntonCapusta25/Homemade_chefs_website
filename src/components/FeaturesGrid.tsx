@@ -87,7 +87,7 @@ export default function FeaturesGrid() {
                                             alt={feature.badge}
                                             fill
                                             sizes="(max-width: 768px) 100vw, 400px"
-                                            className="object-cover"
+                                            className="object-cover scale-90 sm:scale-100 transition-transform duration-500"
                                         />
 
                                         {/* Mobile Badge (Inside Image, Top Left) */}

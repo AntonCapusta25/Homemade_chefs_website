@@ -102,7 +102,7 @@ export default function GrandHero({ title, subtitle, primaryCta, secondaryCta }:
                         alt="Home Chef"
                         fill
                         sizes="100vw"
-                        className="object-cover object-top sm:object-center"
+                        className="object-cover object-top sm:object-center scale-90 sm:scale-100 transition-transform duration-700"
                         priority
                         fetchPriority="high"
                     />
