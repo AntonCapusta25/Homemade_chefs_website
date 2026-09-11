@@ -96,8 +96,8 @@ export default function FeaturesHorizontalScroll() {
             <div className="relative h-auto md:sticky md:top-0 md:h-screen flex flex-col justify-center overflow-hidden py-16 md:py-0">
 
                 {/* Header */}
-                <div className="relative md:absolute top-0 md:top-12 left-0 right-0 z-10 text-center px-4 mb-10 md:mb-0">
-                    <h2 className="font-serif text-3xl md:text-5xl font-bold text-[#0F1E19] mb-2">
+                <div className="relative md:absolute top-0 md:top-16 lg:top-20 left-0 right-0 z-10 text-center px-4 pt-4 md:pt-0 mb-14 md:mb-0">
+                    <h2 className="font-serif text-3xl md:text-5xl font-bold text-[#0F1E19] mb-4 md:mb-5">
                         {t('features.title')}
                     </h2>
                     <p className="text-[#F47A44] font-bold text-xl md:text-2xl">

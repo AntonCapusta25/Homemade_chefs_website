@@ -57,8 +57,8 @@ export default function FeaturesGrid() {
     return (
         <section className="py-12 md:py-24 px-4 bg-white relative overflow-hidden">
             <div className="max-w-7xl mx-auto">
-                <div className="text-center mb-10 md:mb-16">
-                    <h2 className="font-serif text-3xl md:text-5xl font-bold text-[#0F1E19] mb-4">
+                <div className="text-center mb-12 md:mb-20">
+                    <h2 className="font-serif text-3xl md:text-5xl font-bold text-[#0F1E19] mb-4 md:mb-5">
                         Run Your Home Food Business<br />
                         <span className="text-[#F47A44]">the Easy Way with Homemade</span>
                     </h2>
