@@ -13,27 +13,16 @@ export default function PricingDetailedComparison() {
     const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('yearly');
     const [activeTab, setActiveTab] = useState<'basic' | 'pro' | 'advance'>('pro');
 
-    // Monthly pricing data
-    const monthlyFeatures = [
+    // Unified pricing features comparison data
+    const features = [
         { name: t('pricing.orderManagement'), basic: true, pro: true, advance: true },
         { name: t('pricing.kvkSupport'), basic: true, pro: true, advance: true },
-        { name: t('pricing.brandingSupport'), basic: false, pro: true, advance: true },
-        { name: t('pricing.training'), basic: false, pro: true, advance: true },
-        { name: t('pricing.cancelAnytime'), basic: t('pricing.monthNotice'), pro: true, advance: true },
-        { name: t('pricing.platformExclusive'), basic: true, pro: true, advance: false },
+        { name: t('pricing.brandingSupport'), basic: billingCycle === 'yearly', pro: true, advance: true },
+        { name: t('pricing.training'), basic: billingCycle === 'yearly', pro: true, advance: true },
+        { name: t('pricing.b2bCatering'), basic: false, pro: false, advance: true },
+        { name: t('pricing.adCreatives'), basic: false, pro: billingCycle === 'yearly' ? "2 Posts" : "1 Post", advance: billingCycle === 'yearly' ? "3+ Videos" : "2 Videos" },
+        { name: t('pricing.cancellationPolicy'), basic: billingCycle === 'monthly' ? t('pricing.monthNotice') : t('pricing.flexible'), pro: t('pricing.flexible'), advance: t('pricing.flexible') },
     ];
-
-    // Yearly pricing data
-    const yearlyFeatures = [
-        { name: t('pricing.orderManagement'), basic: true, pro: true, advance: true },
-        { name: t('pricing.kvkSupport'), basic: true, pro: true, advance: true },
-        { name: t('pricing.brandingSupport'), basic: true, pro: true, advance: true },
-        { name: "B2B Catering", basic: false, pro: false, advance: true },
-        { name: "Ad Creatives Per Month", basic: false, pro: "2 Posts", advance: "3+ Videos" },
-        { name: "Homemade Feature Per Month", basic: false, pro: "Once", advance: "3 Times" },
-    ];
-
-    const features = billingCycle === 'monthly' ? monthlyFeatures : yearlyFeatures;
 
     const renderFeatureValue = (value: boolean | string | undefined) => {
         if (typeof value === 'boolean') {
@@ -109,7 +98,7 @@ export default function PricingDetailedComparison() {
                                 {activeTab === 'pro' && t('pricing.proPlan')}
                                 {activeTab === 'advance' && t('pricing.advancePlan')}
                             </h3>
-                            {billingCycle === 'monthly' && (
+                            {billingCycle === 'monthly' ? (
                                 <div className="text-center mb-2">
                                     <div className="text-3xl font-black text-[#F47A44]">
                                         {activeTab === 'basic' && '€25'}
@@ -121,6 +110,18 @@ export default function PricingDetailedComparison() {
                                         + {activeTab === 'basic' && '5%'}
                                         {activeTab === 'pro' && '6%'}
                                         {activeTab === 'advance' && '7%'} {t('pricing.commission')}
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="text-center mb-2">
+                                    <div className="text-3xl font-black text-[#F47A44]">
+                                        {activeTab === 'basic' && '10%'}
+                                        {activeTab === 'pro' && '12%'}
+                                        {activeTab === 'advance' && '14%'}
+                                        <span className="text-sm font-medium text-gray-500 ml-1">{t('pricing.commission')}</span>
+                                    </div>
+                                    <div className="text-sm font-bold text-[#0F1E19]/60">
+                                        {t('pricing.noMonthlyFee')}
                                     </div>
                                 </div>
                             )}
@@ -169,7 +170,11 @@ export default function PricingDetailedComparison() {
                                                     <div className="text-xs font-bold text-white mt-1">+ 5% {t('pricing.commission')}</div>
                                                 </>
                                             ) : (
-                                                <div className="text-3xl font-black text-white">10%</div>
+                                                <>
+                                                    <div className="text-3xl font-black text-white">10%</div>
+                                                    <div className="text-xs text-white/80 leading-tight">{t('pricing.commission')}</div>
+                                                    <div className="text-xs font-bold text-white mt-1">{t('pricing.noMonthlyFee')}</div>
+                                                </>
                                             )}
                                         </div>
 
@@ -182,7 +187,11 @@ export default function PricingDetailedComparison() {
                                                     <div className="text-xs font-bold text-[#F47A44] mt-1">+ 6% {t('pricing.commission')}</div>
                                                 </>
                                             ) : (
-                                                <div className="text-3xl font-black text-[#F47A44]">12%</div>
+                                                <>
+                                                    <div className="text-3xl font-black text-[#F47A44]">12%</div>
+                                                    <div className="text-xs text-gray-600 leading-tight">{t('pricing.commission')}</div>
+                                                    <div className="text-xs font-bold text-[#F47A44] mt-1">{t('pricing.noMonthlyFee')}</div>
+                                                </>
                                             )}
                                         </div>
 
@@ -198,7 +207,11 @@ export default function PricingDetailedComparison() {
                                                     <div className="text-xs font-bold text-white mt-1">+ 7% {t('pricing.commission')}</div>
                                                 </>
                                             ) : (
-                                                <div className="text-3xl font-black text-white">14%</div>
+                                                <>
+                                                    <div className="text-3xl font-black text-white">14%</div>
+                                                    <div className="text-xs text-white/80 leading-tight">{t('pricing.commission')}</div>
+                                                    <div className="text-xs font-bold text-white mt-1">{t('pricing.noMonthlyFee')}</div>
+                                                </>
                                             )}
                                         </div>
                                     </div>

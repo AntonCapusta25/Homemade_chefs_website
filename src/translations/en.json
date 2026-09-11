@@ -114,6 +114,11 @@
         "training": "Training & Resources",
         "cancelAnytime": "Cancel Anytime",
         "platformExclusive": "Platform Exclusive",
+        "b2bCatering": "B2B Catering Access",
+        "adCreatives": "Ad Creatives & Marketing",
+        "noMonthlyFee": "€0 monthly fee",
+        "commissionOnly": "Commission only",
+        "flexible": "Flexible",
         "monthNotice": "2 month notice",
         "quarterlyBillingInfo": "The money is charged quarterly (per quarter). Even with a monthly subscription, billing occurs on a quarterly basis."
     },

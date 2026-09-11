@@ -125,12 +125,12 @@ export default function PricingPlans() {
                             )}
 
                             <div className={`${plan.textColor} mb-6`}>
-                                <h3 className="font-serif text-2xl font-bold mb-2">{plan.name}</h3>
+                                <h3 className="font-serif text-2xl font-bold mb-3">{plan.name}</h3>
                                 {billingCycle === 'monthly' ? (
-                                    <div className="space-y-3">
+                                    <div className="space-y-2 min-h-[85px] flex flex-col justify-center">
                                         <div className="flex items-center gap-2">
                                             <div className="flex items-baseline gap-1">
-                                                <span className="text-5xl font-black">€{plan.price}</span>
+                                                <span className="text-4xl md:text-5xl font-black">€{plan.price}</span>
                                                 <span className="text-lg opacity-70">/month</span>
                                             </div>
                                             {/* Info Icon with Tooltip */}
@@ -142,13 +142,19 @@ export default function PricingPlans() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="text-lg font-bold opacity-90 flex items-center gap-1">
+                                        <div className="text-base md:text-lg font-bold opacity-90 flex items-center gap-1">
                                             + {plan.commission} <span className="text-sm font-medium opacity-70">{t('pricing.commission')}</span>
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className="text-2xl font-black">
-                                        {index === 0 ? '10%' : index === 1 ? '12%' : '14%'}
+                                    <div className="space-y-2 min-h-[85px] flex flex-col justify-center">
+                                        <div className="flex items-baseline gap-1">
+                                            <span className="text-4xl md:text-5xl font-black">{index === 0 ? '10%' : index === 1 ? '12%' : '14%'}</span>
+                                            <span className="text-lg opacity-70">{t('pricing.commission')}</span>
+                                        </div>
+                                        <div className="text-base md:text-lg font-bold opacity-90">
+                                            {t('pricing.noMonthlyFee')}
+                                        </div>
                                     </div>
                                 )}
                             </div>

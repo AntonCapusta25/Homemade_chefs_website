@@ -115,6 +115,11 @@
         "training": "Formation & Ressources",
         "cancelAnytime": "Annuler à Tout Moment",
         "platformExclusive": "Exclusif à la Plateforme",
+        "b2bCatering": "Accès Traiteur B2B",
+        "adCreatives": "Créations Publicitaires & Promotion",
+        "noMonthlyFee": "0 € de frais mensuels",
+        "commissionOnly": "Commission uniquement",
+        "flexible": "Flexible",
         "monthNotice": "Préavis de 2 mois",
         "quarterlyBillingInfo": "Le paiement est facturé par trimestre. Même avec un abonnement mensuel, la facturation s'effectue sur une base trimestrielle."
     },
