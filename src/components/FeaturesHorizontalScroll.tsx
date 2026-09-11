@@ -93,14 +93,14 @@ export default function FeaturesHorizontalScroll() {
     return (
         <section ref={targetRef} className="relative h-auto md:h-[400vh] bg-[#FDFBF7]">
 
-            <div className="relative h-auto md:sticky md:top-0 md:h-screen flex flex-col justify-between overflow-hidden py-12 md:py-6">
+            <div className="relative h-auto md:sticky md:top-0 md:h-screen flex flex-col justify-between overflow-hidden py-12 md:py-4 lg:py-6">
 
                 {/* Header */}
-                <div className="text-center px-4 mb-8 md:mb-2 pt-2 md:pt-4 z-10 flex-none">
-                    <h2 className="font-serif text-3xl md:text-5xl font-bold text-[#0F1E19] mb-2 md:mb-3">
+                <div className="text-center px-4 mb-6 md:mb-2 pt-2 md:pt-2 z-10 flex-none">
+                    <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-[#0F1E19] mb-2">
                         {t('features.title')}
                     </h2>
-                    <p className="text-[#F47A44] font-bold text-xl md:text-2xl">
+                    <p className="text-[#F47A44] font-bold text-lg md:text-xl lg:text-2xl">
                         {t('features.subtitle')}
                     </p>
                 </div>
@@ -133,15 +133,15 @@ export default function FeaturesHorizontalScroll() {
                 <motion.div
                     ref={contentRef}
                     style={{ x: contentWidth > 0 ? x : 0 }}
-                    className="hidden md:flex items-center gap-12 px-24 w-max my-auto"
+                    className="hidden md:flex items-center gap-8 lg:gap-12 px-12 lg:px-24 w-max my-auto"
                 >
                     {features.map((feature, index) => (
                         <FeatureCard key={index} feature={feature} />
                     ))}
                     {/* Desktop Final Call to Action Card */}
-                    <div className="flex-shrink-0 w-[60vw] lg:w-[40vw] h-[58vh] lg:h-[62vh] flex items-center justify-center bg-[#0F1E19] rounded-[3rem] text-white p-12 text-center">
+                    <div className="flex-shrink-0 w-[60vw] lg:w-[40vw] h-[50vh] lg:h-[56vh] xl:h-[60vh] max-h-[460px] lg:max-h-[540px] flex items-center justify-center bg-[#0F1E19] rounded-[2.5rem] lg:rounded-[3rem] text-white p-8 lg:p-12 text-center">
                         <div>
-                            <h3 className="font-serif text-4xl mb-6">{t('features.readyToStart')}</h3>
+                            <h3 className="font-serif text-3xl lg:text-4xl mb-6">{t('features.readyToStart')}</h3>
                             <Link
                                 href="https://signup.homemadechefs.com"
                                 onClick={(e) => {
@@ -178,7 +178,7 @@ interface FeatureProps {
 
 function FeatureCard({ feature }: { feature: FeatureProps }) {
     return (
-        <div className="flex-shrink-0 w-[85vw] md:w-[70vw] lg:w-[60vw] h-auto md:h-[58vh] lg:h-[62vh] bg-white rounded-3xl md:rounded-[3rem] border border-gray-100 p-5 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.06)] md:shadow-sm flex flex-col md:flex-row gap-6 md:gap-12 relative overflow-hidden group hover:shadow-xl md:hover:shadow-2xl transition-all duration-500">
+        <div className="flex-shrink-0 w-[85vw] md:w-[75vw] lg:w-[65vw] xl:w-[60vw] h-auto md:h-[50vh] lg:h-[56vh] xl:h-[60vh] max-h-[460px] lg:max-h-[540px] bg-white rounded-3xl md:rounded-[2.5rem] lg:rounded-[3rem] border border-gray-100 p-5 md:p-6 lg:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.06)] md:shadow-sm flex flex-col md:flex-row gap-6 md:gap-6 lg:gap-12 relative overflow-hidden group hover:shadow-xl md:hover:shadow-2xl transition-all duration-500">
 
             {/* Visual Side */}
             <div className="w-full md:w-1/2 relative aspect-[4/3] w-full md:h-full md:aspect-auto rounded-2xl md:rounded-[2rem] overflow-hidden bg-gray-50 border border-gray-100">
@@ -204,16 +204,16 @@ function FeatureCard({ feature }: { feature: FeatureProps }) {
 
             {/* Content Side */}
             <div className="w-full md:w-1/2 flex flex-col justify-center pb-2 md:pb-0">
-                <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F1E19] mb-4 md:mb-8 leading-tight">
+                <h3 className="font-serif text-2xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-[#0F1E19] mb-3 md:mb-6 leading-tight">
                     {feature.title}
                 </h3>
-                <div className="space-y-4 md:space-y-6">
+                <div className="space-y-3 md:space-y-4 lg:space-y-6">
                     {feature.points.map((point: string, i: number) => (
                         <div key={i} className="flex gap-3 md:gap-4 items-start">
                             <div className="flex-shrink-0 mt-1 text-[#F47A44]">
-                                <CheckCircle2 size={18} fill="#FFF" strokeWidth={3} className="bg-orange-100 rounded-full md:w-6 md:h-6" />
+                                <CheckCircle2 size={18} fill="#FFF" strokeWidth={3} className="bg-orange-100 rounded-full md:w-5 md:h-5 lg:w-6 lg:h-6" />
                             </div>
-                            <p className="text-gray-600 text-sm md:text-lg lg:text-xl font-medium leading-relaxed">
+                            <p className="text-gray-600 text-sm md:text-base lg:text-lg xl:text-xl font-medium leading-relaxed">
                                 {point}
                             </p>
                         </div>
