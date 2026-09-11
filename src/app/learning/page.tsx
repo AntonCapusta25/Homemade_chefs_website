@@ -6,18 +6,7 @@ import Image from 'next/image';
 import { Search, PlayCircle, ArrowRight, Star, ShieldCheck, ClipboardCheck, AlertTriangle, Thermometer, Lock, ChefHat } from 'lucide-react';
 import { getAllLearningPages } from '@/actions/learning';
 import { createClient } from '@/lib/supabase/client';
-
-interface LearningPage {
-    id: number;
-    title: string;
-    slug: string;
-    body_content: string;
-    hero_image: string | null;
-    youtube_url: string | null;
-    meta_description: string | null;
-    is_premium?: boolean;
-    progress?: number;
-}
+import { extractYouTubeId, getTextSnippet, cleanMetaDescription, type LearningPageData } from '@/lib/learningUtils';
 
 interface ChefUser {
     id: string;
@@ -37,27 +26,6 @@ function ProgressBar({ progress }: { progress: number }) {
     );
 }
 
-// Extract YouTube video ID from URL
-function extractYouTubeId(url: string): string {
-    if (!url) return '';
-    if (url.length === 11 && !url.includes('/') && !url.includes('.')) return url;
-    const patterns = [
-        /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([^&\n?#]+)/,
-        /youtube\.com\/watch\?.*v=([^&\n?#]+)/,
-    ];
-    for (const pattern of patterns) {
-        const match = url.match(pattern);
-        if (match && match[1]) return match[1];
-    }
-    return '';
-}
-
-// Extract text snippet from HTML
-function getTextSnippet(html: string, maxLength: number = 100): string {
-    const text = html.replace(/<[^>]*>/g, '').trim();
-    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
-}
-
 const categories = [
     { name: "Food Safety", icon: <ShieldCheck />, color: "bg-blue-100 text-blue-700" },
     { name: "Hygiene", icon: <ClipboardCheck />, color: "bg-green-100 text-green-700" },
@@ -69,7 +37,7 @@ const categories = [
 
 export default function LearningPage() {
     const [searchQuery, setSearchQuery] = useState("");
-    const [pages, setPages] = useState<LearningPage[]>([]);
+    const [pages, setPages] = useState<LearningPageData[]>([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [chef, setChef] = useState<ChefUser | null>(null);
     const [loginError, setLoginError] = useState('');
@@ -110,7 +78,7 @@ export default function LearningPage() {
 
     const loadPages = async () => {
         const data = await getAllLearningPages();
-        setPages(data as LearningPage[]);
+        setPages(data as LearningPageData[]);
     };
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -419,7 +387,7 @@ export default function LearningPage() {
                                     ) : null}
                                 </div>
                                 <p className="text-gray-600 line-clamp-2">
-                                    {article.meta_description || getTextSnippet(article.body_content)}
+                                    {cleanMetaDescription(article.meta_description) || getTextSnippet(article.body_content)}
                                 </p>
                             </Link>
                         ))}

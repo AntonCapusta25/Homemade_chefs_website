@@ -3,25 +3,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, Clock, PlayCircle, Lock, ChefHat } from 'lucide-react';
 import { getLearningPageBySlug, getAllLearningPages } from '@/actions/learning';
+import { extractYouTubeId, formatBodyContent, cleanMetaDescription } from '@/lib/learningUtils';
 import SocialSidebar from '@/components/SocialSidebar';
 import CallToAction from '@/components/CallToAction';
 import { createClient } from '@/lib/supabase/server';
 import ClientProgressButton from '@/components/ClientProgressButton';
 
-// Extract YouTube video ID from URL
-function extractYouTubeId(url: string): string {
-    if (!url) return '';
-    if (url.length === 11 && !url.includes('/') && !url.includes('.')) return url;
-    const patterns = [
-        /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([^&\n?#]+)/,
-        /youtube\.com\/watch\?.*v=([^&\n?#]+)/,
-    ];
-    for (const pattern of patterns) {
-        const match = url.match(pattern);
-        if (match && match[1]) return match[1];
-    }
-    return '';
-}
+
 
 export default async function LearningPageDetail({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -94,9 +82,9 @@ export default async function LearningPageDetail({ params }: { params: Promise<{
                             {page.title}
                         </h1>
 
-                        {page.meta_description && (
+                        {cleanMetaDescription(page.meta_description) && (
                             <p className="text-xl text-white/80 leading-relaxed max-w-3xl">
-                                {page.meta_description}
+                                {cleanMetaDescription(page.meta_description)}
                             </p>
                         )}
                     </div>
@@ -169,7 +157,7 @@ export default async function LearningPageDetail({ params }: { params: Promise<{
                         prose-blockquote:border-l-4 prose-blockquote:border-[#F47A44] prose-blockquote:bg-[#F47A44]/5 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:not-italic prose-blockquote:rounded-r-lg 
                         prose-img:rounded-2xl prose-img:shadow-xl 
                         first-letter:text-5xl first-letter:font-serif first-letter:font-bold first-letter:text-[#F47A44] first-letter:mr-3 first-letter:float-left"
-                        dangerouslySetInnerHTML={{ __html: page.body_content }}
+                        dangerouslySetInnerHTML={{ __html: formatBodyContent(page.body_content) }}
                     />
 
                     {/* Completion Button (Only if logged in) */}

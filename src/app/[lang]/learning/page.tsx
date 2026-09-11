@@ -9,54 +9,23 @@ import { useNewsletter } from '@/context/NewsletterContext';
 import { getAllLearningPages } from '@/actions/learning';
 import NewsletterGate from '@/components/NewsletterGate';
 import LearningAccessForm from '@/components/LearningAccessForm';
-
-interface LearningPage {
-    id: number;
-    title: string;
-    slug: string;
-    body_content: string;
-    hero_image: string | null;
-    youtube_url: string | null;
-    meta_description: string | null;
-    language: string;
-}
-
-// Extract YouTube video ID from URL
-function extractYouTubeId(url: string): string {
-    if (!url) return '';
-    if (url.length === 11 && !url.includes('/') && !url.includes('.')) return url;
-    const patterns = [
-        /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([^&\n?#]+)/,
-        /youtube\.com\/watch\?.*v=([^&\n?#]+)/,
-    ];
-    for (const pattern of patterns) {
-        const match = url.match(pattern);
-        if (match && match[1]) return match[1];
-    }
-    return '';
-}
-
-// Extract text snippet from HTML content
-function getTextSnippet(html: string, maxLength: number = 100): string {
-    const text = html.replace(/<[^>]*>/g, '').trim();
-    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
-}
+import { extractYouTubeId, getTextSnippet, cleanMetaDescription, type LearningPageData } from '@/lib/learningUtils';
 
 export default function LearningPage() {
     const { t, language } = useLanguage();
     const { isSubscribed } = useNewsletter();
     const [searchQuery, setSearchQuery] = useState("");
-    const [pages, setPages] = useState<LearningPage[]>([]);
-    const [allPages, setAllPages] = useState<LearningPage[]>([]);
+    const [pages, setPages] = useState<LearningPageData[]>([]);
+    const [allPages, setAllPages] = useState<LearningPageData[]>([]);
     const [loading, setLoading] = useState(true);
     const [showGate, setShowGate] = useState(false);
 
     useEffect(() => {
         async function loadPages() {
             const data = await getAllLearningPages();
-            setAllPages(data as LearningPage[]); // Store ALL pages
+            setAllPages(data as LearningPageData[]); // Store ALL pages
             // Filter pages by current language for articles
-            const filteredByLang = (data as LearningPage[]).filter(p => p.language === language);
+            const filteredByLang = (data as LearningPageData[]).filter(p => p.language === language);
             setPages(filteredByLang);
             setLoading(false);
         }
@@ -190,7 +159,7 @@ export default function LearningPage() {
                                     {article.title}
                                 </h3>
                                 <p className="text-gray-600 line-clamp-2">
-                                    {article.meta_description || getTextSnippet(article.body_content)}
+                                    {cleanMetaDescription(article.meta_description) || getTextSnippet(article.body_content)}
                                 </p>
                             </Link>
                         ))}
