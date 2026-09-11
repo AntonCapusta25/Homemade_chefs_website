@@ -93,11 +93,11 @@ export default function FeaturesHorizontalScroll() {
     return (
         <section ref={targetRef} className="relative h-auto md:h-[400vh] bg-[#FDFBF7]">
 
-            <div className="relative h-auto md:sticky md:top-0 md:h-screen flex flex-col justify-center overflow-hidden py-16 md:py-0">
+            <div className="relative h-auto md:sticky md:top-0 md:h-screen flex flex-col justify-between overflow-hidden py-12 md:py-6">
 
                 {/* Header */}
-                <div className="relative md:absolute top-0 md:top-16 lg:top-20 left-0 right-0 z-10 text-center px-4 pt-4 md:pt-0 mb-14 md:mb-0">
-                    <h2 className="font-serif text-3xl md:text-5xl font-bold text-[#0F1E19] mb-4 md:mb-5">
+                <div className="text-center px-4 mb-8 md:mb-2 pt-2 md:pt-4 z-10 flex-none">
+                    <h2 className="font-serif text-3xl md:text-5xl font-bold text-[#0F1E19] mb-2 md:mb-3">
                         {t('features.title')}
                     </h2>
                     <p className="text-[#F47A44] font-bold text-xl md:text-2xl">
@@ -133,13 +133,13 @@ export default function FeaturesHorizontalScroll() {
                 <motion.div
                     ref={contentRef}
                     style={{ x: contentWidth > 0 ? x : 0 }}
-                    className="hidden md:flex gap-12 px-24 w-max"
+                    className="hidden md:flex items-center gap-12 px-24 w-max my-auto"
                 >
                     {features.map((feature, index) => (
                         <FeatureCard key={index} feature={feature} />
                     ))}
                     {/* Desktop Final Call to Action Card */}
-                    <div className="flex-shrink-0 w-[60vw] lg:w-[40vw] h-[70vh] flex items-center justify-center bg-[#0F1E19] rounded-[3rem] text-white p-12 text-center">
+                    <div className="flex-shrink-0 w-[60vw] lg:w-[40vw] h-[58vh] lg:h-[62vh] flex items-center justify-center bg-[#0F1E19] rounded-[3rem] text-white p-12 text-center">
                         <div>
                             <h3 className="font-serif text-4xl mb-6">{t('features.readyToStart')}</h3>
                             <Link
@@ -158,7 +158,7 @@ export default function FeaturesHorizontalScroll() {
                 </motion.div>
 
                 {/* Scroll Progress Indicator (Desktop Only) */}
-                <div className="hidden md:flex absolute bottom-12 left-1/2 -translate-x-1/2 gap-2">
+                <div className="hidden md:flex justify-center pb-2 z-10 flex-none">
                     <div className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('features.scrollToExplore')}</div>
                 </div>
 
@@ -178,7 +178,7 @@ interface FeatureProps {
 
 function FeatureCard({ feature }: { feature: FeatureProps }) {
     return (
-        <div className="flex-shrink-0 w-[85vw] md:w-[70vw] lg:w-[60vw] h-auto md:h-[70vh] bg-white rounded-3xl md:rounded-[3rem] border border-gray-100 p-5 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.06)] md:shadow-sm flex flex-col md:flex-row gap-6 md:gap-12 relative overflow-hidden group hover:shadow-xl md:hover:shadow-2xl transition-all duration-500">
+        <div className="flex-shrink-0 w-[85vw] md:w-[70vw] lg:w-[60vw] h-auto md:h-[58vh] lg:h-[62vh] bg-white rounded-3xl md:rounded-[3rem] border border-gray-100 p-5 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.06)] md:shadow-sm flex flex-col md:flex-row gap-6 md:gap-12 relative overflow-hidden group hover:shadow-xl md:hover:shadow-2xl transition-all duration-500">
 
             {/* Visual Side */}
             <div className="w-full md:w-1/2 relative aspect-[4/3] w-full md:h-full md:aspect-auto rounded-2xl md:rounded-[2rem] overflow-hidden bg-gray-50 border border-gray-100">
