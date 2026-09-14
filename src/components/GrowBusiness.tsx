@@ -1,19 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Headphones, BookOpen, Megaphone, Utensils, Tag, Calendar } from "lucide-react";
+import Image from "next/image";
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function GrowBusiness() {
     const { t } = useLanguage();
 
     const features = [
-        { icon: Headphones, title: t('growBusiness.feature1'), delay: 0.1 },
-        { icon: BookOpen, title: t('growBusiness.feature2'), delay: 0.2 },
-        { icon: Megaphone, title: t('growBusiness.feature3'), delay: 0.3 },
-        { icon: Utensils, title: t('growBusiness.feature4'), delay: 0.4 },
-        { icon: Tag, title: t('growBusiness.feature5'), delay: 0.5 },
-        { icon: Calendar, title: t('growBusiness.feature6'), delay: 0.6 }
+        { image: "/images/grow-business/chef-support.png", title: t('growBusiness.feature1'), delay: 0.1 },
+        { image: "/images/grow-business/learning-resources.png", title: t('growBusiness.feature2'), delay: 0.2 },
+        { image: "/images/grow-business/marketing-assistance.png", title: t('growBusiness.feature3'), delay: 0.3 },
+        { image: "/images/grow-business/catering-gigs.png", title: t('growBusiness.feature4'), delay: 0.4 },
+        { image: "/images/grow-business/exclusive-discounts.png", title: t('growBusiness.feature5'), delay: 0.5 },
+        { image: "/images/grow-business/event-participation.png", title: t('growBusiness.feature6'), delay: 0.6 }
     ];
 
     return (
@@ -39,12 +39,17 @@ export default function GrowBusiness() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: feature.delay, duration: 0.5 }}
                             whileHover={{ scale: 1.03, rotate: 1 }}
-                            className="bg-[#E76F3C] text-[#0F1E19] rounded-[2rem] p-10 flex flex-col items-center justify-center text-center aspect-[4/3] shadow-lg cursor-pointer group"
+                            className="bg-[#E76F3C] text-[#0F1E19] rounded-[2rem] p-8 md:p-10 flex flex-col items-center justify-center text-center aspect-[4/3] shadow-lg cursor-pointer group"
                         >
-                            <div className="mb-6 transform group-hover:scale-110 transition-transform duration-300">
-                                <feature.icon size={48} strokeWidth={1.5} />
+                            <div className="relative w-24 h-24 md:w-28 md:h-28 mb-4 md:mb-6 transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300">
+                                <Image
+                                    src={feature.image}
+                                    alt={feature.title}
+                                    fill
+                                    className="object-contain drop-shadow-md"
+                                />
                             </div>
-                            <h3 className="font-serif text-2xl font-bold leading-tight max-w-[80%]">
+                            <h3 className="font-serif text-xl md:text-2xl font-bold leading-tight max-w-[90%]">
                                 {feature.title}
                             </h3>
                         </motion.div>
