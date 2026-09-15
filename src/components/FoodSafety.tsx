@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldCheck, UtensilsCrossed, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from '@/context/LanguageContext';
 import { trackSignupClick } from '@/lib/fbPixel';
@@ -36,8 +37,13 @@ export default function FoodSafety() {
                         transition={{ delay: 0.2 }}
                         className="flex flex-col items-center text-center space-y-6"
                     >
-                        <div className="w-24 h-24 bg-[#F47A44]/10 rounded-full flex items-center justify-center mb-2">
-                            <UtensilsCrossed size={48} className="text-[#F47A44]" />
+                        <div className="relative w-28 h-28 md:w-32 md:h-32 mb-2 hover:scale-110 transition-transform duration-300">
+                            <Image
+                                src="/images/food-safety/utensils.png"
+                                alt={t('foodSafety.whyTitle')}
+                                fill
+                                className="object-contain drop-shadow-md"
+                            />
                         </div>
                         <h3 className="font-serif text-2xl font-bold">{t('foodSafety.whyTitle')}</h3>
                         <p className="text-gray-700 leading-relaxed">
@@ -52,8 +58,13 @@ export default function FoodSafety() {
                         transition={{ delay: 0.4 }}
                         className="flex flex-col items-center text-center space-y-6"
                     >
-                        <div className="w-24 h-24 bg-[#0F1E19]/10 rounded-full flex items-center justify-center mb-2">
-                            <ShieldCheck size={48} className="text-[#0F1E19]" />
+                        <div className="relative w-28 h-28 md:w-32 md:h-32 mb-2 hover:scale-110 transition-transform duration-300">
+                            <Image
+                                src="/images/food-safety/shield.png"
+                                alt={t('foodSafety.trustTitle')}
+                                fill
+                                className="object-contain drop-shadow-md"
+                            />
                         </div>
                         <h3 className="font-serif text-2xl font-bold">{t('foodSafety.trustTitle')}</h3>
                         <p className="text-gray-700 leading-relaxed">
